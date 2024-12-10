@@ -42,7 +42,7 @@ public class CustomerModel implements Serializable{
 	private String phone;
 
 	//生年月日
-	private String birthday;
+	private java.sql.Date birthday;
 
 	//クレジットカード番号
 	private String creditcard_num;
@@ -54,7 +54,7 @@ public class CustomerModel implements Serializable{
 	private int points;
 
 	//退会フラグ
-	private int is_remove;
+	private String is_remove;
 
 	public int getCustomer_id() {
 		return customer_id;
@@ -104,10 +104,10 @@ public class CustomerModel implements Serializable{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getBirthday() {
+	public java.sql.Date getBirthday() {
 		return birthday;
 	}
-	public void setBirthday(String birthday) {
+	public void setBirthday(java.sql.Date birthday) {
 		this.birthday = birthday;
 	}
 	public String getCreditcard_num() {
@@ -128,10 +128,10 @@ public class CustomerModel implements Serializable{
 	public void setPoints(int points) {
 		this.points = points;
 	}
-	public int getIs_remove() {
+	public String getIs_remove() {
 		return is_remove;
 	}
-	public void setIs_remove(int is_remove) {
+	public void setIs_remove(String is_remove) {
 		this.is_remove = is_remove;
 	}
 
