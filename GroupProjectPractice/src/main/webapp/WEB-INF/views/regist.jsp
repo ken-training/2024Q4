@@ -7,8 +7,46 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+h1 {
+
+}
+h2 {
+
+}
+h3 {
+	display: inline; /* インライン要素として表示 */
+	color: red;
+}
+.errors{
+	color:red;
+}
+</style>
 </head>
 <body>
-
+	<div class="container">
+		<h1>新規会員登録</h1>
+		<form:form modelAttribute="customerModel">
+			<div>
+				<label>氏名：</label>
+				<form:input path="customer_name" size="20" /><span><h3>*必須</h3></span>
+				<form:errors path="customer_name" element="span" cssClass="errors" />
+			</div>
+			<div>
+				<label>メールアドレス：</label>
+				<form:input path="mail" size="10" /><span><h3>*必須</h3></span>
+				<form:errors path="mail" element="span" cssClass="errors" />
+			</div>
+			<div>
+				<label>パスワード：</label>
+				<form:input path="password" size="30" /><span><h3>*必須</h3></span>
+				<form:errors path="password" element="span" cssClass="errors" />
+			</div>
+			<div>
+				<p><input type="submit" value="登録する" /></p>
+			</div>
+		</form:form>
+	</div>
+	<h2>※郵便番号、住所、電話番号、生年月日、<br>クレジットカード番号、有効期限はあとでマイページから登録できます</h2>
 </body>
 </html>

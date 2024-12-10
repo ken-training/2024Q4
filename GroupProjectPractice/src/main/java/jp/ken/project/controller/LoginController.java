@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import jp.ken.project.model.LoginFormModel;
-import jp.ken.project.model.LoginModel;
 
 @Controller
 @RequestMapping("login")
@@ -18,9 +17,9 @@ import jp.ken.project.model.LoginModel;
 public class LoginController {
 
     // @ModelAttributeを使ってLoginModelをビューに渡す
-    @ModelAttribute("loginModel")
-    public LoginModel setupLoginForm() {
-        return new LoginModel();
+    @ModelAttribute("loginFormModel")
+    public LoginFormModel setupLoginForm() {
+        return new LoginFormModel();
     }
 
     // GETリクエスト時にログイン画面を表示
@@ -33,22 +32,23 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@ModelAttribute("loginModel") LoginFormModel loginForm,
                         BindingResult bindingResult, Model model) {
-        // エラーがあれば再度ログイン画面を表示
-        if (bindingResult.hasErrors()) {
-            return "login";
+//        // エラーがあれば再度ログイン画面を表示
+//        if (bindingResult.hasErrors()) {
+//            return "login";
+//        }
+//
+//        // ユーザー認証処理
+//        if (model.getPassword == customermodel.getPassword) {
+//            // ログイン成功時、トップページに遷移
+//            return "top";
+//
+//        } else {
+//            // パスワードが間違っている場合はエラーメッセージを表示
+//            model.addAttribute("error", "メールアドレスまたはパスワードが間違っています");
+//            return "login";
+    	return null;
         }
 
-        // ユーザー認証処理
-        if (model.getPassword().equals(customermodel.getPassword())) {
-            // ログイン成功時、トップページに遷移
-            return "top";
-
-        } else {
-            // パスワードが間違っている場合はエラーメッセージを表示
-            model.addAttribute("error", "メールアドレスまたはパスワードが間違っています");
-            return "login";
-        }
-    }
 
     // ログアウト処理
     @RequestMapping(method = RequestMethod.GET)

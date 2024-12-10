@@ -1,12 +1,16 @@
 package jp.ken.project.model;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
+import jp.ken.project.group.Group1;
 
 public class LoginFormModel {
 
 	@NotEmpty(message ="必須入力です")
 	@Size(min = 3, max = 32,message = "3文字以上32文字以下で入力してください")
+	@Email(message = "Emailを正しく入力してください", groups = Group1.class)
 	private String mailaddress;
 
 	@NotEmpty(message = "必須入力です")
