@@ -13,7 +13,7 @@ public class ProductModel implements Serializable {
 	private int stock_qty;										//在庫数
 	private String sale_is_valid;								//販売可能フラグ
 	private String discnt_is_valid;							//割引フラグ
-	private float discnt_rate;								//割引率
+	private Float discnt_rate;								//割引率
 
 	public int getProduct_id() {
 		return product_id;
@@ -75,10 +75,10 @@ public class ProductModel implements Serializable {
 	public void setDiscnt_is_valid(String discnt_is_valid) {
 		this.discnt_is_valid = discnt_is_valid;
 	}
-	public float getDiscnt_rate() {
+	public Float getDiscnt_rate() {
 		return discnt_rate;
 	}
-	public void setDiscnt_rate(float discnt_rate) {
+	public void setDiscnt_rate(Float discnt_rate) {
 		this.discnt_rate = discnt_rate;
 	}
 

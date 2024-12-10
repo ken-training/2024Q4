@@ -1,5 +1,6 @@
 package jp.ken.project.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,28 @@ public class topController{
 
 	@RequestMapping(value = "/top", method = RequestMethod.GET)
 	public String toTop(Model model){
-	    List<ProductModel> allProducts = productDao.getAllProductList();
-	    model.addAttribute("allProductsList", allProducts);
+		try {
+			List<ProductModel> AllProducts = productDao.getAllProductList();
+			List<ProductModel> SaleProducts = new ArrayList<ProductModel>();
+			List<ProductModel> Products = new ArrayList<ProductModel>();
+
+			for (ProductModel productModel : AllProducts) {
+				String saleFlag = productModel.getDiscnt_is_valid();
+				if (saleFlag.equals("1")) {
+					SaleProducts.add(productModel);
+				}else {
+					Products.add(productModel);
+				}
+			}
+
+			System.out.println(Products);
+		    model.addAttribute("allProductsList", Products);
+		    model.addAttribute("saleProductsList", SaleProducts);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 
 	    return "top";
 	}
