@@ -11,8 +11,8 @@ public class ProductModel implements Serializable {
 	private java.sql.Date sale_start_date;		//発売予定日****データ型不安
 	private String product_detail;						//商品説明
 	private int stock_qty;										//在庫数
-	private int sale_is_valid;								//販売可能フラグ
-	private int discnt_is_valid;							//割引フラグ
+	private String sale_is_valid;								//販売可能フラグ
+	private String discnt_is_valid;							//割引フラグ
 	private float discnt_rate;								//割引率
 
 	public int getProduct_id() {
@@ -63,16 +63,16 @@ public class ProductModel implements Serializable {
 	public void setStock_qty(int stock_qty) {
 		this.stock_qty = stock_qty;
 	}
-	public int getSale_is_valid() {
+	public String getSale_is_valid() {
 		return sale_is_valid;
 	}
-	public void setSale_is_valid(int sale_is_valid) {
+	public void setSale_is_valid(String sale_is_valid) {
 		this.sale_is_valid = sale_is_valid;
 	}
-	public int getDiscnt_is_valid() {
+	public String getDiscnt_is_valid() {
 		return discnt_is_valid;
 	}
-	public void setDiscnt_is_valid(int discnt_is_valid) {
+	public void setDiscnt_is_valid(String discnt_is_valid) {
 		this.discnt_is_valid = discnt_is_valid;
 	}
 	public float getDiscnt_rate() {
