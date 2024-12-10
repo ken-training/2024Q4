@@ -15,10 +15,19 @@ public class ProductDao {
 
 	private RowMapper<ProductModel> productMapper = new BeanPropertyRowMapper<ProductModel>(ProductModel.class);
 
-	public List<ProductModel> getList(){
+	//セール品リスト(引数なし）
+	public List<ProductModel> getSaleProductList(){
 		String sql = "SELECT discnt_rate FROM t_products WHERE discnt_is_valid = ?";
 		Object[] parameters = {'1'};
-		List<ProductModel> membersList = jdbcTemplate.query(sql,parameters,productMapper);
-		return membersList;
+		List<ProductModel> saleProducts = jdbcTemplate.query(sql,parameters,productMapper);
+		return saleProducts;
+	}
+
+	//通常品リスト(引数なし）
+	public List<ProductModel> getNomalProductList(){
+		String sql = "SELECT discnt_rate FROM t_products WHERE discnt_is_valid = ?";
+		Object[] parameters = {'0'};
+		List<ProductModel> nomalProducts = jdbcTemplate.query(sql,parameters,productMapper);
+		return nomalProducts;
 	}
 }
