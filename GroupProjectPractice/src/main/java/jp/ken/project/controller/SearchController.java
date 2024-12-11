@@ -42,7 +42,7 @@ public class SearchController {
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String toProduct(@RequestParam("product_id") int product_id, Model model) {
 		ProductModel product = productDao.getProductById(product_id);
-		model.addAttribute("product", product);
+		model.addAttribute("product_id", product_id);
 
 		return "forward:/product";
 	}
