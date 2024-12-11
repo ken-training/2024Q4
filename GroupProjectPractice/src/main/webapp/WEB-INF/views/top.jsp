@@ -12,7 +12,7 @@
        <h2>セール商品一覧</h2>
        	<c:forEach var="saleProduct" items="${saleProductsList}">
        		<div>
-       			<img alt="セール品" src="/img/${saleProduct.image}.png">
+       			<img alt="セール品" src="resources/img/${saleProduct.image}.png">
        			<c:out value="${saleProduct.product_name}" />
        		</div>
     	</c:forEach>
@@ -22,7 +22,7 @@
 		<h2>商品一覧</h2>
        	<c:forEach var="allProduct" items="${allProductsList}">
        		<div>
-       			<img alt="商品" src="/img/${allProduct.image}.png">
+       			<img alt="商品" src="resources/img/${allProduct.image}.png">
        			<c:out value="${allProduct.product_name}" />
        		</div>
     	</c:forEach>
