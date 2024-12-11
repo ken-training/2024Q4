@@ -3,7 +3,7 @@ package jp.ken.project.model;
 public class ProductModel {
 	private int product_id;
 	private String product_name;
-	private int genre_id;
+	private String genre_id;
 	private int price;
 	private String image;
 	private int sale_start_date;
@@ -25,10 +25,10 @@ public class ProductModel {
 	public void setProduct_name(String product_name) {
 		this.product_name = product_name;
 	}
-	public int getGenre_id() {
+	public String getGenre_id() {
 		return genre_id;
 	}
-	public void setGenre_id(int genre_id) {
+	public void setGenre_id(String genre_id) {
 		this.genre_id = genre_id;
 	}
 	public int getPrice() {

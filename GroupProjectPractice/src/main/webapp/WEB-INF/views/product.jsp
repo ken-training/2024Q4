@@ -11,7 +11,22 @@
 </head>
 <body>
 	<div class="container">
-		<p></p>
+		<h3>${productModel.getProduct_name() }</h3>
+		<p>${productModel.getProduct_detail() }</p>
+		<p>値段: ￥ ${productModel.getPrice() }(税抜)</p>
+		<p>発売開始日: ${productModel.getSale_start_date() }</p>
+		<img alt="${productModel.getProduct_name() }" src="${productModel.getImage() }">
+		<p>数量:
+			<select name="quantity">
+				<c:forEach var="n" begin="0" end="10">
+					<option value="${n}">
+					${n}
+					</option>
+				</c:forEach>
+			</select>
+		</p>
+		<input type="submit" value="カートに追加">
+		<a href="#">商品検索結果に戻る</a>
 	</div>
 </body>
 </html>
