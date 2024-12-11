@@ -15,8 +15,8 @@
 	<form action="${pageContext.request.contextPath}/product" method="post">
 		<h3>${productModel.getProduct_name() }</h3>
 		<p>${productModel.getProduct_detail() }</p>
-		<p>値段: ￥ <fmt:formatNumber value="${productModel.getPrice() }" pattern="#,###" />(税抜)</p>
-		<p>発売開始日: ${productModel.getSale_start_date() }</p>
+		<p>値段: ￥ <fmt:formatNumber value="${productModel.getPrice() }" pattern="#,###" />- (税抜)</p>
+		<p>発売開始日: <fmt:formatDate value="${productModel.sale_start_date}" pattern="yyyy/MM/dd" /></p>
 		<img src="resources/img/${productModel.getImage()}.png" alt="${productModel.getProduct_name() }"
 								  width="200" >
 		<p>数量:
@@ -31,9 +31,9 @@
 		<input type="hidden" name="product_id" value="${productModel.getProduct_id() }">
 		<input type="submit" value="カートに追加">
 	</form>
-	<!-- まだ未実装です！！！！！！！！！！！！！！！！！！！！！！！ -->
-		<a href="#">商品検索結果に戻る</a>
-	<!-- まだ未実装です！！！！！！！！！！！！！！！！！！！！！！！ -->
+	<p>
+		<a href="#" onclick="window.history.back(); return false;">一覧に戻る</a>
+	</p>
 	</div>
 </body>
 </html>

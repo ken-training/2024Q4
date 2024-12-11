@@ -7,6 +7,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<style type="text/css">
+.container {
+    width: 80%;        /* 固定幅やパーセント指定で幅を設定 */
+    margin: 0 auto;    /* 左右中央に配置 */
+}
+</style>
 <title>買い物かご</title>
 </head>
 <body>
@@ -52,13 +58,14 @@
 			</p>
 		</c:if>
 		</div>
-		<div class="cart-summary">
+		<div></div>
 			<input type="submit" value="更新">
+	</form>
+		<div class="cart-summary">
 			<p>商品合計数 :  ${total_qty }</p>
 			<p>合計金額(税抜) : ￥ <fmt:formatNumber value="${total_amount }" pattern="#,###" /></p>
-			<button onclick="window.location.href='/order'">購入に進む</button>
+			<button onclick="window.location.href='${pageContext.request.contextPath}/order'">購入に進む</button>
 		</div>
-	</form>
 	</div>
 </body>
 </html>
