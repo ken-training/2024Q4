@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.ken.project.dao.ProductDao;
 import jp.ken.project.model.ProductModel;
@@ -38,14 +37,14 @@ public class SearchController {
 		return "search";
 	}
 
-	//商品詳細に遷移
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public String toProduct(@RequestParam("product_id") int product_id, Model model) {
-		ProductModel product = productDao.getProductById(product_id);
-		model.addAttribute("product_id", product_id);
-
-		return "forward:/product";
-	}
+//	//商品詳細に遷移
+//	@RequestMapping(value = "/search", method = RequestMethod.GET)
+//	public String toProduct(@RequestParam("product_id") int product_id, Model model) {
+////		ProductModel product = productDao.getProductById(product_id);
+//		model.addAttribute("product_id", product_id);
+//
+//		return "forward:/product";
+//	}
 
 }
 
