@@ -23,6 +23,7 @@ public class SearchController {
 	@Autowired
 	private ProductDao productDao;
 
+	//検索結果表示
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String get(SearchFormModel smodel, Model model) {
 		model.addAttribute("category", smodel.getCategory());
@@ -37,11 +38,13 @@ public class SearchController {
 		return "search";
 	}
 
+	//商品詳細に遷移
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public String toProduct(@RequestParam("product_id") int product_id, Model model) {
+		ProductModel product = productDao.getProductById(product_id);
+		model.addAttribute("product_id", product_id);
 
-	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public String showDetails(@RequestParam("productId") long productId, Model model) {
-
-		return "product";
+		return "forward:/product";
 	}
 
 }
