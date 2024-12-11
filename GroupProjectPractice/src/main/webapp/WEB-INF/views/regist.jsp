@@ -36,7 +36,7 @@ h3 {
 				<label>メールアドレス：</label>
 				<form:input path="mail" size="40" /><span><h3>*必須</h3></span><br>
 				</h3><form:errors path="mail" element="span" cssClass="errors" /></h3>
-				<h3><c:out value="${ message }" /></h3>
+				<h3><c:out value="${ error }" /></h3>
 			</div>
 			<div>
 				<label>パスワード：</label>

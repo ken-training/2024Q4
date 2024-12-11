@@ -43,7 +43,7 @@ public class RegistController {
 					// 登録が成功した場合
 					return "redirect:/top";  // 成功時に遷移するビュー
 				}
-				model.addAttribute("message", "このメールアドレスは既に登録されています");
+				model.addAttribute("error", "このメールアドレスは既に登録されています");
 				return "regist";  // 登録に失敗した場合、再度エラーメッセージを表示
 			}
 		}
