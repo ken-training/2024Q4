@@ -9,15 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import jp.ken.project.dao.ProductDao;
-import jp.ken.project.model.ProductModel;
-
 @Controller
 @RequestMapping("product")
 //@SessionAttributes({"cartList"})
 public class ProductController {
 	@Autowired
-	private ProductDao ProductDao;
+//	private ProductDao ProductDao;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String toProduct(HttpSession session, Model model, HttpServletRequest request) {
@@ -27,8 +24,8 @@ public class ProductController {
 		int product_id = 4000001;
 		// -------------------------------------------
 
-		ProductModel pmodel = ProductDao.getProductById(product_id);
-		model.addAttribute("productModel", pmodel);
+//		ProductModel pmodel = ProductDao.getProductById(product_id);
+//		model.addAttribute("productModel", pmodel);
 
 		return "product";
 	}
