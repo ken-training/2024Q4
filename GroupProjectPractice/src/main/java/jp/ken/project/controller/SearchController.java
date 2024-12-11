@@ -34,7 +34,6 @@ public class SearchController {
 		if(productsList.isEmpty()) {
 			model.addAttribute("message", "該当する商品がありませんでした");
 		}
-
 		return "search";
 	}
 
@@ -46,7 +45,4 @@ public class SearchController {
 	}
 
 }
-
-//model.addAttribute("category", smodel.getCategory());
-//model.addAttribute("keyword", smodel.getKeyword());
 
