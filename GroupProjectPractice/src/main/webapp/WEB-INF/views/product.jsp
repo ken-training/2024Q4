@@ -13,9 +13,10 @@
 	<div class="container">
 		<h3>${productModel.getProduct_name() }</h3>
 		<p>${productModel.getProduct_detail() }</p>
-		<p>値段: ￥ ${productModel.getPrice() }(税抜)</p>
+		<p>値段: ￥ <fmt:formatNumber value="${productModel.getPrice() }" pattern="#,###" />(税抜)</p>
 		<p>発売開始日: ${productModel.getSale_start_date() }</p>
-		<img alt="${productModel.getProduct_name() }" src="${productModel.getImage() }">
+		<img src="resources/img/${productModel.getImage()}.png" alt="${productModel.getProduct_name() }"
+								  width="200" >
 		<p>数量:
 			<select name="quantity">
 				<c:forEach var="n" begin="0" end="10">

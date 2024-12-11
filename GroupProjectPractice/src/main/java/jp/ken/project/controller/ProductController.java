@@ -32,4 +32,18 @@ public class ProductController {
 
 		return "product";
 	}
+
+	@RequestMapping(method = RequestMethod.POST)
+	public String addProductToCart(HttpSession session, Model model, HttpServletRequest request) {
+//		int product_id = (Integer)request.getAttribute("product_id");
+
+		// -------ひとまずテストデータで入力----------
+		int product_id = 4000001;
+		// -------------------------------------------
+
+		ProductModel pmodel = ProductDao.getProductById(product_id);
+		model.addAttribute("productModel", pmodel);
+
+		return "product";
+	}
 }
