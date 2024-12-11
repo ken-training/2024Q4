@@ -9,60 +9,87 @@
 <meta charset="UTF-8">
 <title>ログイン画面</title>
 <style>
+h1 {
+
+}
+h2 {
+
+}
+h3 {
+
+}
 .error{
     color:#ff0000;
 }
-table{
-    border-collapse: separate;
-    border-spacing: 10px;
-}
+
 </style>
 </head>
 <body>
 
-    <h1>ログイン</h1>
-    <hr/>
-    <form:form modelAttribute="loginFormModel">
-    <div class="error">${message}</div>
-    <table>
-    <tr>
-        <td>メールアドレス *必須</td>
-        <td>
-            <form:input path="mailaddress" />
-        </td>
-        <td>
-            <form:errors path="mailaddress" element="div" cssClass="error"/>
-        </td>
-    </tr>
-    <tr>
-        <td>パスワード *必須</td>
-        <td>
-            <form:password path="password"/>
-        </td>
-        <td>
-            <form:errors path="password" element="div" cssClass="error"/>
-        </td>
-    </tr>
-    <tr>
-    	${error}
-    </tr>
-    <tr>
-        <td colspan="3">
-            <input type="submit" value="ログインする"/>
-        </td>
-    </tr>
+	<div class="container">
 
-     <h2>初めてご利用の方</h2>
+	<inline-block>
+	<h1>ログイン</h1>
+
+	    <form:form modelAttribute="loginFormModel">
+	    <div class="error">${message}</div>
+	    <table>
+	    <tr>
+	        <td>メールアドレス *必須</td>
+	        <td>
+	            <form:input path="mailaddress" />
+	        </td>
+	        </td>
+	            <form:errors path="mailaddress" element="div" cssClass="error"/>
+	        </td>
+	    </tr>
+	    <tr>
+	        <td>パスワード *必須</td>
+	        <td>
+	            <form:password path="password"/>
+	        </td>
+	        </td>
+	            <form:errors path="password" element="div" cssClass="error"/>
+	        </td>
+	    </tr>
+	    <tr>
+	    	${error}
+	    </tr>
+	    <tr>
+	        <td colspan="3">
+	            <input type="submit" value="ログインする"/>
+	        </td>
+	    </tr>
+	    </table>
+	    </div>
+
+	<div>
+
+	</inline-block>
+
+	<inline-block>
+	<h2>初めてご利用の方</h2>
+
+     <table>
+
 
     <td>お買い物には会員登録が必要です</td>
 
- 			<input type="submit" value="新規登録"/>
+ 	<td>
+ 	<input type="submit" value="新規登録"/>
+ 	</td>
 
 
 
     </table>
+   </div>
+   </div>
     </form:form>
-    <hr/>
+
+	</div>
+	</div>
+
+	</inline-block>
 
 </body>
 </html>
