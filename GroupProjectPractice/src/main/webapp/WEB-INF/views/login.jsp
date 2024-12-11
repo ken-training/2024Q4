@@ -44,6 +44,9 @@ table{
         </td>
     </tr>
     <tr>
+    	${error}
+    </tr>
+    <tr>
         <td colspan="3">
             <input type="submit" value="ログインする"/>
         </td>
