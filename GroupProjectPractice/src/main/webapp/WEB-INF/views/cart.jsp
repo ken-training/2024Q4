@@ -9,9 +9,11 @@
 <meta charset="UTF-8">
 <style type="text/css">
 .container {
-    width: 80%;        /* 固定幅やパーセント指定で幅を設定 */
-    margin: 0 auto;    /* 左右中央に配置 */
+    width: 80%;        /* 幅の設定 */
+    margin: 0 auto;    /* 中央寄せ */
+
 }
+
 </style>
 <title>買い物かご</title>
 </head>
@@ -58,7 +60,6 @@
 			</p>
 		</c:if>
 		</div>
-		<div></div>
 			<input type="submit" value="更新">
 	</form>
 		<div class="cart-summary">

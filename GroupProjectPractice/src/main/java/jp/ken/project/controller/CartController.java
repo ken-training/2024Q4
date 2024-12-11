@@ -25,26 +25,6 @@ public class CartController {
 		@SuppressWarnings("unchecked")
 		List<CartModel> cartList = (List<CartModel>)session.getAttribute("cartList");
 
-//		// 試しにCartListに値入れてみる
-//		if (cartList == null || cartList.size() == 0) {
-//			cartList = new ArrayList<CartModel>();
-//			CartModel test1 = new CartModel();
-//			test1.setCount(3);
-//			test1.setProduct_id(4000001);
-//			test1.setProduct_name("最高品質のテーブル");
-//			test1.setPrice(30000);
-//			test1.setImage("table001");
-//			cartList.add(test1);
-//			CartModel test2 = new CartModel();
-//			test2.setCount(2);
-//			test2.setProduct_id(4000002);
-//			test2.setProduct_name("高品質のテーブルランプ");
-//			test2.setPrice(15000);
-//			test2.setImage("table002");
-//			cartList.add(test2);
-//			session.setAttribute("cartList", cartList);
-//		}
-
 		if (cartList != null && cartList.size() != 0) {
 			int total_amount = 0;
 			int total_qty = 0;
@@ -86,6 +66,7 @@ public class CartController {
 		    	cnt++;
 		    }
 
+		    // 個数が0の商品はカートから削除
 		    for (int i = dellist.size() - 1; i >= 0; i--) {
 		        cartList.remove((int) dellist.get(i));  // インデックスがずれないように逆順で削除
 		    }
