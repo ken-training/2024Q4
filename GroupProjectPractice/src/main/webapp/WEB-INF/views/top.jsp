@@ -21,7 +21,7 @@
 									<img alt="セール品" src="resources/img/${saleProduct.image}.png"style="width: 100px;">
 									<div style="display: inline-block;">
 										<p><c:out value="${saleProduct.product_name}" /></p>
-										<p>単価(税抜) \ <fmt:formatNumber value="${saleProduct.price }"pattern="#,###" /></p>
+										<p>単価(税抜) \ <fmt:formatNumber value="${saleProduct.price }" pattern="#,###" /></p>
 									</div>
 								</div>
 							</a>
