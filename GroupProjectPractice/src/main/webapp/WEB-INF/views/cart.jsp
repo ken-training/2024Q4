@@ -24,7 +24,8 @@
 				</tr>
 				<c:forEach var="item" items="${ cartList }">
 					<tr>
-						<td width="100px"><img src="/img/${item.image}.png" alt="${item.product_name }"></td>
+						<td><img src="resources/img/${item.image}.png" alt="${item.product_name }"
+								  width="130" height="100"></td>
 						<td>
 						${item.product_name }
 						</td>
