@@ -11,6 +11,8 @@
 </head>
 <body>
 	<div class="container">
+	<p><strong>${message }</strong></p>
+	<form action="${pageContext.request.contextPath}/product" method="post">
 		<h3>${productModel.getProduct_name() }</h3>
 		<p>${productModel.getProduct_detail() }</p>
 		<p>値段: ￥ <fmt:formatNumber value="${productModel.getPrice() }" pattern="#,###" />(税抜)</p>
@@ -26,8 +28,12 @@
 				</c:forEach>
 			</select>
 		</p>
+		<input type="hidden" name="product_id" value="${productModel.getProduct_id() }">
 		<input type="submit" value="カートに追加">
+	</form>
+	<!-- まだ未実装です！！！！！！！！！！！！！！！！！！！！！！！ -->
 		<a href="#">商品検索結果に戻る</a>
+	<!-- まだ未実装です！！！！！！！！！！！！！！！！！！！！！！！ -->
 	</div>
 </body>
 </html>

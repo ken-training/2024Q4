@@ -63,7 +63,7 @@ public class CartController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String cartUpdate(@RequestParam("productId") int[] update_productId,
+	public String cartUpdate(@RequestParam("product_Id") int[] update_productId,
             @RequestParam("quantity") int[] update_quantity,
             HttpSession session, Model model) {
 		//セッションからCartオブジェクト取得
