@@ -48,7 +48,7 @@ public class LoginController {
        // ユーザー認証処理
        if (loginForm.getPassword().equals(customerModel.getPassword())) {
            // ログイン成功時、トップページに遷移
-           return "top";
+           return "redirect:/top";
 
        } else {
            // パスワードが間違っている場合はエラーメッセージを表示
