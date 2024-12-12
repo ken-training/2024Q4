@@ -10,5 +10,6 @@
 </head>
 <body>
 	注文確認画面
+	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
