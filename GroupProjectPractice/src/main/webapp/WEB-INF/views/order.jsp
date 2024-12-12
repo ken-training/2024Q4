@@ -42,7 +42,7 @@
 </script>
 </head>
 <body>
-
+	<jsp:include page="header.jsp"></jsp:include>
  	<main>
  		<div id="fixedDiv">
  			<!-- カートの中身を表示 -->

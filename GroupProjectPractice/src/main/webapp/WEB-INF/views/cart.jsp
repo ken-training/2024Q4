@@ -18,6 +18,7 @@
 <title>買い物かご</title>
 </head>
 <body>
+	<jsp:include page="header.jsp"></jsp:include>
 	<div class="container">
 	<form action="${pageContext.request.contextPath}/cart" method="post">
 		<div class="cart-items">

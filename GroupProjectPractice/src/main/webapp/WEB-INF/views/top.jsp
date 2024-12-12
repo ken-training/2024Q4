@@ -9,6 +9,7 @@
     <title>TOPページ</title>
 </head>
 <body>
+	<jsp:include page="header.jsp"></jsp:include>
 	<main>
 		<div>
 			<h2>セール商品一覧</h2>
