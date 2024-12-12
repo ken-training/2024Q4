@@ -54,6 +54,12 @@ public class LoginController {
 
         CustomerModel customerModel = loginDao.getCustomerByMail(loginForm.getMailaddress());
 
+      //退会したユーザーがログインしたとき
+        if(customerModel == null) {
+        	model.addAttribute("error", "メールアドレスまたはパスワードが間違っています");
+        	return "login";
+        }
+
        // ユーザー認証処理
        if (loginForm.getPassword().equals(customerModel.getPassword())) {
            // ログイン成功時、トップページに遷移
