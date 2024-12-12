@@ -1,5 +1,7 @@
 package jp.ken.project.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,14 +20,20 @@ import jp.ken.project.model.LoginFormModel;
 
 @Controller
 //@RequestMapping("login")
-@SessionAttributes("loginFormModel")//LoginFormModelにセッション置く
+//@SessionAttributes({"cartList", "customerModel"})
+@SessionAttributes({"customerModel"})
 public class LoginController {
 	@Autowired
 	private LoginDao loginDao;
 
+    @ModelAttribute("customerModel")
+    public CustomerModel setupCustomerModel() {
+        return new CustomerModel();
+    }
+
     // @ModelAttributeを使ってLoginFormModelをビューに渡す
     @ModelAttribute("loginFormModel")
-    public LoginFormModel setupLoginForm() {
+    public LoginFormModel setupLoginFormModel() {
         return new LoginFormModel();
     }
 
@@ -38,7 +46,7 @@ public class LoginController {
     // POSTリクエスト時にログイン処理を行う
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@Validated (GroupOrder.class) @ModelAttribute("loginFormModel") LoginFormModel loginForm,
-                        BindingResult bindingResult, Model model) {
+                        BindingResult bindingResult, Model model, HttpSession session) {
        // エラーがあれば再度ログイン画面を表示
         if (bindingResult.hasErrors()) {
            return "login";
@@ -49,6 +57,7 @@ public class LoginController {
        // ユーザー認証処理
        if (loginForm.getPassword().equals(customerModel.getPassword())) {
            // ログイン成功時、トップページに遷移
+    	   session.setAttribute("customerModel", customerModel);
            return "redirect:/top";
 
        } else {
