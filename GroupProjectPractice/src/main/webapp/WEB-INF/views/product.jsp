@@ -10,6 +10,7 @@
 <title>商品情報詳細ページ</title>
 </head>
 <body>
+	<jsp:include page="header.jsp"></jsp:include>
 	<div class="container">
 	<p><strong>${message }</strong></p>
 	<form action="${pageContext.request.contextPath}/product" method="post">
