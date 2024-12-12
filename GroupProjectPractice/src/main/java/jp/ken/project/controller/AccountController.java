@@ -3,6 +3,7 @@ package jp.ken.project.controller;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +74,7 @@ public class AccountController {
 			session.invalidate();  // セッションを無効化（ログアウト）
 			return "redirect:/top";
 		}else {
-		return "redirect:/top";
+		return "redirect:/top";//退会処理がエラーによりできなかった場合
 		}
 	}
 
