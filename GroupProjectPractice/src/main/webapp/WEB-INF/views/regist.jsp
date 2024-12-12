@@ -49,5 +49,6 @@ h3 {
 		</form:form>
 	</div>
 	<h2>※郵便番号、住所、電話番号、生年月日、<br>クレジットカード番号、有効期限はあとでマイページから登録できます</h2>
+	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

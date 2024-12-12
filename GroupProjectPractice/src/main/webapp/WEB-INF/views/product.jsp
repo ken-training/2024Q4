@@ -34,6 +34,7 @@
 	<p>
 		<a href="#" onclick="window.history.back(); return false;">一覧に戻る</a>
 	</p>
+	<jsp:include page="footer.jsp"></jsp:include>
 	</div>
 </body>
 </html>

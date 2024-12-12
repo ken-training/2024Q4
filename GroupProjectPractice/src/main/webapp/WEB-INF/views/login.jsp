@@ -94,6 +94,7 @@
                 </td>
             </tr>
         </table>
+        <jsp:include page="footer.jsp"></jsp:include>
     </div>
 
 </div>

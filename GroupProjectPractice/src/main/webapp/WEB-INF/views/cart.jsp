@@ -67,6 +67,7 @@
 			<p>合計金額(税抜) : ￥ <fmt:formatNumber value="${total_amount }" pattern="#,###" /></p>
 			<button onclick="window.location.href='${pageContext.request.contextPath}/order'">購入に進む</button>
 		</div>
+		<jsp:include page="footer.jsp"></jsp:include>
 	</div>
 </body>
 </html>
