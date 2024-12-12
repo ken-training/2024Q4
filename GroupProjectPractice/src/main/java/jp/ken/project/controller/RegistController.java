@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import jp.ken.project.dao.RegistDao;
+import jp.ken.project.dao.CustomerDao;
 import jp.ken.project.group.GroupOrder;
 import jp.ken.project.model.CustomerModel;
 
@@ -17,7 +17,7 @@ import jp.ken.project.model.CustomerModel;
 public class RegistController {
 
 	@Autowired
-	private RegistDao registDao;
+	private CustomerDao customerDao;
 
 	@RequestMapping(value ="/regist",method=RequestMethod.GET)
 	public String getRegist(Model model) {
@@ -38,7 +38,7 @@ public class RegistController {
 			customerModel.setPassword(customerMode.getPassword());
 
 				// 顧客情報をデータベースに登録
-				int numberOfRow = registDao.registCustomer(customerModel);
+				int numberOfRow = customerDao.registCustomer(customerModel);
 				if (numberOfRow == 1) {
 					// 登録が成功した場合
 					return "redirect:/top";  // 成功時に遷移するビュー
