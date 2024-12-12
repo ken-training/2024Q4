@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import jp.ken.project.dao.LoginDao;
+import jp.ken.project.group.GroupOrder;
 import jp.ken.project.model.CustomerModel;
 import jp.ken.project.model.LoginFormModel;
 
@@ -36,7 +37,7 @@ public class LoginController {
 
     // POSTリクエスト時にログイン処理を行う
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@Validated @ModelAttribute("loginFormModel") LoginFormModel loginForm,
+    public String login(@Validated (GroupOrder.class) @ModelAttribute("loginFormModel") LoginFormModel loginForm,
                         BindingResult bindingResult, Model model) {
        // エラーがあれば再度ログイン画面を表示
         if (bindingResult.hasErrors()) {
