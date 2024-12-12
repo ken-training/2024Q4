@@ -20,8 +20,8 @@ import jp.ken.project.model.LoginFormModel;
 
 @Controller
 //@RequestMapping("login")
-//@SessionAttributes({"cartList", "customerModel"})
-@SessionAttributes({"customerModel"})
+@SessionAttributes({"cartList", "customerModel"})
+//@SessionAttributes({"customerModel"})
 public class LoginController {
 	@Autowired
 	private LoginDao loginDao;
