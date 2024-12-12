@@ -41,40 +41,49 @@ public class ProductDao {
 	public List<ProductModel> getAllProductsList(String category, String keyword){
 		/*　カテゴリ、キーワードが空かどうかで分岐させる　*/
 
-		// category と keyword が null の場合
-	    category = (category == null) ? "" : category;
+		//keyword が null の場合
 	    keyword = (keyword == null) ? "" : keyword;
 
 		//入力判定
-		boolean categoryIsEmpty = category.isEmpty();
 		boolean keywordIsEmpty = keyword.isEmpty();
 
-		//条件どちらも未入力
-		if(categoryIsEmpty && keywordIsEmpty){
+		//キーワード指定なし
+		if(keywordIsEmpty){
 
-			return null;								//ほんまですか productsList = nullとかで渡さんでええですか
-		//カテゴリのみ指定
-		}else if(!categoryIsEmpty && keywordIsEmpty){
-			String sql = "SELECT product_id, product_name, price, image, discnt_rate FROM t_products WHERE sale_start_date IS NOT NULL AND stock_qty >= 1 AND sale_is_valid = '1' AND genre_id = ? ORDER BY discnt_is_valid DESC, product_id ASC";
-			Object[] parameters = {category};
-			List<ProductModel> productsList = jdbcTemplate.query(sql, parameters, productMapper);
-			return productsList;
-		//キーワードのみ指定
-		}else if(categoryIsEmpty && !keywordIsEmpty){
-			String sql = "SELECT product_id, product_name, price, image, discnt_rate FROM t_products WHERE sale_start_date IS NOT NULL AND stock_qty >= 1 AND sale_is_valid = '1' AND product_name LIKE ? ORDER BY discnt_is_valid DESC, product_id ASC";
-			keyword = keyword.replace("%", "\\%").replace("_", "\\_");
-			keyword = "%" + keyword + "%";
-			Object[] parameters = {keyword};
-			List<ProductModel> productsList = jdbcTemplate.query(sql, parameters, productMapper);
-			return productsList;
-		//条件どちらも入力あり
+			//カテゴリが全選択
+			if(category == "ALL") {
+				String sql = "SELECT product_id, product_name, price, image, discnt_rate FROM t_products WHERE sale_start_date IS NOT NULL AND stock_qty >= 1 AND sale_is_valid = '1' ORDER BY discnt_is_valid DESC, product_id ASC";
+				List<ProductModel> productsList = jdbcTemplate.query(sql, productMapper);
+				return productsList;
+
+			//カテゴリ選択あり
+			}else {
+				String sql = "SELECT product_id, product_name, price, image, discnt_rate FROM t_products WHERE sale_start_date IS NOT NULL AND stock_qty >= 1 AND sale_is_valid = '1' AND genre_id = ? ORDER BY discnt_is_valid DESC, product_id ASC";
+				Object[] parameters = {category};
+				List<ProductModel> productsList = jdbcTemplate.query(sql, parameters, productMapper);
+				return productsList;
+			}
+
+		//キーワード指定あり
 		}else{
-			String sql = "SELECT product_id, product_name, price, image, discnt_rate FROM t_products WHERE sale_start_date IS NOT NULL AND stock_qty >= 1 AND sale_is_valid = '1' AND genre_id = ? AND product_name LIKE ? ORDER BY discnt_is_valid DESC, product_id ASC";
-			keyword = keyword.replace("%", "\\%").replace("_", "\\_");
-			keyword = "%" + keyword + "%";
-			Object[] parameters = {category, keyword};
-			List<ProductModel> productsList = jdbcTemplate.query(sql, parameters, productMapper);
-			return productsList;
+			//カテゴリが全選択
+			if(category == "ALL") {
+				String sql = "SELECT product_id, product_name, price, image, discnt_rate FROM t_products WHERE sale_start_date IS NOT NULL AND stock_qty >= 1 AND sale_is_valid = '1' AND product_name LIKE ? ORDER BY discnt_is_valid DESC, product_id ASC";
+				keyword = keyword.replace("%", "\\%").replace("_", "\\_");
+				keyword = "%" + keyword + "%";
+				Object[] parameters = {keyword};
+				List<ProductModel> productsList = jdbcTemplate.query(sql, parameters, productMapper);
+				return productsList;
+			//カテゴリ選択あり
+			}else {
+				String sql = "SELECT product_id, product_name, price, image, discnt_rate FROM t_products WHERE sale_start_date IS NOT NULL AND stock_qty >= 1 AND sale_is_valid = '1' AND genre_id = ? AND product_name LIKE ? ORDER BY discnt_is_valid DESC, product_id ASC";
+				keyword = keyword.replace("%", "\\%").replace("_", "\\_");
+				keyword = "%" + keyword + "%";
+				Object[] parameters = {category, keyword};
+				List<ProductModel> productsList = jdbcTemplate.query(sql, parameters, productMapper);
+				return productsList;
+			}
+
 		}
 	}
 }

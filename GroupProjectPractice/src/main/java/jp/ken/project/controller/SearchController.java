@@ -12,11 +12,6 @@ import jp.ken.project.dao.ProductDao;
 import jp.ken.project.model.ProductModel;
 import jp.ken.project.model.SearchFormModel;
 
-/********************************/
-/******キー名を確認すること******/
-/******　例外対応すること　******/
-/********************************/
-
 @Controller
 public class SearchController {
 	@Autowired
@@ -28,7 +23,8 @@ public class SearchController {
 		model.addAttribute("category", smodel.getCategory());
 		model.addAttribute("keyword", smodel.getKeyword());
 
-		List<ProductModel> productsList = productDao.getAllProductsList(smodel.getCategory(), smodel.getKeyword());
+		//List<ProductModel> productsList = productDao.getAllProductsList(smodel.getCategory(), smodel.getKeyword());
+		List<ProductModel> productsList = productDao.getAllProductsList("ALL", "");
 		model.addAttribute("productsList", productsList);
 
 		if(productsList.isEmpty()) {
@@ -36,15 +32,6 @@ public class SearchController {
 		}
 		return "search";
 	}
-
-//	//商品詳細に遷移
-//	@RequestMapping(value = "/search", method = RequestMethod.GET)
-//	public String toProduct(@RequestParam("product_id") int product_id, Model model) {
-////		ProductModel product = productDao.getProductById(product_id);
-//		model.addAttribute("product_id", product_id);
-//
-//		return "forward:/product";
-//	}
 
 }
 
