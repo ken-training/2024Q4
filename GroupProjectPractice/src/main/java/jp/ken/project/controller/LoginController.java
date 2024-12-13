@@ -10,8 +10,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 
 import jp.ken.project.dao.LoginDao;
 import jp.ken.project.group.GroupOrder;
@@ -19,17 +17,9 @@ import jp.ken.project.model.CustomerModel;
 import jp.ken.project.model.LoginFormModel;
 
 @Controller
-//@RequestMapping("login")
-@SessionAttributes({"cartList", "customerModel"})
-//@SessionAttributes({"customerModel"})
 public class LoginController {
 	@Autowired
 	private LoginDao loginDao;
-
-    @ModelAttribute("customerModel")
-    public CustomerModel setupCustomerModel() {
-        return new CustomerModel();
-    }
 
     // @ModelAttributeを使ってLoginFormModelをビューに渡す
     @ModelAttribute("loginFormModel")
@@ -76,8 +66,9 @@ public class LoginController {
 
     // ログアウト処理
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
-    public String toLogout(Model model, SessionStatus status) {
-        status.setComplete();
+    public String toLogout(HttpSession session) {
+        session.removeAttribute("cartList");
+        session.removeAttribute("customerModel");
        return "redirect:/top";  // ログアウト後トップページへ
    }
 }
