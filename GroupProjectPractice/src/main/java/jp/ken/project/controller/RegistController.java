@@ -26,16 +26,16 @@ public class RegistController {
 	}
 
 	@RequestMapping(value = "/regist", method = RequestMethod.POST)
-	public String postRegist(Model model,  @Validated(GroupOrder.class) @ModelAttribute CustomerModel customerMode,BindingResult result) {
+	public String postRegist(Model model,  @Validated(GroupOrder.class) @ModelAttribute CustomerModel customer,BindingResult result) {
 	// バリデーションエラーがある場合
 		if (result.hasErrors()) {
 			return "regist";  // エラーがあれば再度入力画面を表示
 		} else {
 			// customerModelからcustomerModelにデータをコピー
 			CustomerModel customerModel = new CustomerModel();
-			customerModel.setCustomer_name(customerMode.getCustomer_name());
-			customerModel.setMail(customerMode.getMail());
-			customerModel.setPassword(customerMode.getPassword());
+			customerModel.setCustomer_name(customer.getCustomer_name());
+			customerModel.setMail(customer.getMail());
+			customerModel.setPassword(customer.getPassword());
 
 				// 顧客情報をデータベースに登録
 				int numberOfRow = customerDao.registCustomer(customerModel);
