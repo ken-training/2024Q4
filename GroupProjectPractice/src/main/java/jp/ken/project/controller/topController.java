@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jp.ken.project.dao.ProductDao;
 import jp.ken.project.model.CartModel;
+import jp.ken.project.model.CustomerModel;
 import jp.ken.project.model.ProductModel;
 
 @Controller
@@ -53,10 +54,14 @@ public class topController{
 		}
 
 		// ------------------確認用-------------------------
-		Object cartList = session.getAttribute("cartList");
+		@SuppressWarnings("unchecked")
+		List<CartModel> cartList = (List<CartModel>) session.getAttribute("cartList");
 		System.out.println("Cart List: " + cartList);
-		Object customerModel = session.getAttribute("customerModel");
-		System.out.println("customerModel: " + customerModel);
+		CustomerModel customerModel = (CustomerModel)session.getAttribute("customerModel");
+		System.out.println("customerModel : " + customerModel);
+		if(customerModel != null) {
+			System.out.println("customer_id : " + customerModel.getCustomer_id());
+		}
 		// ------------------確認用-------------------------
 
 	    return "top";

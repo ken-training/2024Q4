@@ -22,7 +22,7 @@
 								  width="200" >
 		<p>数量:
 			<select name="quantity">
-				<c:forEach var="n" begin="0" end="10">
+				<c:forEach var="n" begin="1" end="10">
 					<option value="${n}">
 					${n}
 					</option>
