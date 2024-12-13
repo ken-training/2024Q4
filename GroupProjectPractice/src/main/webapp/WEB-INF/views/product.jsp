@@ -34,7 +34,7 @@
 	</form>
 	<p>
 	<!-- 	<a href="#" onclick="goBack(); return false;">一覧に戻る</a> -->
-	<a href="#" onclick="window.history.back(); return false;">一覧に戻る</a>
+	<a href="${previousUrl }">一覧に戻る</a>
 	</p>
 	<jsp:include page="footer.jsp"></jsp:include>
 	</div>

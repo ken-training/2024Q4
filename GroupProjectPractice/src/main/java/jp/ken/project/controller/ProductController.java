@@ -42,9 +42,15 @@ public class ProductController {
 		ProductModel pmodel = ProductDao.getProductById(product_id);
 		model.addAttribute("productModel", pmodel);
 
-	    // フラッシュアトリビュートからメッセージを受け取って表示
 	    if (message != null) {
 	        model.addAttribute("message", message);  // メッセージをモデルに追加
+	    }
+
+	    // 遷移元のURL（Referer）を取得
+	    String referer = request.getHeader("Referer");
+	    // セッションに遷移元のURLを保存
+	    if (referer != null) {
+	        session.setAttribute("previousUrl", referer);
 	    }
 
 		return "product";
@@ -77,7 +83,6 @@ public class ProductController {
 				        int after_qty = cartModel.getCount() + quantity;
 				        cartModel.setCount(after_qty);
 				        productFound = true;  // 商品が見つかったのでフラグを設定
-				        break;  // 一致する商品が見つかったのでループを抜ける
 				    }
 				    total_cnt += cartModel.getCount();
 				}
@@ -101,9 +106,15 @@ public class ProductController {
 			}
 
 			session.setAttribute("cartList", cartList);
-			redirectAttributes.addFlashAttribute("message", "カートに入れました。カート内の商品は" + total_cnt + "個です。");
-			return "redirect:/product?product_id=" + product_id;
 
+//			redirectAttributes.addFlashAttribute("message", "カートに入れました。カート内の商品は" + total_cnt + "個です。");
+//			return "redirect:/product?product_id=" + product_id;
+
+			ProductModel pmodel = ProductDao.getProductById(product_id);
+			model.addAttribute("productModel", pmodel);
+	        model.addAttribute("message", "カートに入れました。カート内の商品は" + total_cnt + "個です。");
+
+			return "product";
 		}
 	}
 }

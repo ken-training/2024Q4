@@ -75,10 +75,10 @@ public class CartController {
 		    model.addAttribute("total_qty", total_qty);
 
 		}
-//		//削除でカートが空になっている可能性がある
-//		if(cartList == null || cartList.size() == 0){
-//			model.addAttribute("message", "カートは空です");
-//		}
+		//削除でカートが空になっている可能性がある
+		if(cartList == null || cartList.size() == 0){
+			model.addAttribute("message", "カートは空です");
+		}
 
 		return "redirect:/cart";
 	}
