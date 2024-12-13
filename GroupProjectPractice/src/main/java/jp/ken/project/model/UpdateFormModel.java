@@ -4,10 +4,8 @@ import java.io.Serializable;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import jp.ken.project.annotation.CreditExpiration;
 import jp.ken.project.group.Group1;
 import jp.ken.project.group.Group2;
 
@@ -27,68 +25,34 @@ public class UpdateFormModel implements Serializable {
 	private String mail;
 
 
-	// 郵便番号セル1
-	@Size(min=3,max=3,message ="郵便番号が無効です", groups = Group1.class)
+	// 郵便番号
 	private String zip1;
-
-	// 郵便番号セル2
-	@Size(min=4,max=4,message ="郵便番号が無効です", groups = Group1.class)
 	private String zip2;
 
-	// 都道府県
-	@Pattern(regexp = "^[^\\s]*$", message = "空白を含まないよう入力してください")
+	// 住所
 	private String prefecture;
-
-	//市区町村
-	@Pattern(regexp = "^[^\\s]*$", message = "空白を含まないよう入力してください")
 	private String city;
-
-	//番地
-	@Pattern(regexp = "^[^\\s]*$", message = "空白を含まないよう入力してください")
 	private String block;
-
-	//建物名
-	@Pattern(regexp = "^[^\\s]*$", message = "空白を含まないよう入力してください")
 	private String building;
 
-	// 電話番号セル1
-	@Size(min = 2, max = 4,message ="電話番号が無効です", groups = Group1.class)
+	// 電話番号
 	private String phone1;
-
-	//電話番号セル2
-	@Size(min = 2, max = 4,message ="電話番号が無効です", groups = Group1.class)
 	private String phone2;
-
-	//電話番号セル3
-	@Size(min = 4, max = 4,message ="電話番号が無効です", groups = Group1.class)
 	private String phone3;
 
 	// 生年月日
-	private int birthYear;
-	private int birthMonth;
-	private int birthDay;
+	private String birthYear;
+	private String birthMonth;
+	private String birthDay;
 
 	// クレジットカード番号
-	@Size(min = 4, max = 4,message ="カード番号が無効です", groups = Group1.class)
-	private int creditNum1;
+	private String creditNum1;
+	private String creditNum2;
+	private String creditNum3;
+	private String creditNum4;
 
-	@Size(min = 4, max = 4,message ="カード番号が無効です", groups = Group1.class)
-	private int creditNum2;
-
-	@Size(min = 4, max = 4,message ="カード番号が無効です", groups = Group1.class)
-	private int creditNum3;
-
-	@Size(min = 4, max = 4,message ="カード番号が無効です", groups = Group1.class)
-	private int creditNum4;
-
-	// カード有効期限-バリデーションチェック用
-	@CreditExpiration
-	private String creditExpMy;
-
-	// カード有効期限-月
+	// カード有効期限
 	private String creditExpM;
-
-	// カード有効期限-年
 	private String creditExpY;
 
 	// パスワード
@@ -192,59 +156,59 @@ public class UpdateFormModel implements Serializable {
 		this.phone3 = phone3;
 	}
 
-	public int getBirthYear() {
+	public String getBirthYear() {
 		return birthYear;
 	}
 
-	public void setBirthYear(int birthYear) {
+	public void setBirthYear(String birthYear) {
 		this.birthYear = birthYear;
 	}
 
-	public int getBirthMonth() {
+	public String getBirthMonth() {
 		return birthMonth;
 	}
 
-	public void setBirthMonth(int birthMonth) {
+	public void setBirthMonth(String birthMonth) {
 		this.birthMonth = birthMonth;
 	}
 
-	public int getBirthDay() {
+	public String getBirthDay() {
 		return birthDay;
 	}
 
-	public void setBirthDay(int birthDay) {
+	public void setBirthDay(String birthDay) {
 		this.birthDay = birthDay;
 	}
 
-	public int getCreditNum1() {
+	public String getCreditNum1() {
 		return creditNum1;
 	}
 
-	public void setCreditNum1(int creditNum1) {
+	public void setCreditNum1(String creditNum1) {
 		this.creditNum1 = creditNum1;
 	}
 
-	public int getCreditNum2() {
+	public String getCreditNum2() {
 		return creditNum2;
 	}
 
-	public void setCreditNum2(int creditNum2) {
+	public void setCreditNum2(String creditNum2) {
 		this.creditNum2 = creditNum2;
 	}
 
-	public int getCreditNum3() {
+	public String getCreditNum3() {
 		return creditNum3;
 	}
 
-	public void setCreditNum3(int creditNum3) {
+	public void setCreditNum3(String creditNum3) {
 		this.creditNum3 = creditNum3;
 	}
 
-	public int getCreditNum4() {
+	public String getCreditNum4() {
 		return creditNum4;
 	}
 
-	public void setCreditNum4(int creditNum4) {
+	public void setCreditNum4(String creditNum4) {
 		this.creditNum4 = creditNum4;
 	}
 
