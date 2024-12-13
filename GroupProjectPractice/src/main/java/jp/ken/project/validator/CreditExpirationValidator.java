@@ -1,6 +1,6 @@
 package jp.ken.project.validator;
 
-import java.time.LocalDate;
+import java.util.Calendar;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -17,11 +17,13 @@ public class CreditExpirationValidator implements ConstraintValidator<CreditExpi
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
         try {
-            LocalDate now = LocalDate.now();	// 現在の日付を取得
-            int year = now.getYear();			//現在の年を取得
-            int month = now.getMonthValue();			//現在の月を取得
+        	//現在の日付を取得
+        	Calendar calendar = Calendar.getInstance();
+        	// 現在の年を取得
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
 
-            //2024 + 12 →  202412
+            // 例）2024 + 12 →  202412
             String nowYm = String.valueOf(year) + String.valueOf(month);
 
             /* 現在と入力値文字列を大小比較し、

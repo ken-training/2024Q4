@@ -67,12 +67,13 @@ public class OrderFormModel implements Serializable {
 	@Size(min = 2, max = 4,message = "カード番号が無効です")
 	private String creditNum4;
 
-	//有効期限チェック用
-	@CreditExpiration
-	private String creditExpYm;
-
 	private String creditExpM;
 	private String creditExpY;
+
+	//有効期限チェック用
+	@CreditExpiration
+	private String creditExp_ym = creditExpY + creditExpM;
+
 
 	public String getShipName() {
 		return shipName;
