@@ -2,24 +2,75 @@ package jp.ken.project.model;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import jp.ken.project.annotation.CreditExpiration;
+
 public class OrderFormModel implements Serializable {
 
+	@NotEmpty(message = "必須入力です")
 	private String shipName;
+
+
+	@Size(max = 12,message = "電話番号が無効です")
 	private String shipPhonetic;
+
+	@NotEmpty(message = "必須入力です")
+	@Size(min = 2, max = 4,message = "電話番号が無効です")
 	private String shipPhone1;
+
+	@NotEmpty(message = "必須入力です")
+	@Size(min = 2, max = 4,message = "電話番号が無効です")
 	private String shipPhone2;
+
+	@NotEmpty(message = "必須入力です")
+	@Size(min = 4, max = 4,message = "電話番号が無効です")
 	private String shipPhone3;
+
+	@NotEmpty(message = "必須入力です")
+	@Size(min = 3, max = 3,message = "郵便番号が無効です")
 	private String shipZip1;
+
+	@NotEmpty(message = "必須入力です")
+	@Size(min = 4, max = 4,message = "郵便番号が無効です")
 	private String shipZip2;
+
+	@NotEmpty(message = "必須入力です")
+	@Pattern(regexp = "^[^\\s]*$", message = "空白を含まないよう入力してください")
 	private String shipPrefecture;
+
+	@NotEmpty(message = "必須入力です")
+	@Pattern(regexp = "^[^\\s]*$", message = "空白を含まないよう入力してください")
 	private String shipCity;
+
+	@NotEmpty(message = "必須入力です")
+	@Pattern(regexp = "^[^\\s]*$", message = "空白を含まないよう入力してください")
 	private String shipBlock;
+
+	@Pattern(regexp = "^[^\\s]*$", message = "空白を含まないよう入力してください")
 	private String shipBuilding;
+
+
 	private String pay;
+
+	@Size(min = 2, max = 4,message = "カード番号が無効です")
 	private String creditNum1;
+
+	@Size(min = 2, max = 4,message = "カード番号が無効です")
 	private String creditNum2;
+
+	@Size(min = 2, max = 4,message = "カード番号が無効です")
 	private String creditNum3;
+
+	@Size(min = 2, max = 4,message = "カード番号が無効です")
 	private String creditNum4;
+
+	//有効期限チェック用
+	@CreditExpiration
+	private String creditExpYm;
+
 	private String creditExpM;
 	private String creditExpY;
 
