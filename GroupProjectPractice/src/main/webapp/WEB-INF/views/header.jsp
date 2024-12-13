@@ -36,7 +36,7 @@
 								<option value="c005">テーブルランプ</option>
 								<option value="c006">ソファ</option>
 							</select>
-							<i class="fas fa-chevron-down"></i>
+							<!-- <i class="fas fa-chevron-down"></i> -->
 						</div>
 
 
