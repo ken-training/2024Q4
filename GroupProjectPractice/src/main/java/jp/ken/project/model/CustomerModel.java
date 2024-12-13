@@ -47,6 +47,9 @@ public class CustomerModel implements Serializable{
 	//クレジットカード番号
 	private String creditcard_num;
 
+	//マスク化クレジットカード番号
+	private String masked_creditcard_num;
+
 	//クレジットカード有効期限
 	private String creditcard_exp;
 
@@ -133,6 +136,12 @@ public class CustomerModel implements Serializable{
 	}
 	public void setIs_remove(String is_remove) {
 		this.is_remove = is_remove;
+	}
+	public String getMasked_creditcard_num() {
+		return masked_creditcard_num;
+	}
+	public void setMasked_creditcard_num(String masked_creditcard_num) {
+		this.masked_creditcard_num = masked_creditcard_num;
 	}
 
 }
