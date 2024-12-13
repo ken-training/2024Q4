@@ -1,97 +1,135 @@
-/* 初期設定 */
-body{
-	font-family: sans-serif,Meiryo UI;
-}
+/* ------------------------ */
+/* 初期化設定 */
+/* ------------------------ */
+	body{
+		font-family: sans-serif,Meiryo UI;
+		color: #2c2c2c;
+	}
 
+	a {
+	  color: inherit;       /* リンクのテキスト色を親要素から継承 */
+	  text-decoration: none; /* 下線を消す */
+	  background: transparent; /* 背景色を透明に */
+	  outline: none;         /* リンクがフォーカスされたときのアウトライン（枠線）を消す */
+	}
 
+	.copyright{
+		width: 100%;
+		text-align: center;
+	}
+
+/* ------------------------ */
 /* ヘッダー */
-.header-container{
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	width: 100%;
-	border-bottom: 1px solid #ccc;
-	color: #575757;
-}
+/* ------------------------ */
+	.header-container{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		border-bottom: 1px solid #ccc;
+	}
 
-.logo-image {
-	width: 150px;
-}
+		/* 企業ロゴ */
+	.logo-image {
+		width: 150px;
+	}
 
-.navbar{
-	display: flex;
-	align-items: center;
-    gap: 20px;
-}
+		/* 検索バー枠 */
+	.search-bar {
+	    display: flex;
+	    align-items: center;
+	    width: 100%;
+	    gap: 20px;
+	}
 
-.search-bar {
-    display: flex;
-    align-items: center;
-    width: 100%;  /* 検索バー全体の幅を変更 */
-    gap: 20px;
-}
+		/* カテゴリー検索 */
+	.category-select-box{
+		display: flex;
+		align-content: center;
+		width: 140px;
+		padding: 13px;
+	    cursor: pointer;
+	}
+	.category-select{
+		font-size: 15px;
+		color: #2c2c2c;
+	    font-weight: bold;
+		text-align: center;
+		cursor: pointer;
+		border: none;
+	    appearance: none; /* デフォルトのスタイルを無効化 */
+	    -moz-appearance: none; /* Firefoxに対応 */
+	}
+	.category-select:focus,.search-input:focus{
+		outline: none;
 
-.category-select-box{
-	display: flex;
-	align-content: center;
-	width: 140px;
-	padding: 13px;
-    cursor: pointer;
-    color: #575757;
-}
+	}
+	.search-input {
+	    width: 100%;
+	    height: 25px;
+	    padding: 8px;
+	    font-size: 14px;
+	    border: none;
+	    border-bottom: 1px solid #2c2c2c;
+	}
 
-.category-select{
-	font-size: 15px;
-    color: #575757;
-    font-weight: bold;
-	text-align: center;
-	cursor: pointer;
-	border: none;
-    appearance: none; /* デフォルトのスタイルを無効化 */
-    -moz-appearance: none; /* Firefoxに対応 */
-}
-.category-select:focus,.search-input:focus{
-	outline: none;
+		/* 検索ボタン */
+	.search-button {
+	    padding: 0 16px;
+	    font-size: 14px;
+	    background-color: #494949;
+	    color: white;
+	    border: none;
+	    cursor: pointer; /* カーソルをポインターに変更 */
+	    width: 75px;
+	    height: 42px;
 
-}
+	}
+	.search-button:hover {
+	    background-color: #6a6a6a; /* ホバー時に背景色変更 */
+	}
 
-.search-input {
-    width: 100%;      /* 入力ボックスの幅を100%にして親要素にフィットさせる */
-    height: 25px;
-    padding: 8px;     /* 内側の余白を追加 */
-    font-size: 14px;  /* フォントサイズを調整 */
-    border: none;
-    border-bottom: 1px solid #575757;
-}
+		/* ナビ枠 */
+	.navbar{
+		display: flex;
+		align-items: center;
+	    gap: 20px;
+	}
 
-.search-button {
-    padding: 0 16px;
-    font-size: 14px;
-    background-color: #494949;
-    color: white;       /* ボタンの文字色 */
-    border: none;       /* ボーダーなし */
-    cursor: pointer;    /* カーソルをポインターに変更 */
-    width: 75px;
-    height: 42px;
+	.nav-box{
+		width: 60px;
+		text-align: center;
+	}
+	.navbar-link{
+		color: #575757;
+		font-size: 40px;
+		line-height: 0;
+	}
+	.nav-message{
+		font-size: 10px;
+		font-weight: bold;
+		margin-top: 8px;
+	}
+/* ------------------------ */
+/* トップページ */
+/* ------------------------ */
+	.top-container{
+		display: grid;
+		place-items: center; /* 横縦ともに中央揃え */
+	}
 
-}
-
-.search-button:hover {
-    background-color: #6a6a6a; /* ホバー時に背景色変更 */
-}
-
-.navbar-link{
-	color: #575757;
-	font-size: 40px;
-	line-height: 0;
-}
-
-.nav-box{
-	color: #575757;
-	width: 60px;
-	text-align: center;
-}
-.nav-message{
-	font-size: 10px;
-	font-weight: bold;
-}
+	.item-label{
+		width: 100%;
+		border-bottom: 1px solid #2c2c2c;
+	}
+	.item-img{
+		width: 230px;
+	}
+	.product_link{
+		width: 270px;
+		text-align: center;
+		margin: 20px;
+	}
+	.product_message{
+		margin-top: 5px;
+	}

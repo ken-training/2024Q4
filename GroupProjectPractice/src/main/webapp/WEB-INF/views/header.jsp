@@ -63,23 +63,27 @@
 				</p>
 				<c:if test="${empty customerModel}">
 					<div class="nav-box">
-						<a href="${pageContext.request.contextPath}/login" class="navbar-link"><i class="fas fa-sign-in-alt"></i></a>
-						<div class="nav-message">ログイン</div>
+						<a href="${pageContext.request.contextPath}/login" class="navbar-link"><i class="fas fa-sign-in-alt"></i>
+							<div class="nav-message">ログイン</div>
+						</a>
 					</div>
 				</c:if>
 				<c:if test="${not empty customerModel}">
 					<div class="nav-box">
-						<a href="${pageContext.request.contextPath}/logout" class="navbar-link"><i class="fas fa-sign-out-alt"></i></a>
-						<div class="nav-message">ログアウト</div>
+						<a href="${pageContext.request.contextPath}/logout" class="navbar-link"><i class="fas fa-sign-out-alt"></i>
+							<div class="nav-message">ログアウト</div>
+						</a>
 					</div>
 					<div class="nav-box">
-						<a href="${pageContext.request.contextPath}/account" class="navbar-link"><i class="fa fa-user-circle" aria-hidden="true"></i></a>
-						<div class="nav-message">マイページ</div>
+						<a href="${pageContext.request.contextPath}/account" class="navbar-link"><i class="fa fa-user-circle" aria-hidden="true"></i>
+							<div class="nav-message">マイページ</div>
+						</a>
 					</div>
 				</c:if>
 				<div class="nav-box">
-					<a href="${pageContext.request.contextPath}/cart" class="navbar-link"><i class="fas fa-shopping-cart"></i></a>
-					<div class="nav-message">カート</div>
+					<a href="${pageContext.request.contextPath}/cart" class="navbar-link"><i class="fas fa-shopping-cart"></i>
+						<div class="nav-message">カート</div>
+					</a>
 				</div>
 			</nav>
 		</c:if>
