@@ -6,20 +6,20 @@ public class OrderFormModel implements Serializable {
 
 	private String shipName;
 	private String shipPhonetic;
-	private int shipPhone1;
-	private int shipPhone2;
-	private int shipPhone3;
-	private int shipZip1;
-	private int shipZip2;
+	private String shipPhone1;
+	private String shipPhone2;
+	private String shipPhone3;
+	private String shipZip1;
+	private String shipZip2;
 	private String shipPrefecture;
 	private String shipCity;
 	private String shipBlock;
 	private String shipBuilding;
 	private String pay;
-	private int creditNum1;
-	private int creditNum2;
-	private int creditNum3;
-	private int creditNum4;
+	private String creditNum1;
+	private String creditNum2;
+	private String creditNum3;
+	private String creditNum4;
 	private String creditExpM;
 	private String creditExpY;
 
@@ -35,34 +35,34 @@ public class OrderFormModel implements Serializable {
 	public void setShipPhonetic(String shipPhonetic) {
 		this.shipPhonetic = shipPhonetic;
 	}
-	public int getShipPhone1() {
+	public String getShipPhone1() {
 		return shipPhone1;
 	}
-	public void setShipPhone1(int shipPhone1) {
+	public void setShipPhone1(String shipPhone1) {
 		this.shipPhone1 = shipPhone1;
 	}
-	public int getShipPhone2() {
+	public String getShipPhone2() {
 		return shipPhone2;
 	}
-	public void setShipPhone2(int shipPhone2) {
+	public void setShipPhone2(String shipPhone2) {
 		this.shipPhone2 = shipPhone2;
 	}
-	public int getShipPhone3() {
+	public String getShipPhone3() {
 		return shipPhone3;
 	}
-	public void setShipPhone3(int shipPhone3) {
+	public void setShipPhone3(String shipPhone3) {
 		this.shipPhone3 = shipPhone3;
 	}
-	public int getShipZip1() {
+	public String getShipZip1() {
 		return shipZip1;
 	}
-	public void setShipZip1(int shipZip1) {
+	public void setShipZip1(String shipZip1) {
 		this.shipZip1 = shipZip1;
 	}
-	public int getShipZip2() {
+	public String getShipZip2() {
 		return shipZip2;
 	}
-	public void setShipZip2(int shipZip2) {
+	public void setShipZip2(String shipZip2) {
 		this.shipZip2 = shipZip2;
 	}
 	public String getShipPrefecture() {
@@ -95,28 +95,28 @@ public class OrderFormModel implements Serializable {
 	public void setPay(String pay) {
 		this.pay = pay;
 	}
-	public int getCreditNum1() {
+	public String getCreditNum1() {
 		return creditNum1;
 	}
-	public void setCreditNum1(int creditNum1) {
+	public void setCreditNum1(String creditNum1) {
 		this.creditNum1 = creditNum1;
 	}
-	public int getCreditNum2() {
+	public String getCreditNum2() {
 		return creditNum2;
 	}
-	public void setCreditNum2(int creditNum2) {
+	public void setCreditNum2(String creditNum2) {
 		this.creditNum2 = creditNum2;
 	}
-	public int getCreditNum3() {
+	public String getCreditNum3() {
 		return creditNum3;
 	}
-	public void setCreditNum3(int creditNum3) {
+	public void setCreditNum3(String creditNum3) {
 		this.creditNum3 = creditNum3;
 	}
-	public int getCreditNum4() {
+	public String getCreditNum4() {
 		return creditNum4;
 	}
-	public void setCreditNum4(int creditNum4) {
+	public void setCreditNum4(String creditNum4) {
 		this.creditNum4 = creditNum4;
 	}
 	public String getCreditExpM() {
@@ -131,6 +131,7 @@ public class OrderFormModel implements Serializable {
 	public void setCreditExpY(String creditExpY) {
 		this.creditExpY = creditExpY;
 	}
+
 
 
 

@@ -46,12 +46,12 @@ public class OrderController {
 		// 会員モデルから氏名、電話番号、郵便番号、住所を取得しOrderFormModelに格納
 		orderFormModel.setShipName(customerModel.getCustomer_name());
 		String AllPhone = customerModel.getPhone();
-		orderFormModel.setShipPhone1(Integer.parseInt(AllPhone.split("-")[0]));
-		orderFormModel.setShipPhone2(Integer.parseInt(AllPhone.split("-")[1]));
-		orderFormModel.setShipPhone3(Integer.parseInt(AllPhone.split("-")[2]));
+		orderFormModel.setShipPhone1(AllPhone.split("-")[0]);
+		orderFormModel.setShipPhone2(AllPhone.split("-")[1]);
+		orderFormModel.setShipPhone3(AllPhone.split("-")[2]);
 		String AllZip = customerModel.getZip();
-		orderFormModel.setShipZip1(Integer.parseInt(AllZip.split("-")[0]));
-		orderFormModel.setShipZip2(Integer.parseInt(AllZip.split("-")[1]));
+		orderFormModel.setShipZip1(AllZip.split("-")[0]);
+		orderFormModel.setShipZip2(AllZip.split("-")[1]);
 		String AllAddress = customerModel.getAddress();
 		if(AllAddress != null && !AllAddress.isEmpty()) {
 			// まだ住所に空白を入れて登録してないので、保留
