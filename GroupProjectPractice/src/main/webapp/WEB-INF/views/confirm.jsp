@@ -20,14 +20,14 @@
 <body>
 <jsp:include page="header.jsp"></jsp:include>
 <div class="container">
-<form action="${pageContext.request.contextPath}/confirm_test" method="post">
-	注文確認画面
+<form action="${pageContext.request.contextPath}/re_confirm" method="post">
+	<h3>ご注文内容の確認</h3>
 	<p>${message }</p>
 	<p>商品合計数 : ${total_qty }</p>
-	<p>税額 : ${total_amount * 0.1 }</p>
-	<p>商品の小計 : ${total_amount * 1.1 }</p>
+	<p>税額 : ￥ <fmt:formatNumber value="${total_amount * 0.1}" pattern="#,###"></fmt:formatNumber></p>
+	<p>商品の小計 : ￥ <fmt:formatNumber value="${total_amount * 1.1}" pattern="#,###"></fmt:formatNumber></p>
 	<p>配送料 : WEBサイト開設キャンペーンにつき、送料無料!!</p>
-	<p>ご請求額 : ${total_amount * 1.1 }</p>
+	<p>ご請求額 : ￥ <fmt:formatNumber value="${total_amount * 1.1}" pattern="#,###"></fmt:formatNumber></p>
 	<hr>
 	<p>お支払い情報 : ${orderFormModel.pay }</p>
 	<p>お届け先 : ${orderFormModel.shipPrefecture }${orderFormModel.shipCity }

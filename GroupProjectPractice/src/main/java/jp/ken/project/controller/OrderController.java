@@ -44,21 +44,45 @@ public class OrderController {
 		OrderFormModel orderFormModel = new OrderFormModel();
 
 		// 会員モデルから氏名、電話番号、郵便番号、住所を取得しOrderFormModelに格納
+		// 氏名
 		orderFormModel.setShipName(customerModel.getCustomer_name());
-		String AllPhone = customerModel.getPhone();
-		orderFormModel.setShipPhone1(AllPhone.split("-")[0]);
-		orderFormModel.setShipPhone2(AllPhone.split("-")[1]);
-		orderFormModel.setShipPhone3(AllPhone.split("-")[2]);
-		String AllZip = customerModel.getZip();
-		orderFormModel.setShipZip1(AllZip.split("-")[0]);
-		orderFormModel.setShipZip2(AllZip.split("-")[1]);
-		String AllAddress = customerModel.getAddress();
-		if(AllAddress != null && !AllAddress.isEmpty()) {
-			// まだ住所に空白を入れて登録してないので、保留
-//			orderFormModel.setShipPrefecture(AllAddress.split(" ")[0]);
-//			orderFormModel.setShipCity(AllAddress.split(" ")[1]);
-//			orderFormModel.setShipBlock(AllAddress.split(" ")[2]);
-//			orderFormModel.setShipBuilding(AllAddress.split(" ")[3]);
+		// 電話番号
+		if (customerModel.getPhone() != null) {
+			String[] words = customerModel.getPhone().split("-");
+			orderFormModel.setShipPhone1(words[0]);
+			orderFormModel.setShipPhone2(words[1]);
+			orderFormModel.setShipPhone3(words[2]);
+		}
+		// 郵便番号
+		if (customerModel.getZip() != null) {
+			String[] words = customerModel.getZip().split("-");
+			orderFormModel.setShipZip1(words[0]);
+			orderFormModel.setShipZip2(words[1]);
+		}
+		// 住所
+		if (customerModel.getAddress() != null) {
+			String[] words = customerModel.getAddress().split(" ");
+			System.out.println(words[0]);
+			orderFormModel.setShipPrefecture(words[0]);
+			orderFormModel.setShipCity(words[1]);
+			orderFormModel.setShipBlock(words[2]);
+			if (words.length == 4) {	// 建物名が入力されていた場合
+				orderFormModel.setShipBuilding(words[3]);
+			}
+		}
+		// クレジットカード番号
+		if (customerModel.getCreditcard_num() != null) {	// クレジットカード番号
+			String[] words = customerModel.getMasked_creditcard_num().split("-");
+			orderFormModel.setCreditNum1(words[0]);
+			orderFormModel.setCreditNum2(words[1]);
+			orderFormModel.setCreditNum3(words[2]);
+			orderFormModel.setCreditNum4(words[3]);
+		}
+		// クレジットカード有効期限
+		if (customerModel.getCreditcard_exp() != null) {	// クレジットカード有効期限
+			String[] words = customerModel.getCreditcard_exp().split("/");
+			orderFormModel.setCreditExpM(words[0]);
+			orderFormModel.setCreditExpY(words[1]);
 		}
 
 		// 今年が何年かを取得

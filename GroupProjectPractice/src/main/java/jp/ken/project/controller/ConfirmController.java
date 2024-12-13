@@ -52,7 +52,7 @@ public class ConfirmController {
 		return "confirm";
 	}
 
-	@RequestMapping(value = "/confirm_test", method = RequestMethod.POST)
+	@RequestMapping(value = "/re_confirm", method = RequestMethod.POST)
 	public String doOrderConfirm(HttpSession session, Model model) {
 
 		OrderFormModel orderFormModel = (OrderFormModel) session.getAttribute("orderFormModel");
