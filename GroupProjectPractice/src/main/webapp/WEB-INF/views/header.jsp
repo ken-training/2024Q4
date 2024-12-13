@@ -4,6 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <head>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+	<link rel ="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <header>
 	<div class="header-container">
@@ -25,21 +26,26 @@
 				<form:form modelAttribute="searchFormModel" action="${pageContext.request.contextPath}/search" method="get">
 					<div class="search-bar">
 						<!-- カテゴリ選択プルダウン -->
-						<select name="category" class="category-select">
-							<option value="ALL">全選択</option>
-							<option value="c001">テーブル</option>
-							<option value="c002">椅子</option>
-							<option value="c003">本棚</option>
-							<option value="c004">ベッド</option>
-							<option value="c005">テーブルランプ</option>
-							<option value="c006">ソファ</option>
-						</select>
+						<div class="category-select-box">
+							<select name="category" class="category-select">
+								<option value="ALL">全選択</option>
+								<option value="c001">テーブル</option>
+								<option value="c002">椅子</option>
+								<option value="c003">本棚</option>
+								<option value="c004">ベッド</option>
+								<option value="c005">テーブルランプ</option>
+								<option value="c006">ソファ</option>
+							</select>
+							<i class="fas fa-chevron-down"></i>
+						</div>
+
 
 						<!-- 商品名検索欄 -->
-						<input type="text" class="search-input" name="keyword" />
+						<input type="text" class="search-input" name="keyword" autocomplete="off" />
 
 						<!-- 検索ボタン -->
-						<button class="search-button" type="submit">検索</button>
+						<button class="search-button" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+
 					</div>
 				</form:form>
 			</c:if>
@@ -56,13 +62,25 @@
 			    	</c:if>
 				</p>
 				<c:if test="${empty customerModel}">
-					<a href="${pageContext.request.contextPath}/login" class="navbar-link">ログイン</a>
+					<div class="nav-box">
+						<a href="${pageContext.request.contextPath}/login" class="navbar-link"><i class="fas fa-sign-in-alt"></i></a>
+						<div class="nav-message">ログイン</div>
+					</div>
 				</c:if>
 				<c:if test="${not empty customerModel}">
-					<a href="${pageContext.request.contextPath}/logout" class="navbar-link">ログアウト</a>
-			    	<a href="${pageContext.request.contextPath}/account" class="navbar-link">マイページ</a>
+					<div class="nav-box">
+						<a href="${pageContext.request.contextPath}/logout" class="navbar-link"><i class="fas fa-sign-out-alt"></i></a>
+						<div class="nav-message">ログアウト</div>
+					</div>
+					<div class="nav-box">
+						<a href="${pageContext.request.contextPath}/account" class="navbar-link"><i class="fa fa-user-circle" aria-hidden="true"></i></a>
+						<div class="nav-message">マイページ</div>
+					</div>
 				</c:if>
-				<a href="${pageContext.request.contextPath}/cart" class="navbar-link">カート</a>
+				<div class="nav-box">
+					<a href="${pageContext.request.contextPath}/cart" class="navbar-link"><i class="fas fa-shopping-cart"></i></a>
+					<div class="nav-message">カート</div>
+				</div>
 			</nav>
 		</c:if>
 	</div>
