@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (discountRate) {
             // 割引後の価格を計算
-            var discountPrice = originalPrice * (1 - discountRate / 100);
+            var discountPrice = originalPrice * (1 - discountRate);
 
             // 割引後の価格を表示
             var discountElement = item.querySelector('.discount-price');
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (discountElement) {
                 // 割引価格を表示
                 discountElement.innerHTML = `
-                    ¥ ${discountPrice.toLocaleString()} (税抜)
+                    <br>↓<br>¥ ${discountPrice.toLocaleString()} (税抜)
                      (${Math.round(discountRate * 100)}% OFF)
                 `;
             }

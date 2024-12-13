@@ -27,6 +27,7 @@
                                     <div>
                                         <p class="product_message">
                                             <c:out value="${saleProduct.product_name}" /><br>
+                                            <del>¥ <fmt:formatNumber value="${saleProduct.price}" pattern="#,###" /> (税抜)</del>
                                             <span class="discount-price"></span>
                                         </p>
                                     </div>
