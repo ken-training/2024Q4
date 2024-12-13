@@ -24,6 +24,7 @@ h3 {
 </style>
 </head>
 <body>
+	<jsp:include page="header.jsp"></jsp:include>
 	<div class="container">
 		<h1>新規会員登録</h1>
 		<form:form modelAttribute="customerModel">

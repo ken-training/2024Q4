@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<jsp:include page="header.jsp"></jsp:include>
 	<main>
 		<div>
 			<h1>会員情報</h1>
