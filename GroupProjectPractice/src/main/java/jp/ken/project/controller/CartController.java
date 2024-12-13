@@ -10,16 +10,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jp.ken.project.model.CartModel;
 
 @Controller
-@RequestMapping("cart")
-@SessionAttributes({"cartList"})
+//@RequestMapping("cart")
+//@SessionAttributes({"cartList"})
 public class CartController {
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "cart", method = RequestMethod.GET)
 	public String toCart(HttpSession session, Model model) {
 		//セッションからCartオブジェクト取得
 		@SuppressWarnings("unchecked")
@@ -42,7 +41,7 @@ public class CartController {
 		return "cart";
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "cart", method = RequestMethod.POST)
 	public String cartUpdate(@RequestParam("productId") int[] update_productId,
             @RequestParam("quantity") int[] update_quantity,
             HttpSession session, Model model) {
@@ -76,11 +75,18 @@ public class CartController {
 		    model.addAttribute("total_qty", total_qty);
 
 		}
-		//削除でカートが空になっている可能性がある
-		if(cartList == null || cartList.size() == 0){
-			model.addAttribute("message", "カートは空です");
-		}
+//		//削除でカートが空になっている可能性がある
+//		if(cartList == null || cartList.size() == 0){
+//			model.addAttribute("message", "カートは空です");
+//		}
 
-		return "cart";
+		return "redirect:/cart";
+	}
+
+	@RequestMapping(value = "cart/empty", method = RequestMethod.GET)
+	public String doEmpty(HttpSession session) {
+		System.out.println("カートを空にします");
+		session.removeAttribute("cartList");
+		return "redirect:/cart";
 	}
 }
