@@ -54,10 +54,11 @@ public class OrderController {
 		orderFormModel.setShipZip2(Integer.parseInt(AllZip.split("-")[1]));
 		String AllAddress = customerModel.getAddress();
 		if(AllAddress != null && !AllAddress.isEmpty()) {
-			orderFormModel.setShipPrefecture(AllAddress.split(" ")[0]);
-			orderFormModel.setShipCity(AllAddress.split(" ")[1]);
-			orderFormModel.setShipBlock(AllAddress.split(" ")[2]);
-			orderFormModel.setShipBuilding(AllAddress.split(" ")[3]);
+			// まだ住所に空白を入れて登録してないので、保留
+//			orderFormModel.setShipPrefecture(AllAddress.split(" ")[0]);
+//			orderFormModel.setShipCity(AllAddress.split(" ")[1]);
+//			orderFormModel.setShipBlock(AllAddress.split(" ")[2]);
+//			orderFormModel.setShipBuilding(AllAddress.split(" ")[3]);
 		}
 
 		// 今年が何年かを取得

@@ -1,7 +1,8 @@
 package jp.ken.project.controller;
 
 import java.sql.Date;
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -85,10 +86,14 @@ public class ConfirmController {
 		// 必要情報をOrderModelに格納していく
 		OrderModel orderModel = new OrderModel();
 
-        // 今日の日付を取得 (LocalDate)
-        LocalDate localDate = LocalDate.now();
+        // 今日の日付を取得
+		Calendar calendar = Calendar.getInstance();
+        // 日付を"yyyy/MM/dd"の形式で取得
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = dateFormat.format(calendar.getTime());
+        System.out.println(formattedDate);
         // LocalDate を java.sql.Date に変換
-        Date order_date = Date.valueOf(localDate);
+        Date order_date = Date.valueOf(formattedDate);
 
         // 合計金額を算出
         int total_amount = 0;
