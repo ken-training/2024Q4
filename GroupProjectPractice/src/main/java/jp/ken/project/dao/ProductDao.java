@@ -51,12 +51,12 @@ public class ProductDao {
 		if(keywordIsEmpty){
 
 			//カテゴリが全選択
-			if(category == "ALL") {
+			if(category.equals("ALL")) {
 				String sql = "SELECT product_id, product_name, price, image, discnt_rate FROM t_products WHERE sale_start_date IS NOT NULL AND stock_qty >= 1 AND sale_is_valid = '1' ORDER BY discnt_is_valid DESC, product_id ASC";
 				List<ProductModel> productsList = jdbcTemplate.query(sql, productMapper);
 				return productsList;
 
-			//カテゴリ選択あり
+			//カテゴリが全選択以外
 			}else {
 				String sql = "SELECT product_id, product_name, price, image, discnt_rate FROM t_products WHERE sale_start_date IS NOT NULL AND stock_qty >= 1 AND sale_is_valid = '1' AND genre_id = ? ORDER BY discnt_is_valid DESC, product_id ASC";
 				Object[] parameters = {category};
@@ -67,7 +67,7 @@ public class ProductDao {
 		//キーワード指定あり
 		}else{
 			//カテゴリが全選択
-			if(category == "ALL") {
+			if(category.equals("ALL")) {
 				String sql = "SELECT product_id, product_name, price, image, discnt_rate FROM t_products WHERE sale_start_date IS NOT NULL AND stock_qty >= 1 AND sale_is_valid = '1' AND product_name LIKE ? ORDER BY discnt_is_valid DESC, product_id ASC";
 				keyword = keyword.replace("%", "\\%").replace("_", "\\_");
 				keyword = "%" + keyword + "%";
