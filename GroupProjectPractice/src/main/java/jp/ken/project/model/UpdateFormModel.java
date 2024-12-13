@@ -4,8 +4,10 @@ import java.io.Serializable;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import jp.ken.project.annotation.CreditExpiration;
 import jp.ken.project.group.Group1;
 import jp.ken.project.group.Group2;
 
@@ -25,19 +27,40 @@ public class UpdateFormModel implements Serializable {
 	private String mail;
 
 
-	// 郵便番号
+	// 郵便番号セル1
+	@Size(min=3,max=3,message ="郵便番号が無効です", groups = Group1.class)
 	private String zip1;
+
+	// 郵便番号セル2
+	@Size(min=4,max=4,message ="郵便番号が無効です", groups = Group1.class)
 	private String zip2;
 
-	// 住所
+	// 都道府県
+	@Pattern(regexp = "^[^\\s]*$", message = "空白を含まないよう入力してください")
 	private String prefecture;
+
+	//市区町村
+	@Pattern(regexp = "^[^\\s]*$", message = "空白を含まないよう入力してください")
 	private String city;
+
+	//番地
+	@Pattern(regexp = "^[^\\s]*$", message = "空白を含まないよう入力してください")
 	private String block;
+
+	//建物名
+	@Pattern(regexp = "^[^\\s]*$", message = "空白を含まないよう入力してください")
 	private String building;
 
-	// 電話番号
+	// 電話番号セル1
+	@Size(min = 2, max = 4,message ="電話番号が無効です", groups = Group1.class)
 	private String phone1;
+
+	//電話番号セル2
+	@Size(min = 2, max = 4,message ="電話番号が無効です", groups = Group1.class)
 	private String phone2;
+
+	//電話番号セル3
+	@Size(min = 4, max = 4,message ="電話番号が無効です", groups = Group1.class)
 	private String phone3;
 
 	// 生年月日
@@ -46,13 +69,26 @@ public class UpdateFormModel implements Serializable {
 	private int birthDay;
 
 	// クレジットカード番号
+	@Size(min = 4, max = 4,message ="カード番号が無効です", groups = Group1.class)
 	private int creditNum1;
+
+	@Size(min = 4, max = 4,message ="カード番号が無効です", groups = Group1.class)
 	private int creditNum2;
+
+	@Size(min = 4, max = 4,message ="カード番号が無効です", groups = Group1.class)
 	private int creditNum3;
+
+	@Size(min = 4, max = 4,message ="カード番号が無効です", groups = Group1.class)
 	private int creditNum4;
 
-	// カード有効期限
+	// カード有効期限-バリデーションチェック用
+	@CreditExpiration
+	private String creditExpMy;
+
+	// カード有効期限-月
 	private String creditExpM;
+
+	// カード有効期限-年
 	private String creditExpY;
 
 	// パスワード

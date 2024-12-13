@@ -23,8 +23,7 @@ public class SearchController {
 		model.addAttribute("category", smodel.getCategory());
 		model.addAttribute("keyword", smodel.getKeyword());
 
-		//List<ProductModel> productsList = productDao.getAllProductsList(smodel.getCategory(), smodel.getKeyword());
-		List<ProductModel> productsList = productDao.getAllProductsList("ALL", "");
+		List<ProductModel> productsList = productDao.getAllProductsList(smodel.getCategory(), smodel.getKeyword());
 		model.addAttribute("productsList", productsList);
 
 		if(productsList.isEmpty()) {
