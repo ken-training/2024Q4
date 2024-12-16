@@ -1,5 +1,6 @@
 package jp.ken.project.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,12 @@ public class LoginController {
 
     // GETリクエスト時にログイン画面を表示
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String toLogin() {
+    public String toLogin(HttpServletRequest request, HttpSession session) {
+        // リファラ（遷移元URL）を取得してセッションに保存
+        String referer = request.getHeader("Referer");
+        if (referer != null) {
+            session.setAttribute("login_referer", referer);
+        }
         return "login";
     }
 
@@ -54,7 +60,17 @@ public class LoginController {
        if (loginForm.getPassword().equals(customerModel.getPassword())) {
            // ログイン成功時、トップページに遷移
     	   session.setAttribute("customerModel", customerModel);
-           return "redirect:/top";
+    	   String referer = (String) session.getAttribute("login_referer");
+    	   System.out.println("referer : "+referer);
+    	   String[] parts = referer.split("/");
+    	   // 遷移元のURLの最後が"cart"だったら"order"に飛ばしたい
+    	   if(parts[parts.length - 1].equals("cart")) {
+    		   return "redirect:/order";
+    	   }else {
+    		   // それ以外の通常時はtopへ
+    		   return "redirect:/top";
+    	   }
+
 
        } else {
            // パスワードが間違っている場合はエラーメッセージを表示
