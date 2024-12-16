@@ -33,7 +33,7 @@
 	<p>お支払い情報 : ${pay }</p>
 	<p>お届け先 : ${orderFormModel.shipPrefecture }${orderFormModel.shipCity }
 	${orderFormModel.shipBlock }${orderFormModel.shipBuilding }</p>
-	<button onclick="window.location.href='${pageContext.request.contextPath}/order'">発送情報を変更する</button>
+	<button type="button" onclick="window.location.href='/project/order'">発送情報を変更する</button>
 	<hr>
 	<table>
 		<c:forEach var="item" items="${ cartList }">
