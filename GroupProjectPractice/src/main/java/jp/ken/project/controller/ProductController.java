@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,13 @@ public class ProductController {
 //	private List<CartModel> cartList;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String toProduct(HttpSession session, Model model, HttpServletRequest request,
+	public String toProduct(HttpSession session, Model model, HttpServletRequest request, HttpServletResponse response,
 			@RequestParam("product_id") int product_id,
 			@ModelAttribute("message") String message) {
+	    // キャッシュを無効化
+	    response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+	    response.setHeader("Pragma", "no-cache");
+	    response.setDateHeader("Expires", 0);
 //		int product_id = (Integer)request.getAttribute("product_id");
 
 		// -------ひとまずテストデータで入力----------
@@ -57,8 +62,12 @@ public class ProductController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String addProductToCart(HttpSession session, Model model, HttpServletRequest request,
+	public String addProductToCart(HttpSession session, Model model, HttpServletRequest request, HttpServletResponse response,
 			RedirectAttributes redirectAttributes) {
+	    // キャッシュを無効化
+	    response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+	    response.setHeader("Pragma", "no-cache");
+	    response.setDateHeader("Expires", 0);
 
 		@SuppressWarnings("unchecked")
 		List<CartModel> cartList = (List<CartModel>)session.getAttribute("cartList");
@@ -70,7 +79,7 @@ public class ProductController {
 		int	quantity = Integer.parseInt(request.getParameter("quantity"));
 		int	product_id = Integer.parseInt(request.getParameter("product_id"));
 
-		if(quantity == 0) {
+		if(quantity == 0) { // 個数を0個でカートに追加を押した時（0を選択できないようにしたため、不要かも）
 			return "redirect:/product";
 		}else {
 			boolean productFound = false;  // 一致する商品があったかどうかのフラグ

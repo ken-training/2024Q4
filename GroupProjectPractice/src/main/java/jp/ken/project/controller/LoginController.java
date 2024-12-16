@@ -67,8 +67,9 @@ public class LoginController {
     // ログアウト処理
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
     public String toLogout(HttpSession session) {
-        session.removeAttribute("cartList");
-        session.removeAttribute("customerModel");
+        session.removeAttribute("cartList"); // カート
+        session.removeAttribute("customerModel");  //会員情報
+        session.removeAttribute("previousUrl");  // 商品詳細の遷移元URL
        return "redirect:/top";  // ログアウト後トップページへ
    }
 }

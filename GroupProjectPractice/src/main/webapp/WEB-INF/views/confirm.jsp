@@ -20,9 +20,10 @@
 <body>
 <jsp:include page="header.jsp"></jsp:include>
 <div class="container">
-<form action="${pageContext.request.contextPath}/re_confirm" method="post">
+<form action="${pageContext.request.contextPath}/confirm" method="post">
 	<h3>ご注文内容の確認</h3>
 	<p>${message }</p>
+	<p>${error }</p>
 	<p>商品合計数 : ${total_qty }</p>
 	<p>税額 : ￥ <fmt:formatNumber value="${total_amount * 0.1}" pattern="#,###"></fmt:formatNumber></p>
 	<p>商品の小計 : ￥ <fmt:formatNumber value="${total_amount * 1.1}" pattern="#,###"></fmt:formatNumber></p>
