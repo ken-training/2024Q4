@@ -1,5 +1,6 @@
 package jp.ken.project.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,20 +48,23 @@ public class ProductDao {
 		//入力判定
 		boolean keywordIsEmpty = keyword.isEmpty();
 
+		//検索結果リスト
+		List<ProductModel> productsList = new ArrayList<ProductModel>();
+
 		//キーワード指定なし
 		if(keywordIsEmpty){
 
 			//カテゴリが全選択
 			if(category.equals("ALL")) {
 				String sql = "SELECT product_id, product_name, price, image, discnt_rate FROM t_products WHERE sale_start_date IS NOT NULL AND stock_qty >= 1 AND sale_is_valid = '1' ORDER BY discnt_is_valid DESC, product_id ASC";
-				List<ProductModel> productsList = jdbcTemplate.query(sql, productMapper);
+				productsList = jdbcTemplate.query(sql, productMapper);
 				return productsList;
 
 			//カテゴリが全選択以外
 			}else {
 				String sql = "SELECT product_id, product_name, price, image, discnt_rate FROM t_products WHERE sale_start_date IS NOT NULL AND stock_qty >= 1 AND sale_is_valid = '1' AND genre_id = ? ORDER BY discnt_is_valid DESC, product_id ASC";
 				Object[] parameters = {category};
-				List<ProductModel> productsList = jdbcTemplate.query(sql, parameters, productMapper);
+				productsList = jdbcTemplate.query(sql, parameters, productMapper);
 				return productsList;
 			}
 
@@ -72,18 +76,18 @@ public class ProductDao {
 				keyword = keyword.replace("%", "\\%").replace("_", "\\_");
 				keyword = "%" + keyword + "%";
 				Object[] parameters = {keyword};
-				List<ProductModel> productsList = jdbcTemplate.query(sql, parameters, productMapper);
+				productsList = jdbcTemplate.query(sql, parameters, productMapper);
 				return productsList;
+
 			//カテゴリ選択あり
 			}else {
 				String sql = "SELECT product_id, product_name, price, image, discnt_rate FROM t_products WHERE sale_start_date IS NOT NULL AND stock_qty >= 1 AND sale_is_valid = '1' AND genre_id = ? AND product_name LIKE ? ORDER BY discnt_is_valid DESC, product_id ASC";
 				keyword = keyword.replace("%", "\\%").replace("_", "\\_");
 				keyword = "%" + keyword + "%";
 				Object[] parameters = {category, keyword};
-				List<ProductModel> productsList = jdbcTemplate.query(sql, parameters, productMapper);
+				productsList = jdbcTemplate.query(sql, parameters, productMapper);
 				return productsList;
 			}
-
 		}
 	}
 }

@@ -8,7 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>SearchResult</title>
-
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
@@ -16,7 +15,7 @@
 		<main>
 			<div class="top-container">
 				<div>
-					<div class="">
+					<div>
 						<h3>カテゴリ　：
 							<c:choose>
 								<c:when test="${category == 'ALL'}">全選択</c:when>
@@ -30,20 +29,24 @@
 						<br>キーワード：<c:out value="${keyword}" /><br></h3>
 					</div>
 					<form:form action="/product" method="GET" >
+					<p><br>${message}</p>
 					<table>
 						<c:forEach var="product" items="${productsList}" varStatus="status">
 							<c:if test="${status.index % 2 == 0}">
 								<tr>	<!-- 行の開始 -->
 							</c:if>
 
-							<td width="300px" style="border: solid 1px">
+							<td width="300px" style="border: none">
 								<c:if test="${!empty productsList}">
 									<a href="${pageContext.request.contextPath}/product?product_id=${product.product_id}">
 										<div class="product_link">
 											<img alt="商品画像" src="resources/img/${product.image}.png" class="item-img">
-											<div>
+											<div id="price" data-discount-rate="${product.discnt_rate}" data-price="${product.price}" style="height: 180px;">
 												<p><c:out value="${product.product_name}" /><br>
+													<span class="product-price">
 													\ <fmt:formatNumber value="${product.price}" type="number" pattern="#,###" /> (税抜)
+													</span>
+													<span class="discount-price"></span>
 												</p>
 											</div>
 										</div>
