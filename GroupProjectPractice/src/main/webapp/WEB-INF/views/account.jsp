@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -104,7 +106,9 @@ h1{
 					</tr>
 					<tr>
 						<td>生年月日</td>
-						<td>${customerModel.birthday }</td>
+						<td>
+							<fmt:formatDate value="${customerModel.birthday}" pattern="yyyy年MM月dd日" />
+						 </td>
 					</tr>
 					<tr>
 						<td>クレジットカード番号</td>
@@ -112,7 +116,13 @@ h1{
 					</tr>
 					<tr>
 						<td>カード有効期限</td>
-						<td>${customerModel.creditcard_exp }</td>
+						<td>
+							<c:set var="exp" value="${customerModel.creditcard_exp}" />
+							<c:set var="month" value="${fn:substring(exp, 0, 2)}" />
+							<c:set var="year" value="${fn:substring(exp, 3, 5)}" />
+							<c:set var="fullYear" value="20${year}" />
+							${month}月/${fullYear}年
+						</td>
 					</tr>
 				</table>
 				<div class="button">
