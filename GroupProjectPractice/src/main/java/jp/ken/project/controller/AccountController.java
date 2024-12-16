@@ -137,16 +137,24 @@ public class AccountController {
 		// customerModelをupdateFormModelに変換
 		updateFormModel = parseUpdateFormModel(customerModel);
 
-		// 誕生日が未設定の場合、デフォルトで今年-30年の数字を表示するよう初期値を設定する
-		if (updateFormModel.getBirthYear() == null) {
-			updateFormModel.setBirthYear("" + (thisYear -30));
-		}
+		//プルダウン初期値設定
+		List<String> birthYearList = getNumberList(thisYear - 125, thisYear);
+		birthYearList.add(0, "----");
+		List<String> creditExpMList = getNumberList(1, 12);
+		List<String> creditExpYList = getNumberList(thisYear, thisYear +10);
+		creditExpMList.add(0,"--");
+		creditExpYList.add(0,"----");
 
 		// プルダウンで表示する用のリストをモデルに紐づけ
-		model.addAttribute("birthYearList", getNumberList(thisYear-125, thisYear));
+		model.addAttribute("birthYearList", getNumberList(thisYear - 125, thisYear));
 		model.addAttribute("birthMonthList", getNumberList(1, 12));
-		model.addAttribute("creditExpMList", getNumberList(1, 12));
-		model.addAttribute("creditExpYList", getNumberList(thisYear, thisYear +10));
+		model.addAttribute("creditExpMList", creditExpMList);
+		model.addAttribute("creditExpYList", creditExpYList);
+
+		// 誕生日が未設定の場合、初期値を設定する
+		if (updateFormModel.getBirthYear() == null) {
+			model.addAttribute("birthYearList", birthYearList);
+		}
 
 
 		model.addAttribute("updateFormModel", updateFormModel);
