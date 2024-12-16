@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,47 +32,57 @@ public class ProductController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String toProduct(HttpSession session, Model model, HttpServletRequest request, HttpServletResponse response,
 			@RequestParam("product_id") int product_id,
-			@ModelAttribute("message") String message) {
+			@RequestParam(value = "total_cnt", required = false) Integer total_cnt
+			) {
 	    // キャッシュを無効化
 	    response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
 	    response.setHeader("Pragma", "no-cache");
 	    response.setDateHeader("Expires", 0);
-//		int product_id = (Integer)request.getAttribute("product_id");
-
-		// -------ひとまずテストデータで入力----------
-//		int product_id = 4000001;
-		// -------------------------------------------
 
 		ProductModel pmodel = ProductDao.getProductById(product_id);
 		model.addAttribute("productModel", pmodel);
 
-	    if (message != null) {
-	        model.addAttribute("message", message);  // メッセージをモデルに追加
-	    }
+		// 合計数量が渡されていれば、カートに入れたメッセージをモデルに設定
+		if(total_cnt != null) {
+			model.addAttribute("message", "カートに入れました。カート内の商品は" + total_cnt + "個です。");
+		}
 
+		// 一覧に戻るリンク用のURLを分岐させて設定
 	    // 遷移元のURL（Referer）を取得
-	    String referer = request.getHeader("Referer");
-	    // セッションに遷移元のURLを保存
-	    if (referer != null) {
-	        session.setAttribute("previousUrl", referer);
+	    String product_referer = request.getHeader("Referer");
+        // 最後の "/" の位置を取得
+        int lastSlashIndex = product_referer.lastIndexOf("/");
+        // "?" の位置を取得
+        int questionMarkIndex = product_referer.indexOf("?", lastSlashIndex);
+        // "?" が見つからなかった場合、文字列の終わりまでを取る
+        if (questionMarkIndex == -1) {
+            questionMarkIndex = product_referer.length();
+        }
+        // 最後の "/" から "?" または文字列の終わりまでを抜き出す
+        String partOfUrl = product_referer.substring(lastSlashIndex, questionMarkIndex);
+        // top or searchから飛んできた時はセッションにURL登録
+	    if(partOfUrl.equals("/top") || partOfUrl.equals("/search")) {
+	    	session.setAttribute("previousUrl", product_referer);
 	    }
 
 		return "product";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String addProductToCart(HttpSession session, Model model, HttpServletRequest request, HttpServletResponse response,
-			RedirectAttributes redirectAttributes) {
-	    // キャッシュを無効化
-	    response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
-	    response.setHeader("Pragma", "no-cache");
-	    response.setDateHeader("Expires", 0);
+	public String addProductToCart(HttpSession session, Model model, HttpServletRequest request,
+			HttpServletResponse response, RedirectAttributes redirectAttributes) {
+
+
+		// キャッシュを無効化
+		response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader("Expires", 0);
 
 		@SuppressWarnings("unchecked")
 		List<CartModel> cartList = (List<CartModel>)session.getAttribute("cartList");
 
 		if (cartList == null) {
-		    cartList = new ArrayList<CartModel>();  // cartList が null の場合、空のリストを作成
+			cartList = new ArrayList<CartModel>();  // cartList が null の場合、空のリストを作成
 		}
 
 		int	quantity = Integer.parseInt(request.getParameter("quantity"));
@@ -87,43 +96,45 @@ public class ProductController {
 
 			if(cartList != null) {
 				for (CartModel cartModel : cartList) {
-				    if (cartModel.getProduct_id() == product_id) {
-				        // 一致する商品があった場合
-				        int after_qty = cartModel.getCount() + quantity;
-				        cartModel.setCount(after_qty);
-				        productFound = true;  // 商品が見つかったのでフラグを設定
-				    }
-				    total_cnt += cartModel.getCount();
+					if (cartModel.getProduct_id() == product_id) {
+						// 一致する商品があった場合
+						int after_qty = cartModel.getCount() + quantity;
+						cartModel.setCount(after_qty);
+						productFound = true;  // 商品が見つかったのでフラグを設定
+					}
+					total_cnt += cartModel.getCount();
 				}
 			}
 
 			if (!productFound) {
-			    // 一致する商品がなかった場合、新しい商品を追加
-			    CartModel addCartModel = new CartModel();
-			    ProductModel pmodel = ProductDao.getProductById(product_id);
-			    addCartModel.setProduct_id(product_id);
-			    addCartModel.setProduct_name(pmodel.getProduct_name());
-			    addCartModel.setPrice(pmodel.getPrice());
-			    addCartModel.setImage(pmodel.getImage());
-			    addCartModel.setDiscnt_is_valid(pmodel.getDiscnt_is_valid());
-			    addCartModel.setDiscnt_rate(pmodel.getDiscnt_rate());
-			    addCartModel.setCount(quantity);
+				// 一致する商品がなかった場合、新しい商品を追加
+				CartModel addCartModel = new CartModel();
+				ProductModel pmodel = ProductDao.getProductById(product_id);
+				addCartModel.setProduct_id(product_id);
+				addCartModel.setProduct_name(pmodel.getProduct_name());
+				addCartModel.setPrice(pmodel.getPrice());
+				addCartModel.setImage(pmodel.getImage());
+				addCartModel.setDiscnt_is_valid(pmodel.getDiscnt_is_valid());
+				addCartModel.setDiscnt_rate(pmodel.getDiscnt_rate());
+				addCartModel.setCount(quantity);
 
-			    total_cnt += addCartModel.getCount();
+				total_cnt += addCartModel.getCount();
 
-			    cartList.add(addCartModel);
+				cartList.add(addCartModel);
 			}
 
 			session.setAttribute("cartList", cartList);
 
-//			redirectAttributes.addFlashAttribute("message", "カートに入れました。カート内の商品は" + total_cnt + "個です。");
-//			return "redirect:/product?product_id=" + product_id;
+//				ProductModel pmodel = ProductDao.getProductById(product_id);
+			redirectAttributes.addAttribute("product_id", product_id);
+			redirectAttributes.addAttribute("total_cnt", total_cnt);
 
-			ProductModel pmodel = ProductDao.getProductById(product_id);
-			model.addAttribute("productModel", pmodel);
-	        model.addAttribute("message", "カートに入れました。カート内の商品は" + total_cnt + "個です。");
-
-			return "product";
+//			ProductModel pmodel = ProductDao.getProductById(product_id);
+//			model.addAttribute("productModel", pmodel);
+//	        model.addAttribute("message", "カートに入れました。カート内の商品は" + total_cnt + "個です。");
+//
+//			return "product";
 		}
+		return "redirect:/product";
 	}
 }
