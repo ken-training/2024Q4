@@ -63,7 +63,7 @@ public class ConfirmController {
 		return "confirm";
 	}
 
-	@RequestMapping(value = "/re_confirm", method = RequestMethod.POST)
+	@RequestMapping(value = "/confirm", method = RequestMethod.POST)
 	public String doOrderConfirm(HttpSession session, Model model) {
 
 		OrderFormModel orderFormModel = (OrderFormModel) session.getAttribute("orderFormModel");
@@ -71,9 +71,9 @@ public class ConfirmController {
 		if(customerModel == null) {
 			System.out.println("customerModelがnull");
 		}else {
-			System.out.println(customerModel.getMail());
-			System.out.println(customerModel.getCustomer_id());
-			System.out.println(customerModel.getPassword());
+//			System.out.println(customerModel.getMail());
+//			System.out.println(customerModel.getCustomer_id());
+//			System.out.println(customerModel.getPassword());
 		}
 		@SuppressWarnings("unchecked")
 		List<CartModel> cartList = (List<CartModel>)session.getAttribute("cartList");
@@ -82,7 +82,7 @@ public class ConfirmController {
 		// 必要情報をShippingModelに格納
 		ShippingModel shippingModel = new ShippingModel();
 		shippingModel.setShip_name(orderFormModel.getShipName());
-		System.out.println(orderFormModel.getShipName());
+//		System.out.println(orderFormModel.getShipName());
 		shippingModel.setShip_phonetic(orderFormModel.getShipPhonetic());
 		String ship_zip =  orderFormModel.getShipZip1() + "-" + orderFormModel.getShipZip2();
 		shippingModel.setShip_zip(ship_zip);
@@ -149,8 +149,9 @@ public class ConfirmController {
 		boolean success = ConfirmDao.insertWithTransaction(shippingModel, orderModel, cartList);
 
 		if(success) {
-			// sessionのカートの中身をクリア
-	        session.removeAttribute("cartList");
+			// sessionをクリア
+	        session.removeAttribute("cartList");  // カート
+	        session.removeAttribute("orderFormModel");  // 発注情報
 //			return "redirect:/complete";
 			return "redirect:/cart"; // complete.jspができるまでカートに遷移する
 		}else {
