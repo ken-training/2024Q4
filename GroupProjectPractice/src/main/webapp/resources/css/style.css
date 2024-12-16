@@ -30,6 +30,9 @@
 	}
 
 		/* 企業ロゴ */
+	.logo{
+		margin-left: 20px;
+	}
 	.logo-image {
 		width: 150px;
 	}

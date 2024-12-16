@@ -1,26 +1,29 @@
+//window.onloadは画像まで読み込まれたら、
+//DOMContentLoadedはHTMLの構造が読み込まれた段階で処理が開始(こっちのが処理早い)
+
 document.addEventListener("DOMContentLoaded", function() {
-    var saleItems = document.querySelectorAll('.sale-item');
 
-    saleItems.forEach(function(item) {
-        var productId = item.dataset.productId;
-        var originalPrice = parseFloat(item.dataset.price);
-        var discountRate = parseFloat(item.dataset.discountRate);
+	var saleItems = document.querySelectorAll('#price');
 
-        if (discountRate) {
-            // 割引後の価格を計算
-            var discountPrice = originalPrice * (1 - discountRate);
+	    saleItems.forEach(function(item) {
+	        var originalPrice = parseFloat(item.dataset.price);
+	        var discountRate = parseFloat(item.dataset.discountRate);
 
-            // 割引後の価格を表示
-            var discountElement = item.querySelector('.discount-price');
+	        if (discountRate) {
+	            // 割引後の価格を計算
+	            var discountPrice = originalPrice * (1 - discountRate);
 
-            // もし discountElement が存在する場合
-            if (discountElement) {
-                // 割引価格を表示
-                discountElement.innerHTML = `
-                    <br>↓<br>¥ ${discountPrice.toLocaleString()} (税抜)
-                     (${Math.round(discountRate * 100)}% OFF)
-                `;
-            }
-        }
-    });
+	            // 割引後の価格を表示
+	            var discountElement = item.querySelector('.discount-price');
+
+	            // もし discountElement が存在する場合
+	            if (discountElement) {
+	                // 割引価格を表示
+	                discountElement.innerHTML = `
+	                    <br>↓<br>¥ ${discountPrice.toLocaleString()} (税抜)
+	                     (${Math.round(discountRate * 100)}% OFF)
+	                `;
+	            }
+	        }
+	    });
 });

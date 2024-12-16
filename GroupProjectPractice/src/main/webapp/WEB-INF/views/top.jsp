@@ -6,8 +6,6 @@
 <head>
     <meta charset="UTF-8">
     <title>TOPページ</title>
-    <!-- 外部JavaScriptファイルのリンク -->
-    <script src="${pageContext.request.contextPath}/resources/js/script.js" defer></script>
 </head>
 <body>
     <jsp:include page="header.jsp"></jsp:include>
@@ -20,14 +18,14 @@
                         <c:if test="${status.index % 2 == 0}">
                             <tr> <!-- 2つの商品を1行にするために新しい行を開始 -->
                         </c:if>
-                        <td class="sale-item" data-product-id="${saleProduct.product_id}" data-discount-rate="${saleProduct.discnt_rate}" data-price="${saleProduct.price}">
+                        <td>
                             <a href="${pageContext.request.contextPath}/product?product_id=${saleProduct.product_id}">
                                 <div class="product_link">
                                     <img alt="セール品" src="resources/img/${saleProduct.image}.png" class="item-img">
                                     <div>
-                                        <p class="product_message">
+                                        <p class="product_message"  id="price" data-discount-rate="${saleProduct.discnt_rate}" data-price="${saleProduct.price}">
                                             <c:out value="${saleProduct.product_name}" /><br>
-                                            <del>¥ <fmt:formatNumber value="${saleProduct.price}" pattern="#,###" /> (税抜)</del>
+                                            <del>¥ <fmt:formatNumber value="${saleProduct.price}" pattern="#,###" /> <small>(税抜)</small></del>
                                             <span class="discount-price"></span>
                                         </p>
                                     </div>
@@ -55,7 +53,7 @@
                                     <div>
                                         <p class="product_message">
                                             <c:out value="${allProduct.product_name}" /><br>
-                                            ¥ <fmt:formatNumber value="${allProduct.price}" pattern="#,###" /> (税抜)
+                                            ¥ <fmt:formatNumber value="${allProduct.price}" pattern="#,###" /> <small>(税抜)</small>
                                         </p>
                                     </div>
                                 </div>

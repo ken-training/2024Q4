@@ -5,6 +5,8 @@
 <head>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 	<link rel ="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<!-- 外部JavaScriptファイルのリンク -->
+    <script src="${pageContext.request.contextPath}/resources/js/script.js" defer></script>
 </head>
 <header>
 	<div class="header-container">
