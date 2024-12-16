@@ -29,27 +29,27 @@ h1{
     border-collapse: collapse;
     margin-bottom: 20px;
     border: 1px solid #ddd;
-   }
-   .account-info table td{
+}
+.account-info table td{
    	padding: 12px;
    	border-collapse: collapse;
    	margin-bottom: 20px;
    	border-bottom: none;
    	text-align: left;
-   }
-   .account-info table td:first-child {
+}
+.account-info table td:first-child {
     width: 200px;
     font-weight: bold;
     background-color: #f9f9f9;
     text-align: center;
-   }
-   .account-info table td:not(:first-child) {
+}
+.account-info table td:not(:first-child) {
    	padding-left: 35px; /* 文字の始まりを右にずらすため、左側に余白を追加*/
 }
-   .account-info table tr{
+.account-info table tr{
    	border-bottom: 1px solid #ddd;
-   }
-   .account-info input[type="submit"] {
+}
+.account-info input[type="submit"] {
     padding: 10px 20px;
     margin: 10px 5px;
     border: none;
@@ -61,10 +61,10 @@ h1{
     display: block;
     margin-left: auto;
     margin-right: auto;
-   }
-   .account-info input[type="submit"]:focus {
+}
+.account-info input[type="submit"]:focus {
     outline: none;
-   }
+}
 .button{
 	display: flex;
 	justify-content: center; /* ボタンを中央に配置 */
