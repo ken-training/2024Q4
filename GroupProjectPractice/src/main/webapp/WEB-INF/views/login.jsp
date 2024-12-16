@@ -198,7 +198,7 @@ text-align: center;	/*真ん中に寄せる*/
 
 	    </div>
 	</div>
-    <div class="footer"><jsp:include page="footer.jsp"></jsp:include></div>
+    <jsp:include page="footer.jsp"/>
 </body>
 </html>
 

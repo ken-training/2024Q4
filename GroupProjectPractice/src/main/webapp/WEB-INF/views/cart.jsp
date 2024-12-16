@@ -156,8 +156,8 @@ h1{
 			<p><button onclick="window.location.href='${pageContext.request.contextPath}/cart/empty'">カートを空にする</button></p>
 		</div>
 		</c:if>
-			<jsp:include page="footer.jsp"></jsp:include>
 		</div>
 	</form>
+	<jsp:include page="footer.jsp"/>
 </body>
 </html>

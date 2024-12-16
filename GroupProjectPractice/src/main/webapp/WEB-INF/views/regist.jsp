@@ -198,10 +198,6 @@ input[type="submit"] {
 	</form:form>
 </div>
 
-	<!-- フッターのインクルード -->
-	<div class="footer">
-		<jsp:include page="footer.jsp"></jsp:include>
-	</div>
-
+<jsp:include page="footer.jsp" />
 </body>
 </html>
