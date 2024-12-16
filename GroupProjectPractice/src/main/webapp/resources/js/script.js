@@ -18,9 +18,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
 				//取り消し線追加
 				var delPrice = item.querySelector('.product-price');
+				var del = document.createElement('del');
 
 				if(delPrice){
-					delPrice.innerHTML = '<del>￥ <fmt:formatNumber value="${productModel.getPrice() }" pattern="#,###" /> (税抜)</del>';
+					delPrice.innerHTML = "<del>" + delPrice.innerHTML + "</del>";
 				}
 
 	            // もし discountElement が存在する場合
