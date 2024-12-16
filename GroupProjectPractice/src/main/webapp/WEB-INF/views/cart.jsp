@@ -8,10 +8,80 @@
 <head>
 <meta charset="UTF-8">
 <style type="text/css">
+header{
+	z-index: 1000; /* 最前面に固定 */
+}
+body{
+	margin: 0;
+	padding: 0;
+}
+h1{
+	font-size: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+}
 .container {
     width: 80%;        /* 幅の設定 */
+    max-width: 1000px;
     margin: 0 auto;    /* 中央寄せ */
+	padding: 20px;
+	margin-top: 10px; /* ヘッダー分の余白 */
+}
+.cart-items table{
+	width:  calc(100% - 200px); /* 300px のボタン幅 + 少し余白を持たせる */
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-right: 20px; 		/* 右側の余白 */
+}
+.cart-items table th{
+	padding: 10px;
+	text-align: center;
+	font-weight: bold;
+}
+.cart-items table tr:first-child {
+	width: 200px;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #2c2c2c;
 
+}
+.cart-items table tr:not(:first-child) {
+	width: 200px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+.cart-items table td.product-name {
+    text-align: left;  /* 商品名だけ左寄せに */
+}
+/* 右上に固定されるカート関連のボタン */
+.cart-summary {
+    position: fixed;
+    top: 100px;      /* ヘッダーより少し下に配置 */
+    right: 10px;     /* 右端に配置 */
+    z-index: 9999;   /* 最前面に表示 */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    width: 250px;
+    font-size: 14px;
+}
+
+.cart-summary button {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    background-color: #494949;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.cart-summary input[type="submit"],
+.cart-summary p {
+    margin-bottom: 10px;
 }
 
 </style>
@@ -26,8 +96,7 @@
 		<c:if test="${ !empty(cartList)}">
 			<table>
 				<tr>
-					<th></th>
-					<th>商品名</th>
+					<th colspan="2">商品名</th>
 					<th>単価(税抜)</th>
 					<th>数量</th>
 				</tr>
@@ -35,8 +104,8 @@
 					<tr>
 						<td><img src="resources/img/${item.image}.png" alt="${item.product_name }"
 								  width="130" height="100"></td>
-						<td>
-						${item.product_name }
+						<td class="product-name">
+							${item.product_name }
 						</td>
 						<td>
 							<c:if test="${item.getDiscnt_is_valid() == 0 }">
@@ -66,26 +135,29 @@
 				<tr>
 				</tr>
 			</table>
-
 		</c:if>
 		<c:if test="${empty(cartList)}">
 			<p><c:out value="${message }"></c:out>
 			</p>
 		</c:if>
 		</div>
+
+
 		<c:if test="${!empty(cartList)}">
- 			<input type="submit" value="更新">
+		<div class="cart-summary">
+	 		<input type="submit" value="更新" style="width: 100%; padding: 10px 0; background-color: #494949; color: white; font-size: 16px; border: none; border-radius: 5px; cursor: pointer;">
+			<p>商品合計数 :  ${total_qty }</p>
+			<p>合計金額(税抜) : ￥ <fmt:formatNumber value="${total_amount }" pattern="#,###" /></p>
+			<a href="${pageContext.request.contextPath}/order">
+    			<button type="button" style="width: 100%; padding: 10px 0; background-color: #494949; color: white; font-size: 16px; border: none; border-radius: 5px;">
+        		購入に進む
+    			</button>
+			</a>
+			<p><button onclick="window.location.href='${pageContext.request.contextPath}/cart/empty'">カートを空にする</button></p>
+		</div>
 		</c:if>
- 	</form>
-	<c:if test="${!empty(cartList)}">
- 		<div class="cart-summary">
- 			<p>商品合計数 :  ${total_qty }</p>
- 			<p>合計金額(税抜) : ￥ <fmt:formatNumber value="${total_amount }" pattern="#,###" /></p>
- 			<button onclick="window.location.href='${pageContext.request.contextPath}/order'">購入に進む</button>
- 		</div>
-	<p><button onclick="window.location.href='${pageContext.request.contextPath}/cart/empty'">カートを空にする</button></p>
-	</c:if>
-		<jsp:include page="footer.jsp"></jsp:include>
-	</div>
+			<jsp:include page="footer.jsp"></jsp:include>
+		</div>
+	</form>
 </body>
 </html>
