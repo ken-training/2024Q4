@@ -1,8 +1,12 @@
 package jp.ken.project.dao;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionException;
@@ -19,6 +23,9 @@ public class CustomerDao {
 
 	@Autowired
 	private PlatformTransactionManager transactionManager;
+
+	// Mapper作成
+	private RowMapper<CustomerModel> customerMapper = new BeanPropertyRowMapper<CustomerModel>(CustomerModel.class);
 
 	//新規登録
 	public int registCustomer(CustomerModel customerModel) {
@@ -98,7 +105,35 @@ public class CustomerDao {
 		return numberOfRow;
 	}
 
-//	// 変更処理
-//	public int updateIsRemove(CustomerModel customerModel) {}
+	// 変更処理
+	public CustomerModel updateCustomer(int customer_id, Map<String, Object> map) {
+		// SQL文を作成
+		String sql = "UPDATE t_customers SET ";
 
+		// entrySet()を使ってキーと値を取り出す
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            String key = entry.getKey();    // キーを取得
+            Object value = entry.getValue();  // 値を取得
+            sql += key + "='" + value + "',";
+        }
+
+        sql = sql.substring(0, sql.length() - 1);
+		sql += " WHERE customer_id=?;";
+
+		// パラメータ作成
+		Object[] parameters = { customer_id };
+
+		int numberOfRow = jdbcTemplate.update(sql, parameters);
+		System.out.println("numOR:"+numberOfRow);
+
+		CustomerModel customerModel = new CustomerModel();
+		if(numberOfRow == 1) {
+        	customerModel = jdbcTemplate.queryForObject("SELECT * FROM t_customers WHERE customer_id = " + customer_id,  customerMapper);
+        }else {
+        	// エラー処理
+            throw new RuntimeException("更新に失敗しました。");
+        }
+
+		return customerModel;
+	}
 }

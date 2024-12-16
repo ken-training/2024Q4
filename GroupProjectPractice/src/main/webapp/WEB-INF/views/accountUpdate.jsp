@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>会員情報変更</title>
+
 <script>
 	// 最後の日を設定する関数
 	function monthday(year,month){
@@ -51,7 +52,6 @@
 						<td>・氏名</td>
 						<td>
 							<form:input path="customer_name"/>
-							<form:errors path="customer_name" element="span" cssClass="errors" />
 						</td>
 					</tr>
 					<tr>
@@ -64,22 +64,18 @@
 						<td>・メールアドレス</td>
 						<td>
 							<form:input path="mail" />
-							<form:errors path="mail" element="span" cssClass="errors" />
-							<c:out value="${ error }" />
 						</td>
 					</tr>
 					<tr>
 						<td>・パスワード</td>
 						<td>
  							<form:input path="password"  />
-							<form:errors path="password" element="span" cssClass="errors" />
  						</td>
 					</tr>
 					<tr>
 						<td>・郵便番号</td>
 						<td>
 							<form:input path="zip1" /> - <form:input path="zip2" />
-							<c:out value="${ error }" />
 						</td>
 					</tr>
 					<tr>
@@ -113,7 +109,6 @@
 						<td>・電話番号</td>
 						<td>
 							<form:input path="phone1" /> - <form:input path="phone2" /> - <form:input path="phone3" />
-							<c:out value="${ error }" />
 						</td>
 					</tr>
 					<tr>
@@ -141,7 +136,7 @@
  						</td>
 					</tr>
 				</table>
-				<input type="submit" name="action" value="変更" />
+				<input type="submit" value="変更" />
 				</form:form>
 		</div>
 	</main>
