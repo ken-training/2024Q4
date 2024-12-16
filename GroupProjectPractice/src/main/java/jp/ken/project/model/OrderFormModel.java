@@ -14,7 +14,7 @@ public class OrderFormModel implements Serializable {
 	private String shipName;
 
 
-	@Size(max = 12,message = "電話番号が無効です")
+//	@Size(max = 12,message = "電話番号が無効です")
 	private String shipPhonetic;
 
 	@NotEmpty(message = "必須入力です")

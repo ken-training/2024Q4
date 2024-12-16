@@ -8,11 +8,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jp.ken.project.group.GroupOrder;
 import jp.ken.project.model.CustomerModel;
 import jp.ken.project.model.OrderFormModel;
 
@@ -100,29 +103,33 @@ public class OrderController {
 
 	// 発注情報入力画面へ遷移
 	@RequestMapping(value = "/order", method = RequestMethod.POST)
-	public String post(@ModelAttribute OrderFormModel orderFormModel ,@RequestParam("action") String action,
+	public String post(@Validated(GroupOrder.class) @ModelAttribute OrderFormModel orderFormModel,BindingResult result,@RequestParam("action") String action,
 			Model model, HttpSession session){
+		// バリデーションエラーがある場合
+//		if (result.hasErrors()) {
+//			return "order";  // エラーがあれば再度入力画面を表示
+//		} else {
+			if ("注文確認".equals(action)) {
+				// 注文確認画面へ遷移する処理
+//            	return "confirm";
+				session.setAttribute("orderFormModel", orderFormModel);
+				return "redirect:/confirm";  // ConfirmのControllerができたら書き換える
 
-		if ("注文確認".equals(action)) {
-            // 注文確認画面へ遷移する処理
-//            return "confirm";
-			session.setAttribute("orderFormModel", orderFormModel);
-            return "redirect:/confirm";  // ConfirmのControllerができたら書き換える
+			} else if ("戻る".equals(action)) {
+				// 商品詳細画面へ遷移する処理
+				return "cart";
+//            	return "redirect:/cart";  // CartのControllerができたら書き換える
 
-        } else if ("戻る".equals(action)) {
-            // 商品詳細画面へ遷移する処理
-            return "cart";
-//            return "redirect:/cart";  // CartのControllerができたら書き換える
+			} else {
+				// 未知のアクション
 
-        } else {
-            // 未知のアクション
+				// エラーメッセージを表示
+				model.addAttribute("error", "エラーが発生しました。");
 
-        	// エラーメッセージを表示
-        	model.addAttribute("error", "エラーが発生しました。");
-
-            return "order";  // 発送情報画面へ遷移
-        }
-	}
+				return "order";  // 発送情報画面へ遷移
+			}
+		}
+//	}
 
 
 }

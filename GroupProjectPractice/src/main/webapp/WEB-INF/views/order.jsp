@@ -13,6 +13,16 @@
 		color: red;
 	}
 </style>
+<script>
+function check(){
+	var elem = document.fm.element;
+	var str = "";
+
+	for (var i= 0; i < 6; i++){
+		if(elem[i].value != ""){}
+	}
+}
+</script>
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
@@ -41,10 +51,13 @@
 		</div>
 		<div class="orderForm-container">
 			<h2>注文フォーム</h2>
-			<form:form modelAttribute="orderFormModel">
+			<form:form modelAttribute="orderFormModel" name="fm">
 				<div>
 					<div>氏名<span>*必須</span></div>
-					<div><form:input path="shipName" /></div>
+					<div>
+						<form:input path="shipName" />
+						<form:errors path="shipName" element="span" cssClass="error"/>
+					</div>
 				</div>
 				<div>
 					<div>フリガナ</div>
@@ -60,6 +73,9 @@
 						<form:input path="shipPhone2" size="5" placeholder="2～4桁" />
 						-
 						<form:input path="shipPhone3" size="5" placeholder="4桁" />
+						<form:errors path="shipPhone1" element="span" cssClass="error"/>
+						<form:errors path="shipPhone2" element="span" cssClass="error"/>
+						<form:errors path="shipPhone3" element="span" cssClass="error"/>
 					</div>
 				</div>
 				<div>
@@ -68,24 +84,29 @@
 						<form:input path="shipZip1" size="5" placeholder="3桁" />
 						-
 						<form:input path="shipZip2" size="5" placeholder="4桁" />
+						<form:errors path="shipZip1" element="span" cssClass="error"/>
+						<form:errors path="shipZip2" element="span" cssClass="error"/>
 					</div>
 				</div>
 				<div>
 					<div>都道府県<span>*必須</span></div>
 					<div>
 						<form:input path="shipPrefecture" />
+						<form:errors path="shipPrefecture" element="span" cssClass="error"/>
 					</div>
 				</div>
 				<div>
 					<div>市区町村<span>*必須</span></div>
 					<div>
 						<form:input path="shipCity" />
+						<form:errors path="shipCity" element="span" cssClass="error"/>
 					</div>
 				</div>
 				<div>
 					<div>番地<span>*必須</span></div>
 					<div>
 						<form:input path="shipBlock" />
+						<form:errors path="shipBlock" element="span" cssClass="error"/>
 					</div>
 				</div>
 				<div>
