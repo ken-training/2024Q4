@@ -65,6 +65,7 @@ public class LoginController {
     	   String[] parts = referer.split("/");
     	   // 遷移元のURLの最後が"cart"だったら"order"に飛ばしたい
     	   if(parts[parts.length - 1].equals("cart")) {
+    		   session.removeAttribute("login_referer");
     		   return "redirect:/order";
     	   }else {
     		   // それ以外の通常時はtopへ
