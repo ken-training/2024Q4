@@ -1,5 +1,7 @@
 package jp.ken.project.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +28,7 @@ public class RegistController {
 	}
 
 	@RequestMapping(value = "/regist", method = RequestMethod.POST)
-	public String postRegist(Model model,  @Validated(GroupOrder.class) @ModelAttribute CustomerModel customer,BindingResult result) {
+	public String postRegist(Model model,  @Validated(GroupOrder.class) @ModelAttribute CustomerModel customer,BindingResult result, HttpSession session) {
 	// バリデーションエラーがある場合
 		if (result.hasErrors()) {
 			return "regist";  // エラーがあれば再度入力画面を表示
@@ -41,6 +43,7 @@ public class RegistController {
 				int numberOfRow = customerDao.registCustomer(customerModel);
 				if (numberOfRow == 1) {
 					// 登録が成功した場合
+					session.setAttribute("customerModel", customerModel); // セッションに顧客情報を保存
 					return "redirect:/top";  // 成功時に遷移するビュー
 				}
 				model.addAttribute("error", "このメールアドレスは既に登録されています");

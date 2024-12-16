@@ -32,15 +32,39 @@ public class AccountController {
 
 	// マイページ画面へ遷移
 	@RequestMapping(method = RequestMethod.GET)
-	public String get(Model model){
+	public String get(Model model, HttpSession session) {
+		// セッションから顧客情報を取得
+		CustomerModel sessionCustomer = (CustomerModel) session.getAttribute("customerModel");
+
+		// 顧客情報がセッションに保存されていない場合（例えば、ログインしていない場合）の処理
+		if (sessionCustomer == null) {
+			return "redirect:/login"; // ログイン画面にリダイレクト
+		}
+
+		// 顧客情報がセッションにある場合、その情報を使ってモデルに設定
 		CustomerModel cModel = new CustomerModel();
 
-		// (仮)オブジェクトに設定
-		cModel.setMail("t.yamada@ken.jp");
+		// セッションから取得した氏名を設定
+		cModel.setCustomer_name(sessionCustomer.getCustomer_name());
+		// セッションから取得したフリガナを設定
+		cModel.setCustomer_phonetic(sessionCustomer.getCustomer_phonetic());
+		// セッションから取得したメールアドレスを設定
+		cModel.setMail(sessionCustomer.getMail());
+		// セッションから取得した郵便番号を設定
+		cModel.setZip(sessionCustomer.getZip());
+		// セッションから取得した住所を設定
+		cModel.setAddress(sessionCustomer.getAddress());
+		// セッションから取得した電話番号を設定
+		cModel.setPhone(sessionCustomer.getPhone());
+		// セッションから取得した生年月日を設定
+		cModel.setBirthday(sessionCustomer.getBirthday());
+		// セッションから取得したマスク化クレジットカード番号を設定
+		cModel.setMasked_creditcard_num(sessionCustomer.getMasked_creditcard_num());
+		// セッションから取得したカード有効期限を設定
+		cModel.setCreditcard_exp(sessionCustomer.getCreditcard_exp());
 
 		model.addAttribute("customerModel", cModel);
-
-		return "account";
+	    return "account"; // マイページ画面へ遷移
 	}
 
 	// submitの内容で次の処理を振り分け
@@ -68,14 +92,25 @@ public class AccountController {
 
 	// 退会処理
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public String delete(Model model, CustomerModel customerModel,HttpSession session){
-		customerModel.setMail("tamaoki1@yahoo.co.jp");//セッションで値をとってくる 現状は仮の値を入れている
-		int numberOfRow = customerDao.updateIsRemove(customerModel); //退会処理を実行
-		if (numberOfRow == 1) {
-			session.invalidate();  // セッションを無効化（ログアウト）
-			return "redirect:/top";
-		}else {
-			return "redirect:/top";//退会処理がエラーによりできなかった場合
+	public String delete(Model model, CustomerModel customerModel, HttpSession session) {
+		// セッションから顧客情報を取得
+		CustomerModel sessionCustomer = (CustomerModel) session.getAttribute("customerModel");
+
+		if (sessionCustomer != null) {
+			// セッションからメールアドレスを取得し、customerModelに設定
+			customerModel.setMail(sessionCustomer.getMail());
+
+			// 退会処理を実行
+			int numberOfRow = customerDao.updateIsRemove(customerModel); // 退会処理
+			if (numberOfRow == 1) {
+				session.invalidate();  // セッションを無効化（ログアウト）
+				return "redirect:/top"; // 退会処理後、トップページにリダイレクト
+			} else {
+				return "redirect:/top"; // 退会処理が失敗した場合もトップページにリダイレクト
+			}
+		} else {
+			// セッションに顧客情報がない場合、エラーハンドリング
+			return "redirect:/login"; // ログイン画面にリダイレクト（セッションが切れている場合など）
 		}
 	}
 

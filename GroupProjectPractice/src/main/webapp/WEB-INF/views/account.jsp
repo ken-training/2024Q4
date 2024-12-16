@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>マイページ</title>
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
@@ -45,7 +45,7 @@
 					</tr>
 					<tr>
 						<td>クレジットカード番号</td>
-						<td>${customerModel.creditcard_num }</td>
+						<td>${customerModel.masked_creditcard_num }</td>
 					</tr>
 					<tr>
 						<td>カード有効期限</td>
