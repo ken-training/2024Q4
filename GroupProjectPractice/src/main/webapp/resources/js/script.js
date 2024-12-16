@@ -16,6 +16,14 @@ document.addEventListener("DOMContentLoaded", function() {
 	            // 割引後の価格を表示
 	            var discountElement = item.querySelector('.discount-price');
 
+				//取り消し線追加
+				var delPrice = item.querySelector('.product-price');
+				var del = document.createElement('del');
+
+				if(delPrice){
+					delPrice.innerHTML = "<del>" + delPrice.innerHTML + "</del>";
+				}
+
 	            // もし discountElement が存在する場合
 	            if (discountElement) {
 	                // 割引価格を表示
