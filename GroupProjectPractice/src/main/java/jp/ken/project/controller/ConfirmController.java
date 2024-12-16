@@ -152,8 +152,8 @@ public class ConfirmController {
 			// sessionをクリア
 	        session.removeAttribute("cartList");  // カート
 	        session.removeAttribute("orderFormModel");  // 発注情報
-//			return "redirect:/complete";
-			return "redirect:/cart"; // complete.jspができるまでカートに遷移する
+			return "orderSuccess";
+//			return "redirect:/cart"; // complete.jspができるまでカートに遷移する
 		}else {
 			model.addAttribute("error", "エラーが発生しました");
 			return "redirect:/confirm";
