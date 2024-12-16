@@ -3,6 +3,7 @@ package jp.ken.project.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,12 @@ import jp.ken.project.model.CartModel;
 public class CartController {
 
 	@RequestMapping(value = "cart", method = RequestMethod.GET)
-	public String toCart(HttpSession session, Model model) {
+	public String toCart(HttpSession session, Model model, HttpServletResponse response) {
+	    // キャッシュを無効化
+	    response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+	    response.setHeader("Pragma", "no-cache");
+	    response.setDateHeader("Expires", 0);
+
 		//セッションからCartオブジェクト取得
 		@SuppressWarnings("unchecked")
 		List<CartModel> cartList = (List<CartModel>)session.getAttribute("cartList");
@@ -36,6 +42,7 @@ public class CartController {
 
 		} else {
 			model.addAttribute("message", "カートは空です");
+			session.removeAttribute("cartList");
 		}
 
 		return "cart";
@@ -45,6 +52,7 @@ public class CartController {
 	public String cartUpdate(@RequestParam("productId") int[] update_productId,
             @RequestParam("quantity") int[] update_quantity,
             HttpSession session, Model model) {
+
 		//セッションからCartオブジェクト取得
 		@SuppressWarnings("unchecked")
 		List<CartModel> cartList = (List<CartModel>)session.getAttribute("cartList");
@@ -78,6 +86,7 @@ public class CartController {
 		//削除でカートが空になっている可能性がある
 		if(cartList == null || cartList.size() == 0){
 			model.addAttribute("message", "カートは空です");
+			session.removeAttribute("cartList");
 		}
 
 		return "redirect:/cart";

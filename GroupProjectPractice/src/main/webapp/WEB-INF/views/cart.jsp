@@ -38,7 +38,12 @@
 						<td>
 						${item.product_name }
 						</td>
-						<td>\ <fmt:formatNumber value="${item.price }" pattern="#,###" /></td>
+						<td>\ <fmt:formatNumber value="${item.price }" pattern="#,###" />
+						<c:if test="${item.getDiscnt_is_valid() == 1 }">
+						割引有り<br>
+						<fmt:formatNumber value="${item.price * item.getDiscnt_rate() }" pattern="#,###" />
+						</c:if>
+						</td>
 						<td>
 							<input type="hidden" name="productId" value="${item.product_id }">
 							<select name="quantity">
@@ -61,13 +66,18 @@
 			</p>
 		</c:if>
 		</div>
-			<input type="submit" value="更新">
-	</form>
-		<div class="cart-summary">
-			<p>商品合計数 :  ${total_qty }</p>
-			<p>合計金額(税抜) : ￥ <fmt:formatNumber value="${total_amount }" pattern="#,###" /></p>
-			<button onclick="window.location.href='${pageContext.request.contextPath}/order'">購入に進む</button>
-		</div>
+		<c:if test="${!empty(cartList)}">
+ 			<input type="submit" value="更新">
+		</c:if>
+ 	</form>
+	<c:if test="${!empty(cartList)}">
+ 		<div class="cart-summary">
+ 			<p>商品合計数 :  ${total_qty }</p>
+ 			<p>合計金額(税抜) : ￥ <fmt:formatNumber value="${total_amount }" pattern="#,###" /></p>
+ 			<button onclick="window.location.href='${pageContext.request.contextPath}/order'">購入に進む</button>
+ 		</div>
+	<p><button onclick="window.location.href='${pageContext.request.contextPath}/cart/empty'">カートを空にする</button></p>
+	</c:if>
 		<jsp:include page="footer.jsp"></jsp:include>
 	</div>
 </body>
