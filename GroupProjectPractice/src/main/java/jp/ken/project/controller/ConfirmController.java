@@ -39,14 +39,25 @@ public class ConfirmController {
 		int total_qty = 0;
 
 		if (cartList != null && cartList.size() != 0) {
-		    for(CartModel cartmodel : cartList) {
-		    	total_amount += cartmodel.getPrice() * cartmodel.getCount();
-		    	total_qty += cartmodel.getCount();
+		    for(CartModel cartModel : cartList) {
+		    	int amount = cartModel.getPrice() * cartModel.getCount();
+		    	total_amount += cartModel.getDiscnt_is_valid().equals("1") ? amount * (1 - cartModel.getDiscnt_rate()) : amount;
+		    	total_qty += cartModel.getCount();
 		    }
 		    model.addAttribute("total_amount", total_amount);
 		    model.addAttribute("total_qty", total_qty);
 		}
 //		model.addAttribute("orderFormModel", request.getAttribute("orderFormModel"));
+
+		OrderFormModel orderFormModel = (OrderFormModel) session.getAttribute("orderFormModel");
+		if(orderFormModel != null) {
+			String pay = orderFormModel.getPay();
+			if (pay.equals("cash")) {
+				model.addAttribute("pay", "代金引換(現金)");
+			}else if(pay.equals("credit")) {
+				model.addAttribute("pay", "クレジットカード");
+			}
+		}
 
 
 		return "confirm";
@@ -98,8 +109,9 @@ public class ConfirmController {
         // 合計金額を算出
         int total_amount = 0;
 		if (cartList != null && cartList.size() != 0) {
-		    for(CartModel cartmodel : cartList) {
-		    	total_amount += cartmodel.getPrice() * cartmodel.getCount();
+		    for(CartModel cartModel : cartList) {
+		    	int amount = cartModel.getPrice() * cartModel.getCount();
+		    	total_amount += cartModel.getDiscnt_is_valid().equals("1") ? amount * (1 - cartModel.getDiscnt_rate()) : amount;
 		    }
 		}
 		// OrderModelにセット

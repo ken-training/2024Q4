@@ -38,11 +38,18 @@
 						<td>
 						${item.product_name }
 						</td>
-						<td>\ <fmt:formatNumber value="${item.price }" pattern="#,###" />
-						<c:if test="${item.getDiscnt_is_valid() == 1 }">
-						割引有り<br>
-						<fmt:formatNumber value="${item.price * item.getDiscnt_rate() }" pattern="#,###" />
-						</c:if>
+						<td>
+							<c:if test="${item.getDiscnt_is_valid() == 0 }">
+								\ <fmt:formatNumber value="${item.price }" pattern="#,###" /><small>(税抜)</small>
+							</c:if>
+							<c:if test="${item.getDiscnt_is_valid() == 1 }">
+	                           <div>
+	                               <p class="product_message"  id="price" data-discount-rate="${item.getDiscnt_rate()}" data-price="${item.price}">
+	                                   <del>¥ <fmt:formatNumber value="${item.price}" pattern="#,###" /> <small>(税抜)</small></del>
+	                                   <span class="discount-price"></span>
+	                               </p>
+	                           </div>
+							</c:if>
 						</td>
 						<td>
 							<input type="hidden" name="productId" value="${item.product_id }">

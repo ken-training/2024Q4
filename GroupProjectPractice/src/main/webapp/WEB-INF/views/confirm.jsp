@@ -29,7 +29,7 @@
 	<p>配送料 : WEBサイト開設キャンペーンにつき、送料無料!!</p>
 	<p>ご請求額 : ￥ <fmt:formatNumber value="${total_amount * 1.1}" pattern="#,###"></fmt:formatNumber></p>
 	<hr>
-	<p>お支払い情報 : ${orderFormModel.pay }</p>
+	<p>お支払い情報 : ${pay }</p>
 	<p>お届け先 : ${orderFormModel.shipPrefecture }${orderFormModel.shipCity }
 	${orderFormModel.shipBlock }${orderFormModel.shipBuilding }</p>
 	<button onclick="window.location.href='${pageContext.request.contextPath}/order'">発送情報を変更する</button>
@@ -40,9 +40,18 @@
 				<td><img src="resources/img/${item.image}.png" alt="${item.product_name }"
 						  width="130" height="100"></td>
 				<td>
-				${item.product_name } <br>
-				単価(税抜) : \ <fmt:formatNumber value="${item.price }" pattern="#,###" /><br>
-				数量 : ${item.count } 個
+					<p>${item.product_name }</p>
+					<c:if test="${item.getDiscnt_is_valid() == 0 }">
+						\ <fmt:formatNumber value="${item.price }" pattern="#,###" /><small>(税抜)</small>
+					</c:if>
+					<c:if test="${item.getDiscnt_is_valid() == 1 }">
+                          <div>
+                              <p class="product_message"  id="price" data-discount-rate="${item.getDiscnt_rate()}" data-price="${item.price}">
+                                  <del>¥ <fmt:formatNumber value="${item.price}" pattern="#,###" /> <small>(税抜)</small></del>
+                                  <span class="discount-price"></span>
+                              </p>
+                          </div>
+					</c:if>
 				</td>
 			</tr>
 		</c:forEach>

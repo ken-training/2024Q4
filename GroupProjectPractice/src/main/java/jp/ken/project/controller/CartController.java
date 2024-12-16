@@ -33,9 +33,10 @@ public class CartController {
 		if (cartList != null && cartList.size() != 0) {
 			int total_amount = 0;
 			int total_qty = 0;
-		    for(CartModel cartmodel : cartList) {
-		    	total_amount += cartmodel.getPrice() * cartmodel.getCount();
-		    	total_qty += cartmodel.getCount();
+		    for(CartModel cartModel : cartList) {
+		    	int amount = cartModel.getPrice() * cartModel.getCount();
+		    	total_amount += cartModel.getDiscnt_is_valid().equals("1") ? amount * (1 - cartModel.getDiscnt_rate()) : amount;
+		    	total_qty += cartModel.getCount();
 		    }
 		    model.addAttribute("total_amount", total_amount);
 		    model.addAttribute("total_qty", total_qty);
@@ -62,13 +63,14 @@ public class CartController {
 			int total_qty = 0;
 			int cnt = 0;
 			ArrayList<Integer> dellist = new ArrayList<Integer>();
-		    for(CartModel cartmodel : cartList) {
+		    for(CartModel cartModel : cartList) {
 		    	if(update_quantity[cnt] == 0) {
 		    		dellist.add(cnt);
-		    	}else if(update_productId[cnt] == cartmodel.getProduct_id()) {
-		    		cartmodel.setCount(update_quantity[cnt]);
-		    		total_amount += cartmodel.getPrice() * cartmodel.getCount();
-		    		total_qty += cartmodel.getCount();
+		    	}else if(update_productId[cnt] == cartModel.getProduct_id()) {
+		    		cartModel.setCount(update_quantity[cnt]);
+		    		int amount = cartModel.getPrice() * cartModel.getCount();
+		    		total_amount += cartModel.getDiscnt_is_valid().equals("1") ? amount * (1 - cartModel.getDiscnt_rate()) : amount;
+		    		total_qty += cartModel.getCount();
 		    	}
 		    	cnt++;
 		    }

@@ -86,7 +86,18 @@ a {
 	<p><strong>${message }</strong></p>
 		<h3>${productModel.getProduct_name() }</h3>
 		<p>${productModel.getProduct_detail() }</p>
-		<p>値段: ￥ <fmt:formatNumber value="${productModel.getPrice() }" pattern="#,###" />- (税抜)</p>
+		<c:if test="${productModel.getDiscnt_is_valid() == 0 }">
+			<p>値段: ￥ <fmt:formatNumber value="${productModel.getPrice() }" pattern="#,###" />- (税抜)</p>
+		</c:if>
+		<c:if test="${productModel.getDiscnt_is_valid() == 1 }">
+			<div>
+			    <p class="product_message"  id="price" data-discount-rate="${productModel.getDiscnt_rate()}"
+			    data-price="${productModel.price}">
+			        値段:<del> ￥ <fmt:formatNumber value="${productModel.price}" pattern="#,###" /> <small>(税抜)</small></del>
+			        <span class="discount-price"></span>
+			    </p>
+			</div>
+		</c:if>
 		<p>発売開始日: <fmt:formatDate value="${productModel.sale_start_date}" pattern="yyyy/MM/dd" /></p>
 	</div>
 
