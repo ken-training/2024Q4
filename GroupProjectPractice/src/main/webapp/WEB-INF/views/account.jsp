@@ -94,7 +94,11 @@ h1{
 					</tr>
 					<tr>
 						<td>郵便番号</td>
-						<td>${customerModel.zip }</td>
+						<td>
+							<c:if test="${!empty customerModel.zip }">
+							〒 ${customerModel.zip }
+							</c:if>
+						</td>
 					</tr>
 					<tr>
 						<td>住所</td>
@@ -117,11 +121,13 @@ h1{
 					<tr>
 						<td>カード有効期限</td>
 						<td>
-							<c:set var="exp" value="${customerModel.creditcard_exp}" />
-							<c:set var="month" value="${fn:substring(exp, 0, 2)}" />
-							<c:set var="year" value="${fn:substring(exp, 3, 5)}" />
-							<c:set var="fullYear" value="20${year}" />
-							${month}月/${fullYear}年
+							<c:if test="${!empty customerModel.creditcard_exp}">
+								<c:set var="exp" value="${customerModel.creditcard_exp}" />
+								<c:set var="month" value="${fn:substring(exp, 0, 2)}" />
+								<c:set var="year" value="${fn:substring(exp, 3, 5)}" />
+								<c:set var="fullYear" value="20${year}" />
+								${month}月/${fullYear}年
+							</c:if>
 						</td>
 					</tr>
 				</table>
