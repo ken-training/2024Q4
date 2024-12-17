@@ -100,7 +100,8 @@ a {
 
 	}
 	.search-button:hover {
-	    background-color: #6a6a6a; /* ホバー時に背景色変更 */
+	    opacity: 0.8;
+	    transition: 0.8s;
 	}
 
 		/* ナビ枠 */
@@ -159,19 +160,17 @@ a {
 /* ------------------------ */
 /* 発送情報入力 */
 /* ------------------------ */
+	.order-container{
+		display: flex;
+	}
+
 	/* カートの中身（位置固定div) */
     #fixedDiv {
     	width: 25vw;  /* ウィンドウの幅の25% */
-    	height: 100%;
-        position: fixed;
-        top: 0;
-        right: 0;
-        padding: 15px;
         border-left: 1px solid #c0c0c0;
         /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
-        z-index: -1;
         text-align: center;
-        padding-top: 100px;
+		background: #efefef;
     }
 
     #credit {
@@ -187,6 +186,51 @@ a {
 
 	.side-contents{
 		padding: 20px;
-		background: #efefef;
-		border-radius: 10px;
+		position: sticky;
+		top: 0;
+	}
+
+	#orderFormModel{
+		width: 500px;
+	}
+
+	.form-item{
+		margin-top: 20px;
+	}
+	.form-control {
+		display: block;
+		width: 100%;
+		padding: 0.5rem 0.75rem;
+		font-size: 1rem;
+		line-height: 1.5;
+		background-image: none;
+		background-clip: padding-box;
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		overflow: hidden;
+		border-radius: 0.25rem;
+	}
+	.form-control:focus {
+		outline: none;
+	}
+
+/* 横並び縦真ん中 */
+.flex-center{
+		display: flex;
+		align-items: center;
+	}
+
+	.button {
+		display: inline-block;
+		padding: 10px 20px;
+		background: #494949;
+		color: #eee;
+		border-radius: 5px;
+		text-align: center;
+		font-size: 16px;
+		cursor: pointer;
+		border: none;
+	}
+	.button:hover {
+	    opacity: 0.8;
+	    transition: 0.8s;
 	}
