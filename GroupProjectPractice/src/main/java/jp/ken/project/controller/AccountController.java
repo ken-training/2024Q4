@@ -103,7 +103,11 @@ public class AccountController {
 		if (sessionCustomer != null) {
 			// セッションからメールアドレスを取得し、customerModelに設定
 			customerModel.setMail(sessionCustomer.getMail());
-
+			// 元のメールアドレス（退会前のメールアドレス）を設定
+			customerModel.setOriginalMail(sessionCustomer.getMail());
+			// 退会処理の前にユニークなメールアドレスを生成
+			String newMail = getUniqueMail(customerModel.getMail()); // ユニークなメールアドレスを生成
+			customerModel.setMail(newMail); // 新しいメールアドレスを設定
 			// 退会処理を実行
 			int numberOfRow = customerDao.updateIsRemove(customerModel); // 退会処理
 			if (numberOfRow == 1) {
@@ -118,6 +122,17 @@ public class AccountController {
 		}
 	}
 
+	// メールアドレスをユニークにするための関数
+	private String getUniqueMail(String originalMail) {
+		String newMail = originalMail;
+		int i = 1;
+		// 同じメールアドレスが存在しないかをチェック
+		while (customerDao.isMailExist(newMail)) {
+			newMail = originalMail + i; // 末尾に番号を付ける
+			i++;
+		}
+		return newMail;
+	}
 	// 会員情報変更処理
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String updateGet(HttpSession session, Model model){

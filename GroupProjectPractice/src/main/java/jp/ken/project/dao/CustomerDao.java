@@ -67,12 +67,19 @@ public class CustomerDao {
 		return numberOfRow;
 	}
 
+	// 対象メールアドレスがすでにデータベースに存在するか確認するメソッド
+	public boolean isMailExist(String mail) {
+		String checkSql = "SELECT COUNT(*) FROM t_customers WHERE mail = ?";
+		int count = jdbcTemplate.queryForObject(checkSql, new Object[]{mail}, Integer.class);
+		return count > 0; // 存在する場合は true を返す
+	}
+
 	//退会処理
 	public int updateIsRemove(CustomerModel customerModel) {
 		//SQL文を作成。t_customersテーブルで、指定されたメールアドレスのレコードに対してis_removeカラムを更新する。
-		String sql = "UPDATE t_customers SET is_remove = ? WHERE mail = ?";
+		String sql = "UPDATE t_customers SET is_remove = ?, mail = ? WHERE mail = ?";
 		//is_removeに「1」を設定し、対象のメールアドレスを指定する。
-		Object[] parameters = { "1", customerModel.getMail() };
+		Object[] parameters = { "1", customerModel.getMail(), customerModel.getOriginalMail() };
 		//トランザクションの状態を管理する変数。
 		TransactionStatus transactionStatus = null;
 		DefaultTransactionDefinition transactionDefinition = new DefaultTransactionDefinition();
