@@ -3,6 +3,7 @@ package jp.ken.project.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,7 +29,8 @@ public class RegistController {
 	}
 
 	@RequestMapping(value = "/regist", method = RequestMethod.POST)
-	public String postRegist(Model model,  @Validated(GroupOrder.class) @ModelAttribute CustomerModel customer,BindingResult result, HttpSession session) {
+	public String postRegist(Model model,  @Validated(GroupOrder.class) @ModelAttribute CustomerModel customer,
+			BindingResult result, HttpSession session) {
 	// バリデーションエラーがある場合
 		if (result.hasErrors()) {
 			return "regist";  // エラーがあれば再度入力画面を表示
@@ -39,15 +41,23 @@ public class RegistController {
 			customerModel.setMail(customer.getMail());
 			customerModel.setPassword(customer.getPassword());
 
-				// 顧客情報をデータベースに登録
-				int numberOfRow = customerDao.registCustomer(customerModel);
-				if (numberOfRow == 1) {
-					// 登録が成功した場合
-					session.setAttribute("customerModel", customerModel); // セッションに顧客情報を保存
-					return "redirect:/top";  // 成功時に遷移するビュー
-				}
-				model.addAttribute("error", "このメールアドレスは既に登録されています");
-				return "regist";  // 登録に失敗した場合、再度エラーメッセージを表示
+			// 顧客情報をデータベースに登録
+			int customer_id = customerDao.registCustomerAndGetId(customerModel);
+			// 取得したカスタマーIDをセット
+			customerModel.setCustomer_id(customer_id);
+			// パスワードをハッシュ化
+			ShaPasswordEncoder encoder = new ShaPasswordEncoder();
+			String encodePassword = encoder.encodePassword(customerModel.getPassword(), customerModel.getCustomer_id());
+			customerModel.setPassword(encodePassword);
+			// DBのパスワードを書き換え
+			int numberOfRow = customerDao.registHashPassword(customer_id, encodePassword);
+			if (numberOfRow == 1) {
+				// 登録が成功した場合
+				session.setAttribute("customerModel", customerModel); // セッションに顧客情報を保存
+				return "redirect:/top";  // 成功時に遷移するビュー
 			}
+			model.addAttribute("error", "このメールアドレスは既に登録されています");
+			return "regist";  // 登録に失敗した場合、再度エラーメッセージを表示
 		}
+	}
 }

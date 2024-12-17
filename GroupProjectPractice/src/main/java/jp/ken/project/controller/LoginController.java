@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,21 +44,24 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@Validated (GroupOrder.class) @ModelAttribute("loginFormModel") LoginFormModel loginForm,
                         BindingResult bindingResult, Model model, HttpSession session) {
-       // エラーがあれば再度ログイン画面を表示
-        if (bindingResult.hasErrors()) {
-           return "login";
-       }
+		// エラーがあれば再度ログイン画面を表示
+		if (bindingResult.hasErrors()) {
+		   return "login";
+		   }
 
-        CustomerModel customerModel = loginDao.getCustomerByMail(loginForm.getMailaddress());
+		 CustomerModel customerModel = loginDao.getCustomerByMail(loginForm.getMailaddress());
 
-      //退会したユーザーがログインしたとき
-        if(customerModel == null) {
-        	model.addAttribute("error", "メールアドレスまたはパスワードが間違っています");
-        	return "login";
-        }
+		  //退会したユーザーがログインしたとき
+		if(customerModel == null) {
+			model.addAttribute("error", "メールアドレスまたはパスワードが間違っています");
+			return "login";
+		}
 
-       // ユーザー認証処理
-       if (loginForm.getPassword().equals(customerModel.getPassword())) {
+        // ユーザー認証処理
+		// 入力されたパスワードをハッシュ化
+		ShaPasswordEncoder encoder = new ShaPasswordEncoder();
+		String encodePassword = encoder.encodePassword(loginForm.getPassword(), customerModel.getCustomer_id());
+       if (encodePassword.equals(customerModel.getPassword())) {
            // ログイン成功時、トップページに遷移
     	   session.setAttribute("customerModel", customerModel);
     	   String referer = (String) session.getAttribute("login_referer");

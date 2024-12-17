@@ -28,7 +28,7 @@ public class CustomerDao {
 	private RowMapper<CustomerModel> customerMapper = new BeanPropertyRowMapper<CustomerModel>(CustomerModel.class);
 
 	//新規登録
-	public int registCustomer(CustomerModel customerModel) {
+	public int registCustomerAndGetId(CustomerModel customerModel) {
 		//t_customersテーブルに新しいレコードを挿入するためのINSERT文
 		String sql = "INSERT INTO t_customers(customer_name, mail, password) VALUES(?, ?, ?)";
 		//挿入するデータを設定。customer_name、mail、passwordを取得し、セットする
@@ -38,7 +38,49 @@ public class CustomerDao {
 		TransactionStatus transactionStatus = null;
 		DefaultTransactionDefinition transactionDefinition = new DefaultTransactionDefinition();
 		int numberOfRow = 0;
+		int customer_id = -1;
 
+		try {
+			transactionStatus = transactionManager.getTransaction(transactionDefinition);// トランザクション開始
+			numberOfRow = jdbcTemplate.update(sql, parameters);// SQL実行
+			if(numberOfRow == 1) {
+				customer_id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+			}else {
+				throw new Exception("変更レコード数が想定外の値です。");
+			}
+			transactionManager.commit(transactionStatus);// 成功した場合はコミット
+		} catch (DataAccessException e) {// データアクセス例外が発生した場合
+			if (transactionStatus != null) {
+				transactionManager.rollback(transactionStatus);
+			}
+			e.printStackTrace();
+		} catch (TransactionException e) {// トランザクション関連の例外が発生した場合
+			if (transactionStatus != null) {
+				transactionManager.rollback(transactionStatus);
+			}
+			e.printStackTrace();
+		} catch (Exception e) { // その他の予期しない例外
+			if (transactionStatus != null) {
+				transactionManager.rollback(transactionStatus);
+			}
+			e.printStackTrace();
+		} finally { // 最後にトランザクションを確実に終了させる
+			if (transactionStatus != null && !transactionStatus.isCompleted()) {
+				transactionManager.rollback(transactionStatus);
+			}
+		}
+		//
+		return customer_id;
+	}
+
+	// ハッシュ化したパスワードを登録しなおす（成功は１が返ってくる）
+	public int registHashPassword(int customer_id, String hashedPass) {
+		String sql = "UPDATE t_customers SET password = ? WHERE customer_id = ?";
+		Object[] parameters = { hashedPass, customer_id };
+		//トランザクションの状態を管理する変数。
+		TransactionStatus transactionStatus = null;
+		DefaultTransactionDefinition transactionDefinition = new DefaultTransactionDefinition();
+		int numberOfRow = 0;
 		try {
 			transactionStatus = transactionManager.getTransaction(transactionDefinition);// トランザクション開始
 			numberOfRow = jdbcTemplate.update(sql, parameters);// SQL実行
@@ -63,7 +105,7 @@ public class CustomerDao {
 				transactionManager.rollback(transactionStatus);
 			}
 		}
-		//
+		// 更新された行数を返す 想定は1
 		return numberOfRow;
 	}
 
