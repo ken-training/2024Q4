@@ -131,8 +131,6 @@ public class AccountController {
 		@SuppressWarnings("unchecked")
 		CustomerModel customerModel = (CustomerModel)session.getAttribute("customerModel");
 		System.out.println("セッション確認" + customerModel.getCustomer_id());
-//		CustomerModel customerModel = new CustomerModel();	// いったん仮置き
-//		customerModel.setMail("oota@gmail.com");
 
 		// customerModelをupdateFormModelに変換
 		updateFormModel = parseUpdateFormModel(customerModel);
@@ -146,16 +144,10 @@ public class AccountController {
 		creditExpYList.add(0,"----");
 
 		// プルダウンで表示する用のリストをモデルに紐づけ
-		model.addAttribute("birthYearList", getNumberList(thisYear - 125, thisYear));
+		model.addAttribute("birthYearList", birthYearList);
 		model.addAttribute("birthMonthList", getNumberList(1, 12));
 		model.addAttribute("creditExpMList", creditExpMList);
 		model.addAttribute("creditExpYList", creditExpYList);
-
-		// 誕生日が未設定の場合、初期値を設定する
-		if (updateFormModel.getBirthYear() == null) {
-			model.addAttribute("birthYearList", birthYearList);
-		}
-
 
 		model.addAttribute("updateFormModel", updateFormModel);
 		return "accountUpdate";
@@ -176,8 +168,6 @@ public class AccountController {
 				@SuppressWarnings("unchecked")
 				CustomerModel sessionCustomerModel = (CustomerModel)session.getAttribute("customerModel");
 				int id = sessionCustomerModel.getCustomer_id();
-//				CustomerModel sessionCustomerModel = new CustomerModel();	// いったん仮置き
-//				customerModel.setMail("oota@gmail.com");
 
 				// updateFormModelからcustomerModelに変換
 				CustomerModel customerModel = parseCustomerModel(updateFormModel);
@@ -188,15 +178,17 @@ public class AccountController {
 				System.out.println(differences.toString());
 
 
-				// 顧客情報をデータベースに登録
-				sessionCustomerModel = customerDao.updateCustomer(id, differences);
-				session.setAttribute("customerModel", sessionCustomerModel);
+				// 変更箇所があった場合
+				if (!differences.isEmpty()) {
+					// 顧客情報をデータベースに登録
+					sessionCustomerModel = customerDao.updateCustomer(id, differences);
+					session.setAttribute("customerModel", sessionCustomerModel);
+				}
 
-				return "redirect:/top";  // 成功時に遷移するビュー
-//				model.addAttribute("error", "このメールアドレスは既に登録されています");
-//				return "regist";  // 登録に失敗した場合、再度エラーメッセージを表示
+				return "redirect:/account";  // 成功時に遷移するビュー
+
 			} catch (IllegalAccessException e) {
-				return "regist";  // 登録に失敗した場合、再度エラーメッセージを表示
+				return "redirect:/account";  // 登録に失敗した場合、再度エラーメッセージを表示
 				// どうしよ
 			}
 		}
@@ -209,7 +201,11 @@ public class AccountController {
 
 		// start～endまでの数字をリストの中に格納する
 		for(int i = start; i<= end; i++) {
-			numberList.add(Integer.toString(i));
+			if (i < 10) {
+				numberList.add("0" + Integer.toString(i));
+			} else {
+				numberList.add(Integer.toString(i));
+			}
 		}
 
 		return numberList;
@@ -309,7 +305,14 @@ public class AccountController {
 			// マスク化したクレジットカード番号
 			customerModel.setMasked_creditcard_num("**** - **** - **** - " + updateFormModel.getCreditNum4());
 
+		}
+
+		if(!updateFormModel.getCreditExpM().isEmpty() && !updateFormModel.getCreditExpY().isEmpty()
+				&& !updateFormModel.getCreditExpM().equals("--") && !updateFormModel.getCreditExpY().equals("----")) {
 			// クレジットカード有効期限
+			System.out.println("M:" + updateFormModel.getCreditExpM());
+			System.out.println("Y:" + updateFormModel.getCreditExpY());
+
 			customerModel.setCreditcard_exp(updateFormModel.getCreditExpM() + "/" + updateFormModel.getCreditExpY().substring(2));
 		}
 

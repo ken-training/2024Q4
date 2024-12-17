@@ -128,7 +128,7 @@ public class CustomerDao {
 
 		CustomerModel customerModel = new CustomerModel();
 		if(numberOfRow == 1) {
-        	customerModel = jdbcTemplate.queryForObject("SELECT * FROM t_customers WHERE customer_id = " + customer_id,  customerMapper);
+        	customerModel = jdbcTemplate.queryForObject("SELECT * FROM t_customers WHERE customer_id =?", parameters,  customerMapper);
         }else {
         	// エラー処理
             throw new RuntimeException("更新に失敗しました。");
