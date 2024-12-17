@@ -59,6 +59,9 @@ public class CustomerModel implements Serializable{
 	//退会フラグ
 	private String is_remove;
 
+	// 顧客の元のメールアドレス（退会時に変更前のメールアドレスを保持）
+	private String originalMail;
+
 	public int getCustomer_id() {
 		return customer_id;
 	}
@@ -143,5 +146,10 @@ public class CustomerModel implements Serializable{
 	public void setMasked_creditcard_num(String masked_creditcard_num) {
 		this.masked_creditcard_num = masked_creditcard_num;
 	}
-
+	public String getOriginalMail() {
+		return originalMail;
+	}
+	public void setOriginalMail(String originalMail) {
+		this.originalMail = originalMail;
+	}
 }
