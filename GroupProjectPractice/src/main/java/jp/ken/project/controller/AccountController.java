@@ -161,6 +161,7 @@ public class AccountController {
 		// プルダウンで表示する用のリストをモデルに紐づけ
 		model.addAttribute("birthYearList", birthYearList);
 		model.addAttribute("birthMonthList", getNumberList(1, 12));
+		model.addAttribute("birthDayList", getNumberList(1, 31));
 		model.addAttribute("creditExpMList", creditExpMList);
 		model.addAttribute("creditExpYList", creditExpYList);
 
@@ -172,11 +173,10 @@ public class AccountController {
 	public String updatePost(@Validated(GroupOrder.class) @ModelAttribute UpdateFormModel updateFormModel,BindingResult result, Model model,HttpSession session){
 //		System.out.println("post");
 		// バリデーションエラーがある場合
-//		if (result.hasErrors()) {
-//					return "redirect:/update";  // エラーがあれば再度入力画面を表示
-
+		if (result.hasErrors()) {
+					return "redirect:/account/update";  // エラーがあれば再度入力画面を表示
 		// 正常
-//		} else {
+		} else {
 
 			try {
 				// セッションから会員IDを取得
@@ -208,7 +208,7 @@ public class AccountController {
 			}
 		}
 //		return "accountUpdate";
-//	}
+	}
 
 	// プルダウン用の数字のリストを作成するメソッド
 	private List<String> getNumberList(int start, int end){
@@ -216,11 +216,12 @@ public class AccountController {
 
 		// start～endまでの数字をリストの中に格納する
 		for(int i = start; i<= end; i++) {
-			if (i < 10) {
-				numberList.add("0" + Integer.toString(i));
-			} else {
-				numberList.add(Integer.toString(i));
-			}
+//			if (i < 10) {
+//				numberList.add("0" + Integer.toString(i));
+//			} else {
+//				numberList.add(Integer.toString(i));
+//			}
+			numberList.add(Integer.toString(i));
 		}
 
 		return numberList;

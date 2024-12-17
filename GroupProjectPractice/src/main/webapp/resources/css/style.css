@@ -14,9 +14,10 @@
 		flex: 1;
 		display: flex;
 		align-items: flex-end;
+		margin-top: 30px;
 	}
 
-a {
+	a {
 	  color: inherit;       /* リンクのテキスト色を親要素から継承 */
 	  text-decoration: none; /* 下線を消す */
 	  background: transparent; /* 背景色を透明に */
@@ -26,6 +27,39 @@ a {
 	.copyright{
 		width: 100%;
 		text-align: center;
+	}
+
+	select {
+		text-align: center; /* selectのテキストを中央揃え */
+	}
+
+	option {
+		text-align: center; /* optionのテキストを中央揃え */
+	}
+
+/* ------------------------ */
+/* 共有css */
+/* ------------------------ */
+/* 横並び縦真ん中 */
+.flex-center{
+		display: flex;
+		align-items: center;
+	}
+
+	.button {
+		display: inline-block;
+		padding: 10px 20px;
+		background: #494949;
+		color: #eee;
+		border-radius: 5px;
+		text-align: center;
+		font-size: 16px;
+		cursor: pointer;
+		border: none;
+	}
+	.button:hover {
+	    opacity: 0.8;
+	    transition: 0.8s;
 	}
 
 /* ------------------------ */
@@ -197,9 +231,15 @@ a {
 	.form-item{
 		margin-top: 20px;
 	}
+	.form-item label{
+		padding: 0 8px;
+	}
+	.form-item input{
+		margin-top: 5px;
+	}
 	.form-control {
 		display: block;
-		width: 100%;
+		width: 95%;
 		padding: 0.5rem 0.75rem;
 		font-size: 1rem;
 		line-height: 1.5;
@@ -213,24 +253,40 @@ a {
 		outline: none;
 	}
 
-/* 横並び縦真ん中 */
-.flex-center{
+/* ------------------------ */
+/* 会員情報変更 */
+/* ------------------------ */
+	.updateForm-container {
 		display: flex;
+		flex-direction: column;
 		align-items: center;
 	}
 
-	.button {
-		display: inline-block;
-		padding: 10px 20px;
-		background: #494949;
-		color: #eee;
-		border-radius: 5px;
-		text-align: center;
-		font-size: 16px;
-		cursor: pointer;
-		border: none;
+	.form-table {
+		width: 100%;
+		border-collapse: collapse;
+		margin-bottom: 20px;
+		background-color: #efefef; /* テーブル全体の背景色 */
 	}
-	.button:hover {
-	    opacity: 0.8;
-	    transition: 0.8s;
+
+	.form-table tr{
+		border-bottom: 1px solid #c7c7c7;
+	}
+	.form-table td{
+		line-height: 1rem;
+		padding: 1rem;
+		text-align: left;
+	}
+
+	.form-table td:first-child {
+		width: 200px;
+		font-weight: bold;
+		background-color: #e3e3e3;
+		text-align: center;
+		padding: 10px 15px;
+	}
+
+	.submit-button{
+		width: 80%;
+		margin: 10px 0;
 	}
