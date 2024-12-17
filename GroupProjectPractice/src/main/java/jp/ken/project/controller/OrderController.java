@@ -106,9 +106,9 @@ public class OrderController {
 	public String post(@Validated(GroupOrder.class) @ModelAttribute OrderFormModel orderFormModel,BindingResult result,@RequestParam("action") String action,
 			Model model, HttpSession session){
 		// バリデーションエラーがある場合
-//		if (result.hasErrors()) {
-//			return "order";  // エラーがあれば再度入力画面を表示
-//		} else {
+		if (result.hasErrors()) {
+			return "order";  // エラーがあれば再度入力画面を表示
+		} else {
 			if ("注文確認".equals(action)) {
 				// 注文確認画面へ遷移する処理
 //            	return "confirm";
@@ -129,7 +129,7 @@ public class OrderController {
 				return "order";  // 発送情報画面へ遷移
 			}
 		}
-//	}
+	}
 
 
 }
