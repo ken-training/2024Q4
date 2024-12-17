@@ -29,7 +29,7 @@
 						<br>キーワード：<c:out value="${keyword}" /><br></h3>
 					</div>
 					<form:form action="/product" method="GET" >
-					<p><br>${message}</p>
+					<p><br><c:out value="${message}"/></p>
 					<table>
 						<c:forEach var="product" items="${productsList}" varStatus="status">
 							<c:if test="${status.index % 2 == 0}">

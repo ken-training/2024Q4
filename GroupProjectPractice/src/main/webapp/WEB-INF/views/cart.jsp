@@ -90,7 +90,7 @@ h1{
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
 	<div class="container">
-	<form action="${pageContext.request.contextPath}/cart" method="post">
+	<form action="/project/cart" method="post">
 		<div class="cart-items">
 			<h3>カートに入れた商品</h3>
 		<c:if test="${ !empty(cartList)}">
@@ -105,7 +105,7 @@ h1{
 						<td><img src="resources/img/${item.image}.png" alt="${item.product_name }"
 								  width="130" height="100"></td>
 						<td class="product-name">
-							${item.product_name }
+							<c:out value="${item.product_name }"/>
 						</td>
 						<td>
 							<c:if test="${item.getDiscnt_is_valid() == 0 }">
@@ -125,7 +125,7 @@ h1{
 							<select name="quantity">
 								<c:forEach var="n" begin="0" end="10">
 									<option value="${n}" <c:if test="${n == item.count}">selected</c:if>>
-									${n}
+									<c:out value="${n}"/>
 									</option>
 								</c:forEach>
 							</select>個
@@ -146,14 +146,14 @@ h1{
 		<c:if test="${!empty(cartList)}">
 		<div class="cart-summary">
 	 		<input type="submit" value="更新" style="width: 100%; padding: 10px 0; background-color: #494949; color: white; font-size: 16px; border: none; border-radius: 5px; cursor: pointer;">
-			<p>商品合計数 :  ${total_qty }</p>
+			<p>商品合計数 :  <c:out value="${total_qty }"/></p>
 			<p>合計金額(税抜) : ￥ <fmt:formatNumber value="${total_amount }" pattern="#,###" /></p>
-			<a href="${pageContext.request.contextPath}/order">
+			<a href="/project/order">
     			<button type="button" style="width: 100%; padding: 10px 0; background-color: #494949; color: white; font-size: 16px; border: none; border-radius: 5px;">
         		購入に進む
     			</button>
 			</a>
-			<p><button onclick="window.location.href='${pageContext.request.contextPath}/cart/empty'">カートを空にする</button></p>
+			<p><button type="button" onclick="window.location.href='/project/cart/empty'">カートを空にする</button></p>
 		</div>
 		</c:if>
 		</div>

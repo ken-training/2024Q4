@@ -101,7 +101,7 @@ input[type="submit"] {
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
-	<form action="${pageContext.request.contextPath}/product" method="post">
+	<form action="/project/product" method="post">
   <div class="product-info-wrapper">
 	<div class="product-info">
 
@@ -113,10 +113,10 @@ input[type="submit"] {
 
 	<!-- 右側に商品詳細（発売開始日） -->
 	<div class="product-detail">
-		<h3>${productModel.getProduct_name() }</h3>
+		<h3><c:out value="${productModel.getProduct_name() }"/></h3>
 
 	<!-- 商品説明 -->
-		<p id="text">${productModel.getProduct_detail() }</p>
+		<p id="text"><c:out value="${productModel.getProduct_detail() }"/></p>
 		 	<script>
 		 	 //。の後に改行を追加
 	        var textElement = document.getElementById('text');
@@ -145,7 +145,7 @@ input[type="submit"] {
 			<select name="quantity">
 				<c:forEach var="n" begin="1" end="10">
 					<option value="${n}">
-					${n}
+					<c:out value="${n}"/>
 					</option>
 				</c:forEach>
 			</select>
@@ -157,7 +157,7 @@ input[type="submit"] {
 		<input type="hidden" name="product_id" value="${productModel.getProduct_id() }">
 		<input type="submit" value="カートに追加">
 		<c:if test="${not empty message}">
-		<p class="message-text"><strong>${message}</strong></p>
+		<p class="message-text"><strong><c:out value="${message}"/></strong></p>
 		</c:if>
 
 	</div>

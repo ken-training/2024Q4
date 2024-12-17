@@ -60,7 +60,7 @@
 			        	<b>ゲスト</b>さん
 					</c:if>
 					<c:if test="${not empty customerModel}">
-						<b>${ customerModel.customer_name }</b>さん
+						<b><c:out value="${ customerModel.customer_name }"/></b>さん
 			    	</c:if>
 				</p>
 				<c:if test="${empty customerModel}">

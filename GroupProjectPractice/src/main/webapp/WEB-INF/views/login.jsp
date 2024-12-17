@@ -147,7 +147,7 @@ text-align: center;	/*真ん中に寄せる*/
 	    <div class="login-container">
 	        <h1>ログイン</h1>
 	        <form:form modelAttribute="loginFormModel">
-	            <div class="error">${message}</div>
+	            <div class="error"><c:out value="${message}"/></div>
 
 	                    <table>
 	                    <tr>
@@ -179,7 +179,7 @@ text-align: center;	/*真ん中に寄せる*/
 
 	                    <tr>
 	                    	<td colspan="2">
-	                        	<p class="error">${error}</p><!--  errorクラス -->
+	                        	<p class="error"><c:out value="${error}"/></p><!--  errorクラス -->
 	                    	</td>
 	                    </tr>
 

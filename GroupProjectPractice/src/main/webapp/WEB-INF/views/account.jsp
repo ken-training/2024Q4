@@ -82,31 +82,31 @@ h1{
 				<table>
 					<tr>
 						<td>氏名</td>
-						<td>${ customerModel.customer_name }</td>
+						<td><c:out value="${ customerModel.customer_name }"/></td>
 					</tr>
 					<tr>
 						<td>フリガナ</td>
-						<td>${customerModel.customer_phonetic }</td>
+						<td><c:out value="${customerModel.customer_phonetic }"/></td>
 					</tr>
 					<tr>
 						<td>メールアドレス</td>
-						<td>${customerModel.mail }</td>
+						<td><c:out value="${customerModel.mail }"/></td>
 					</tr>
 					<tr>
 						<td>郵便番号</td>
 						<td>
 							<c:if test="${!empty customerModel.zip }">
-							〒 ${customerModel.zip }
+							〒 <c:out value="${customerModel.zip }"/>
 							</c:if>
 						</td>
 					</tr>
 					<tr>
 						<td>住所</td>
-						<td>${customerModel.address }</td>
+						<td><c:out value="${customerModel.address }"/></td>
 					</tr>
 					<tr>
 						<td>電話番号</td>
-						<td>${customerModel.phone }</td>
+						<td><c:out value=""/></td>
 					</tr>
 					<tr>
 						<td>生年月日</td>
@@ -116,7 +116,7 @@ h1{
 					</tr>
 					<tr>
 						<td>クレジットカード番号</td>
-						<td>${customerModel.masked_creditcard_num }</td>
+						<td><c:out value="${customerModel.masked_creditcard_num }"/></td>
 					</tr>
 					<tr>
 						<td>カード有効期限</td>
@@ -126,13 +126,16 @@ h1{
 								<c:set var="month" value="${fn:substring(exp, 0, 2)}" />
 								<c:set var="year" value="${fn:substring(exp, 3, 5)}" />
 								<c:set var="fullYear" value="20${year}" />
-								${month}月/${fullYear}年
+								<c:out value="${month}"/>月/<c:out value="${fullYear}"/>年
 							</c:if>
 						</td>
 					</tr>
 				</table>
 				<div class="button">
-					<input type="submit" name="action" value="会員情報変更" /><input type="submit" name="action" value="退会する" />
+					<input type="submit" name="action" value="会員情報変更" />
+				</div>
+				<div class="button">
+					<input type="submit" name="action" value="退会する" />
 				</div>
 				</form:form>
 		</div>

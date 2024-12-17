@@ -169,7 +169,7 @@ input[type="submit"] {
 				<td>
 					<p><form:input path="mail" size="40" /><span class="required">*必須</span></p>
 					<p><form:errors path="mail" element="div" cssClass="form-error" /></p>
-					<p class="error">${error}</p>
+					<p class="error"><c:out value="${error}"/></p>
 				</td>
 			</tr>
 
