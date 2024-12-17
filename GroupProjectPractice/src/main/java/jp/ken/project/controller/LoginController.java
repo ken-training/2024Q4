@@ -61,17 +61,16 @@ public class LoginController {
            // ログイン成功時、トップページに遷移
     	   session.setAttribute("customerModel", customerModel);
     	   String referer = (String) session.getAttribute("login_referer");
-    	   System.out.println("referer : "+referer);
+//    	   System.out.println("referer : "+referer);
     	   String[] parts = referer.split("/");
+    	   session.removeAttribute("login_referer");
     	   // 遷移元のURLの最後が"cart"だったら"order"に飛ばしたい
     	   if(parts[parts.length - 1].equals("cart")) {
-    		   session.removeAttribute("login_referer");
     		   return "redirect:/order";
     	   }else {
     		   // それ以外の通常時はtopへ
     		   return "redirect:/top";
     	   }
-
 
        } else {
            // パスワードが間違っている場合はエラーメッセージを表示
