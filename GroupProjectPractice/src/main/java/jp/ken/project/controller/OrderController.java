@@ -38,56 +38,60 @@ public class OrderController {
 	// 発注情報入力画面へ遷移
 	@RequestMapping(value = "/order", method = RequestMethod.GET)
 	public String get(Model model, HttpSession session){
-		// セッションから会員モデルを取得
+		// セッションからモデルを取得
 		CustomerModel customerModel = (CustomerModel) session.getAttribute("customerModel");
+		OrderFormModel orderFormModel = (OrderFormModel) session.getAttribute("orderFormModel");
 		// セッションのcustomerModelがnullならログインに飛ばす
 		if(customerModel==null) {
 			return "redirect:/login";
 		}
 
-		OrderFormModel orderFormModel = new OrderFormModel();
-
-		// 会員モデルから氏名、電話番号、郵便番号、住所を取得しOrderFormModelに格納
-		// 氏名
-		orderFormModel.setShipName(customerModel.getCustomer_name());
-		// 電話番号
-		if (customerModel.getPhone() != null) {
-			String[] words = customerModel.getPhone().split("-");
-			orderFormModel.setShipPhone1(words[0]);
-			orderFormModel.setShipPhone2(words[1]);
-			orderFormModel.setShipPhone3(words[2]);
-		}
-		// 郵便番号
-		if (customerModel.getZip() != null) {
-			String[] words = customerModel.getZip().split("-");
-			orderFormModel.setShipZip1(words[0]);
-			orderFormModel.setShipZip2(words[1]);
-		}
-		// 住所
-		if (customerModel.getAddress() != null) {
-			String[] words = customerModel.getAddress().split(" ");
-			System.out.println(words[0]);
-			orderFormModel.setShipPrefecture(words[0]);
-			orderFormModel.setShipCity(words[1]);
-			orderFormModel.setShipBlock(words[2]);
-			if (words.length == 4) {	// 建物名が入力されていた場合
-				orderFormModel.setShipBuilding(words[3]);
+		// sessionの発送情報モデルが空の場合は新規作成
+		if(orderFormModel == null || orderFormModel.getShipPhone1() == null) {
+			orderFormModel = new OrderFormModel();
+			// 会員モデルから氏名、電話番号、郵便番号、住所を取得しOrderFormModelに格納
+			// 氏名
+			orderFormModel.setShipName(customerModel.getCustomer_name());
+			// 電話番号
+			if (customerModel.getPhone() != null) {
+				String[] words = customerModel.getPhone().split("-");
+				orderFormModel.setShipPhone1(words[0]);
+				orderFormModel.setShipPhone2(words[1]);
+				orderFormModel.setShipPhone3(words[2]);
+			}
+			// 郵便番号
+			if (customerModel.getZip() != null) {
+				String[] words = customerModel.getZip().split("-");
+				orderFormModel.setShipZip1(words[0]);
+				orderFormModel.setShipZip2(words[1]);
+			}
+			// 住所
+			if (customerModel.getAddress() != null) {
+				String[] words = customerModel.getAddress().split(" ");
+				System.out.println(words[0]);
+				orderFormModel.setShipPrefecture(words[0]);
+				orderFormModel.setShipCity(words[1]);
+				orderFormModel.setShipBlock(words[2]);
+				if (words.length == 4) {	// 建物名が入力されていた場合
+					orderFormModel.setShipBuilding(words[3]);
+				}
+			}
+			// クレジットカード番号
+			if (customerModel.getCreditcard_num() != null) {	// クレジットカード番号
+				String[] words = customerModel.getMasked_creditcard_num().split("-");
+				orderFormModel.setCreditNum1(words[0]);
+				orderFormModel.setCreditNum2(words[1]);
+				orderFormModel.setCreditNum3(words[2]);
+				orderFormModel.setCreditNum4(words[3]);
+			}
+			// クレジットカード有効期限
+			if (customerModel.getCreditcard_exp() != null) {	// クレジットカード有効期限
+				String[] words = customerModel.getCreditcard_exp().split("/");
+				orderFormModel.setCreditExpM(words[0]);
+				orderFormModel.setCreditExpY(words[1]);
 			}
 		}
-		// クレジットカード番号
-		if (customerModel.getCreditcard_num() != null) {	// クレジットカード番号
-			String[] words = customerModel.getMasked_creditcard_num().split("-");
-			orderFormModel.setCreditNum1(words[0]);
-			orderFormModel.setCreditNum2(words[1]);
-			orderFormModel.setCreditNum3(words[2]);
-			orderFormModel.setCreditNum4(words[3]);
-		}
-		// クレジットカード有効期限
-		if (customerModel.getCreditcard_exp() != null) {	// クレジットカード有効期限
-			String[] words = customerModel.getCreditcard_exp().split("/");
-			orderFormModel.setCreditExpM(words[0]);
-			orderFormModel.setCreditExpY(words[1]);
-		}
+
 
 		// 今年が何年かを取得
 		Calendar cal = Calendar.getInstance();
@@ -99,7 +103,7 @@ public class OrderController {
 
 		// 入力項目を格納するモデルを紐づけ
 		model.addAttribute("orderFormModel", orderFormModel);
-
+//		session.setAttribute("orderFormModel", orderFormModel);
 
 		//セッションからCartオブジェクト取得
 		@SuppressWarnings("unchecked")
@@ -116,7 +120,6 @@ public class OrderController {
 			model.addAttribute("total_amount", total_amount);
 			model.addAttribute("total_qty", total_qty);
 		}
-
 		return "order";
 	}
 
