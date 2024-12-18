@@ -81,13 +81,16 @@ tr{
 
 	<p>お支払い情報 : ${pay }</p>
 		<br>
-	<p>お届け先 : ${orderFormModel.shipName } </p>
-	<p><span style="padding-left: 80px;">${orderFormModel.shipPrefecture }${orderFormModel.shipCity }
-	${orderFormModel.shipBlock }${orderFormModel.shipBuilding }</span></p>
+	<p>お届け先 : ${orderFormModel.shipName } 様</p>
+	<p><span style="padding-left: 80px;">〒${orderFormModel.shipZip1 }-${orderFormModel.shipZip2 }</span></p>
+	<p>
+		<span style="padding-left: 80px;">${orderFormModel.shipPrefecture }${orderFormModel.shipCity }
+		${orderFormModel.shipBlock }${orderFormModel.shipBuilding }</span>
+	</p>
 		<br>
 	</div>
 	<div style="text-align: right;">
-		<button type="button" onclick="window.location.href='/project/order'">発送情報を変更する</button>
+		<button type="button" onclick="window.location.href='/project/order'"class="button">発送情報を変更する</button>
 	</div>
 		<br>
 		<br>
@@ -124,7 +127,7 @@ tr{
 	</table>
 		<br>
 		<input type="hidden" name="orderFormModel" value="${orderFormModel }">
-		<input type="submit" value="注文を確定する" style="margin: 10px 0 50px 0;">
+		<input type="submit" value="注文を確定する" style="margin: 10px 0 50px 0;" class="button">
 	</div>
 
 
