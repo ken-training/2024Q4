@@ -10,6 +10,7 @@ public class CartModel implements Serializable{
 	private String image;
 	private String discnt_is_valid;							//割引フラグ
 	private Float discnt_rate;					//割引率
+	private int stock_qty;		// 在庫数
 
 	public int getProduct_id() {
 		return product_id;
@@ -53,6 +54,10 @@ public class CartModel implements Serializable{
 	public void setDiscnt_rate(Float discnt_rate) {
 		this.discnt_rate = discnt_rate;
 	}
-
-
+	public int getStock_qty() {
+		return stock_qty;
+	}
+	public void setStock_qty(int stock_qty) {
+		this.stock_qty = stock_qty;
+	}
 }

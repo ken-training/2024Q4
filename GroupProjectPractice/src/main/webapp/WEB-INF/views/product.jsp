@@ -143,7 +143,7 @@ input[type="submit"] {
 	<div class="quantity-select">
 		<p>数量:
 			<select name="quantity">
-				<c:forEach var="n" begin="1" end="10">
+				<c:forEach var="n" begin="1" end="${limit_num }">
 					<option value="${n}">
 					<c:out value="${n}"/>
 					</option>

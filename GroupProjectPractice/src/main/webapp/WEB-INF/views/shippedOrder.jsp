@@ -18,7 +18,7 @@
 </head>
 <body>
 <h3>発送済、注文取消注文一覧</h3>
-<p><a href="#">メニューに戻る</a></p>
+<p><a href="/project/empmenu">メニューに戻る</a></p>
 <p><a href="/project/orderlog/unshipped">未発送注文履歴</a></p>
 	<c:if test="${ !empty(orderlogList)}">
 		<table>
