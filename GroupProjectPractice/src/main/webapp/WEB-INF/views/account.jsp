@@ -135,6 +135,9 @@ h1{
 					<input type="submit" name="action" value="会員情報変更" />
 				</div>
 				<div class="button">
+					<input type="submit" name="action" value="注文履歴確認" />
+				</div>
+				<div class="button">
 					<input type="submit" name="action" value="退会する" />
 				</div>
 				</form:form>
