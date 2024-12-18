@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.ken.project.group.GroupOrder;
+import jp.ken.project.model.CartModel;
 import jp.ken.project.model.CustomerModel;
 import jp.ken.project.model.OrderFormModel;
 
@@ -98,6 +99,24 @@ public class OrderController {
 
 		// 入力項目を格納するモデルを紐づけ
 		model.addAttribute("orderFormModel", orderFormModel);
+
+
+		//セッションからCartオブジェクト取得
+		@SuppressWarnings("unchecked")
+		List<CartModel> cartList = (List<CartModel>) session.getAttribute("cartList");
+
+		if (cartList != null && cartList.size() != 0) {
+			int total_amount = 0;
+			int total_qty = 0;
+			for (CartModel cartModel : cartList) {
+				int amount = cartModel.getPrice() * cartModel.getCount();
+				total_amount += cartModel.getDiscnt_is_valid().equals("1")? amount * (1 - cartModel.getDiscnt_rate()): amount;
+				total_qty += cartModel.getCount();
+			}
+			model.addAttribute("total_amount", total_amount);
+			model.addAttribute("total_qty", total_qty);
+		}
+
 		return "order";
 	}
 

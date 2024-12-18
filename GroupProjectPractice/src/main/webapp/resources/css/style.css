@@ -40,8 +40,17 @@
 /* ------------------------ */
 /* 共有css */
 /* ------------------------ */
+	/* エラーメッセージ */
+	.error-message {
+        color: #d40000;
+        font-size: 12px;
+    }
+    .required{
+    	color: #d40000;
+    	font-size: small;
+    }
 /* 横並び縦真ん中 */
-.flex-center{
+	.flex-center{
 		display: flex;
 		align-items: center;
 	}
@@ -62,9 +71,56 @@
 	    transition: 0.8s;
 	}
 
-/* ------------------------ */
-/* ヘッダー */
-/* ------------------------ */
+	/* ラジオボタンデザイン */
+	.radio-buttons input[type="radio"] {
+		position: absolute; /* ラジオボタンを非表示にする */
+		opacity: 0; /* ラジオボタンを見えないようにする */
+	}
+	.radio-buttons{
+		margin-top: 20px;
+	}
+
+	.radio-label {
+		display: inline-block;
+		padding: 12px 30px;
+		color: #333;
+		cursor: pointer;
+		font-size: 16px;
+		border-radius: 5px;
+		transition: all 250ms ease;
+		margin-right: 10px;
+	}
+
+	/* ラベルの丸いラジオボタン部分のデザイン */
+	.radio-label:before {
+		content: '';
+		background: #f4f4f4; /* 初期状態の背景色 */
+		border-radius: 100%;
+		width: 1.4em;
+		height: 1.4em;
+		display: inline-block;
+		position: relative;
+		margin-right: 10px;
+		vertical-align: middle;
+		border: 1px solid #dcdcdc;
+		transition: all 250ms ease;
+	}
+
+	/* チェック状態のラジオボタン */
+	input[type="radio"]:checked+.radio-label:before {
+		background-color: #3197EE; /* チェックされた時の背景色 */
+		box-shadow: inset 0 0 0 4px #f4f4f4; /* チェックされた時の内側の影 */
+	}
+
+	/* フォーカス時のラジオボタン */
+	input[type="radio"]:focus+.radio-label:before {
+		outline: none;
+		border-color: #3197EE; /* フォーカス時の境界線色 */
+	}
+
+	/* ------------------------ */
+	/* ヘッダー */
+	/* ------------------------ */
 	.header-container{
 		display: flex;
 		align-items: center;
@@ -200,19 +256,23 @@
 
 	/* カートの中身（位置固定div) */
     #fixedDiv {
-    	width: 25vw;  /* ウィンドウの幅の25% */
+    	width: 40vw;  /* ウィンドウの幅の40% */
         border-left: 1px solid #c0c0c0;
         /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
         text-align: center;
 		background: #efefef;
     }
 
-    #credit {
-		display: none
+    #creditDiv  {
+		display: none;
+		background: #efefef;
+		padding: 5px 20px 25px 20px;
+		border-radius: 8px;
+		margin: 15px 0;
 	}
 
 	.orderForm-container{
-		width: 75vw;
+		width: 100vw;
 		display: flex;
 	    flex-direction: column;
 	    align-items: center;
@@ -223,9 +283,19 @@
 		position: sticky;
 		top: 0;
 	}
+	.side-contents .title {
+		text-decoration: underline;
+		text-underline-offset: 6px;
+		text-decoration-style: double;
+		text-decoration-color: #575757;
+	}
+	.side-message{
+		text-align: left;
+		margin-left: 15px;
+	}
 
 	#orderFormModel{
-		width: 500px;
+		width: 50%;
 	}
 
 	.form-item{
@@ -251,6 +321,26 @@
 	}
 	.form-control:focus {
 		outline: none;
+	}
+	.form-control.error{
+		border: 1.8px solid #d4000080; /* 赤枠 */
+	}
+
+	.button-box {
+		display: flex;
+		justify-content: space-evenly;
+		flex-direction: row;
+		margin: 50px 0;
+	}
+
+	.side-contents table{
+		border-collapse: collapse;
+	}
+	.side-contents table tr{
+		border-bottom: 1px solid #ccc;
+	}
+	.side-contents table td{
+		padding: 20px 0px;
 	}
 
 /* ------------------------ */
