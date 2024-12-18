@@ -12,7 +12,7 @@
 <body>
 <p><c:out value="${message }"/></p>
 <h3>未発送注文一覧</h3>
-<a href="#">メニューに戻る</a>
+<a href="/project/empmenu">メニューに戻る</a>
 <p><a href="/project/orderlog/shipped">発送済/注文取消注文履歴</a></p>
 	<c:if test="${ !empty(orderlogList)}">
 		<table>

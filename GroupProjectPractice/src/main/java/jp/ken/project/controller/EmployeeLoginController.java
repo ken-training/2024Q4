@@ -54,6 +54,18 @@ public class EmployeeLoginController {
 			model.addAttribute("error", "メールアドレスまたはパスワードが間違っています");
 			return "EmployeeLogin";
 		}
+		session.setAttribute("employeeLoginModel", employeeLoginModel);
+		return "redirect:/empmenu";
+	}
+
+
+	@RequestMapping(value = "/empmenu",method = RequestMethod.GET)
+	public String toEmpMenu(HttpSession session) {
+		EmployeeLoginModel employeeLoginModel = (EmployeeLoginModel) session.getAttribute("employeeLoginModel");
+		// 従業員がログインしてない場合はログインページへ
+		if(employeeLoginModel == null) {
+			return "redirect:/emplogin";
+		}
 		return "empMenu";
 	}
 

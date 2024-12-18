@@ -33,12 +33,10 @@ public class OrderlogController {
 			@RequestParam(value = "message", required = false) String message){
 		EmployeeLoginModel employeeLoginModel = (EmployeeLoginModel) session.getAttribute("employeeLoginModel");
 
-		// 従業員がログインしてない場合はログインページへ？
-//		if(employeeLoginModel != null) {
-//
-//		}else {
-//
-//		}
+		// 従業員がログインしてない場合はログインページへ
+		if(employeeLoginModel == null) {
+			return "redirect:/emplogin";
+		}
 
 	    // キャッシュを無効化
 	    response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
@@ -63,7 +61,15 @@ public class OrderlogController {
 
 	// 発送済みとキャンセル済みの注文履歴画面へ遷移
 	@RequestMapping(value = "/orderlog/shipped", method = RequestMethod.GET)
-	public String toShippedOrderlog(Model model, HttpServletResponse response){
+	public String toShippedOrderlog(Model model, HttpServletResponse response,HttpSession session){
+
+		EmployeeLoginModel employeeLoginModel = (EmployeeLoginModel) session.getAttribute("employeeLoginModel");
+
+		// 従業員がログインしてない場合はログインページへ
+		if(employeeLoginModel == null) {
+			return "redirect:/emplogin";
+		}
+
 	    // キャッシュを無効化
 	    response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
 	    response.setHeader("Pragma", "no-cache");
@@ -88,6 +94,7 @@ public class OrderlogController {
 			@RequestParam(value = "status", required = false) String status,
 			@RequestParam(value = "order_detail_id", required = false) int order_detail_id
 			){
+
 		// リクエストパラメータを取得
 //		String status = (String) request.getAttribute("status");
 //		Integer order_detail_id = (Integer) request.getAttribute("order_detail_id");
