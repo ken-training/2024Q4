@@ -84,6 +84,11 @@ h1{
     margin-bottom: 10px;
 }
 
+/* マウスを置いた時に文字色を赤に変更 */
+.product-name:hover {
+    color: #007bff;
+}
+
 </style>
 <title>買い物かご</title>
 </head>
@@ -105,7 +110,7 @@ h1{
 						<td><img src="resources/img/${item.image}.png" alt="${item.product_name }"
 								  width="130" height="100"></td>
 						<td class="product-name">
-							<c:out value="${item.product_name }"/>
+							<a href="/project/product?product_id=${item.product_id }"><c:out value="${item.product_name }"/></a>
 						</td>
 						<td>
 							<c:if test="${item.getDiscnt_is_valid() == 0 }">
