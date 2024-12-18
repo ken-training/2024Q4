@@ -75,7 +75,10 @@ document.addEventListener("DOMContentLoaded", function() {
 		// エラーメッセージをリセット
 		for (var i = 0; i < checkName.length; i++){
 			document.getElementById(checkName[i]).innerHTML  = '';
-			elem[i].classList.remove('error'); // エラーのクラスを削除
+		}
+		// エラーのクラスを削除
+		for (var i = 0; i < elem.length; i++){
+			elem[i].classList.remove('error');
 		}
 		console.log(checkNullIndices.toString());
 
