@@ -110,12 +110,14 @@ tr{
                           <div class="right-align">
                               <p class="product_message"  id="price" data-discount-rate="${item.getDiscnt_rate()}" data-price="${item.price}">
                                   <del>¥ <fmt:formatNumber value="${item.price}" pattern="#,###" /> <small>(税抜)</small></del>
+
                                   <span class="discount-price" style="display:block; text-align:right; margin-top:-15px;"></span>
+
 
                               </p>
                           </div>
-
 					</c:if>
+					<p class="right-align">数量 : ${item.getCount()} 個</p>
 				</td>
 			</tr>
 		</c:forEach>
