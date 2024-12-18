@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,8 +21,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.ken.project.dao.CustomerDao;
+import jp.ken.project.dao.LoginDao;
 import jp.ken.project.group.GroupOrder;
 import jp.ken.project.model.CustomerModel;
 import jp.ken.project.model.UpdateFormModel;
@@ -33,6 +36,9 @@ public class AccountController {
 
 	@Autowired
 	private CustomerDao customerDao;
+
+	@Autowired
+	private LoginDao loginDao;
 
 	// マイページ画面へ遷移
 	@RequestMapping(method = RequestMethod.GET)
@@ -170,13 +176,15 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String updatePost(@Validated(GroupOrder.class) @ModelAttribute UpdateFormModel updateFormModel,BindingResult result, Model model,HttpSession session){
+	public String updatePost(@Validated(GroupOrder.class) @ModelAttribute UpdateFormModel updateFormModel,BindingResult result, Model model,HttpSession session,RedirectAttributes redirectAttributes){
 //		System.out.println("post");
 		// バリデーションエラーがある場合
 		if (result.hasErrors()) {
-					return "redirect:/account/update";  // エラーがあれば再度入力画面を表示
+			redirectAttributes.addFlashAttribute("error", "Emailを正しく入力してください");
+			return "redirect:/account/update";  // エラーがあれば再度入力画面を表示
 		// 正常
 		} else {
+
 
 			try {
 				// セッションから会員IDを取得
@@ -187,10 +195,26 @@ public class AccountController {
 				// updateFormModelからcustomerModelに変換
 				CustomerModel customerModel = parseCustomerModel(updateFormModel);
 				customerModel.setCustomer_id(id);
+				// パスワードをハッシュ化
+				ShaPasswordEncoder encoder = new ShaPasswordEncoder();
+				String encodePassword = encoder.encodePassword(customerModel.getPassword(), customerModel.getCustomer_id());
+				customerModel.setPassword(encodePassword);
 
 				// sessionの会員情報と今回入力された会員情報を比較する
 				Map<String, Object> differences = compareCustomerModels(sessionCustomerModel, customerModel);
 				System.out.println(differences.toString());
+
+				// 変更対象のメールアドレスが登録済みか確認
+				if(differences.containsKey("mail")) {
+					String mailValue = (String)differences.get("mail");
+					System.out.println(mailValue);
+					CustomerModel temp = loginDao.getCustomerByMail(mailValue);
+					if(temp != null) {
+						redirectAttributes.addFlashAttribute("error", "このメールアドレスは既に登録されています");
+						return "redirect:/account/update";  // エラーがあれば再度入力画面を表示
+					}
+
+				}
 
 
 				// 変更箇所があった場合
@@ -282,6 +306,7 @@ public class AccountController {
 		customerModel.setCustomer_name(updateFormModel.getCustomer_name());	// 氏名
 		customerModel.setCustomer_phonetic(updateFormModel.getCustomer_phonetic());	// フリガナ
 		customerModel.setMail(updateFormModel.getMail());	// メールアドレス
+
 		customerModel.setPassword(updateFormModel.getPassword());	// パスワード
 		if(!updateFormModel.getZip1().isEmpty() && !updateFormModel.getZip2().isEmpty()) {
 			customerModel.setZip(updateFormModel.getZip1() + "-" + updateFormModel.getZip2());	// 郵便番号
