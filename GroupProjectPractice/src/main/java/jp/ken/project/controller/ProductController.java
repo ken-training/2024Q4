@@ -32,7 +32,8 @@ public class ProductController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String toProduct(HttpSession session, Model model, HttpServletRequest request, HttpServletResponse response,
 			@RequestParam("product_id") int product_id,
-			@RequestParam(value = "total_cnt", required = false) Integer total_cnt
+			@RequestParam(value = "total_cnt", required = false) Integer total_cnt,
+			@RequestParam(value = "error", required = false) String error
 			) {
 	    // キャッシュを無効化
 	    response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
@@ -46,6 +47,12 @@ public class ProductController {
 		if(total_cnt != null) {
 			model.addAttribute("message", "カートに入れました。カート内の商品は" + total_cnt + "個です。");
 		}
+
+		// messageを受け取っている場合
+		if(error != null) {
+			model.addAttribute("message", error);
+		}
+
 
 		// 一覧に戻るリンク用のURLを分岐させて設定
 	    // 遷移元のURL（Referer）を取得
@@ -72,7 +79,6 @@ public class ProductController {
 	public String addProductToCart(HttpSession session, Model model, HttpServletRequest request,
 			HttpServletResponse response, RedirectAttributes redirectAttributes) {
 
-
 		// キャッシュを無効化
 		response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
 		response.setHeader("Pragma", "no-cache");
@@ -85,8 +91,11 @@ public class ProductController {
 			cartList = new ArrayList<CartModel>();  // cartList が null の場合、空のリストを作成
 		}
 
+		// プルダウンで選ばれた数量
 		int	quantity = Integer.parseInt(request.getParameter("quantity"));
+		// 商品ID
 		int	product_id = Integer.parseInt(request.getParameter("product_id"));
+		redirectAttributes.addAttribute("product_id", product_id);
 
 		if(quantity == 0) { // 個数を0個でカートに追加を押した時（0を選択できないようにしたため、不要かも）
 			return "redirect:/product";
@@ -96,9 +105,14 @@ public class ProductController {
 
 			if(cartList != null) {
 				for (CartModel cartModel : cartList) {
+					// 一致する商品があった場合
 					if (cartModel.getProduct_id() == product_id) {
-						// 一致する商品があった場合
 						int after_qty = cartModel.getCount() + quantity;
+						// 商品ごとの数量が10を超えた場合はカートを更新せずにエラーを出力する
+						if(after_qty > 10) {
+							redirectAttributes.addAttribute("error", "カートに追加できません。一度に購入できるのは１商品10個までです。");
+							return "redirect:/product";
+						}
 						cartModel.setCount(after_qty);
 						productFound = true;  // 商品が見つかったのでフラグを設定
 					}
@@ -126,7 +140,7 @@ public class ProductController {
 			session.setAttribute("cartList", cartList);
 
 //				ProductModel pmodel = ProductDao.getProductById(product_id);
-			redirectAttributes.addAttribute("product_id", product_id);
+
 			redirectAttributes.addAttribute("total_cnt", total_cnt);
 
 //			ProductModel pmodel = ProductDao.getProductById(product_id);
