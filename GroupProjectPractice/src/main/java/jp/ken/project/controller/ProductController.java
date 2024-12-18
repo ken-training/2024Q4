@@ -53,6 +53,20 @@ public class ProductController {
 			model.addAttribute("message", error);
 		}
 
+		// カート内の商品の個数を踏まえて、プルダウンで選択できる商品個数の上限値を計算
+		int limit_num = pmodel.getStock_qty();
+		@SuppressWarnings("unchecked")
+		List<CartModel> cartList = (List<CartModel>)session.getAttribute("cartList");
+		if(cartList != null) {
+			for (CartModel cartModel : cartList) {
+				// 一致する商品があった場合
+				if (cartModel.getProduct_id() == product_id) {
+					limit_num -= cartModel.getCount();
+				}
+			}
+			limit_num = limit_num > 1 ? limit_num : 1;
+		}
+		model.addAttribute("limit_num", limit_num);
 
 		// 一覧に戻るリンク用のURLを分岐させて設定
 	    // 遷移元のURL（Referer）を取得
@@ -107,13 +121,15 @@ public class ProductController {
 				for (CartModel cartModel : cartList) {
 					// 一致する商品があった場合
 					if (cartModel.getProduct_id() == product_id) {
+						ProductModel pmodel = ProductDao.getProductById(product_id);
 						int after_qty = cartModel.getCount() + quantity;
 						// 商品ごとの数量が10を超えた場合はカートを更新せずにエラーを出力する
-						if(after_qty > 10) {
-							redirectAttributes.addAttribute("error", "カートに追加できません。一度に購入できるのは１商品10個までです。");
+						if(after_qty > pmodel.getStock_qty()) {
+							redirectAttributes.addAttribute("error", "大変申し訳ありませんが在庫切れとなります。");
 							return "redirect:/product";
 						}
-						cartModel.setCount(after_qty);
+						cartModel.setStock_qty(pmodel.getStock_qty());  // 在庫数セット
+						cartModel.setCount(after_qty);  // 注文数セット
 						productFound = true;  // 商品が見つかったのでフラグを設定
 					}
 					total_cnt += cartModel.getCount();
@@ -131,6 +147,7 @@ public class ProductController {
 				addCartModel.setDiscnt_is_valid(pmodel.getDiscnt_is_valid());
 				addCartModel.setDiscnt_rate(pmodel.getDiscnt_rate());
 				addCartModel.setCount(quantity);
+				addCartModel.setStock_qty(pmodel.getStock_qty());
 
 				total_cnt += addCartModel.getCount();
 

@@ -123,7 +123,7 @@ h1{
 						<td>
 							<input type="hidden" name="productId" value="${item.product_id }">
 							<select name="quantity">
-								<c:forEach var="n" begin="0" end="10">
+								<c:forEach var="n" begin="0" end="${item.stock_qty }">
 									<option value="${n}" <c:if test="${n == item.count}">selected</c:if>>
 									<c:out value="${n}"/>
 									</option>
