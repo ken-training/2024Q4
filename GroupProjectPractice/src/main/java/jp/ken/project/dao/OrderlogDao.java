@@ -124,18 +124,19 @@ public class OrderlogDao {
 	public List<OrderlogModel> getOrderHistoryByCustomerId(int customerId) {
 	    String sql = "SELECT od.order_detail_id, od.order_id, o.order_date, od.product_id, "
 	               + " p.product_name, od.product_num, od.temp_amount, o.use_points, "
-	               + " o.customer_id, c.customer_name, o.ship_id, s.ship_name, s.ship_address, "
-	               + " o.payment_methods, od.status "
+	               + " o.customer_id, s.ship_name, s.ship_address, "
+	               + " o.payment_methods, od.status, od.ship_date "
 	               + "FROM t_customers c "
 	               + "JOIN t_orders o ON c.customer_id = o.customer_id "
 	               + "JOIN t_order_datails od ON o.order_id = od.order_id "
 	               + "LEFT JOIN t_products p ON p.product_id = od.product_id "
 	               + "LEFT JOIN t_shipping s ON s.ship_id = o.ship_id "
 	               + "WHERE c.customer_id = ?";  // customer_idを条件として使用
+        Object[] parameters = { customerId };
 
 	    try {
 	        // SQLにcustomerIdを渡して注文履歴を取得
-	        List<OrderlogModel> orderlogList = jdbcTemplate.query(sql, new Object[]{customerId}, orderlogMapper);
+	        List<OrderlogModel> orderlogList = jdbcTemplate.query(sql, parameters, orderlogMapper);
 	        return orderlogList;
 	    } catch (EmptyResultDataAccessException e) {
 	        e.printStackTrace();

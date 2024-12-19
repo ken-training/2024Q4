@@ -85,10 +85,12 @@ public class AccountController {
 			// 会員情報変更画面へリダイレクト
 			return "redirect:/account/update";
 
+		} else if ("注文履歴確認".equals(action)) {
+			// 注文履歴へ
+			return "redirect:/orderlog/customer";
 		} else if ("退会する".equals(action)) {
 			// 退会処理へforward
 			return "redirect:/account/delete";
-
 		} else {
 			// 未知のアクションの場合マイページへ遷移
 
