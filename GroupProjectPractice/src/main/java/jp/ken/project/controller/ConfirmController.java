@@ -46,6 +46,9 @@ public class ConfirmController {
 		    }
 		    model.addAttribute("total_amount", total_amount);
 		    model.addAttribute("total_qty", total_qty);
+		}else {
+			// カートが空の状態で飛んで来たらトップ画面へ
+			return "redirect:/top";
 		}
 //		model.addAttribute("orderFormModel", request.getAttribute("orderFormModel"));
 
