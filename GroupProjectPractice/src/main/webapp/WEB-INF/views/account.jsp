@@ -53,7 +53,7 @@ h1{
 }
 .account-info input[type="submit"] {
     padding: 10px 20px;
-    margin: 10px 5px;
+    /* margin: 10px 5px; */
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -132,14 +132,16 @@ h1{
 						</td>
 					</tr>
 				</table>
-				<div class="button">
-					<input type="submit" name="action" value="会員情報変更" />
-				</div>
-				<div class="button">
-					<input type="submit" name="action" value="注文履歴確認" />
-				</div>
-				<div class="button">
-					<input type="submit" name="action" value="退会する" />
+				<div class="flex-center" style="justify-content: space-evenly;">
+					<div class="button">
+						<input type="submit" name="action" value="会員情報変更" />
+					</div>
+					<div class="button">
+						<input type="submit" name="action" value="注文履歴確認" />
+					</div>
+					<div class="button">
+						<input type="submit" name="action" value="退会する" />
+					</div>
 				</div>
 				</form:form>
 		</div>
