@@ -81,8 +81,8 @@ public class ProductController {
         }
         // 最後の "/" から "?" または文字列の終わりまでを抜き出す
         String partOfUrl = product_referer.substring(lastSlashIndex, questionMarkIndex);
-        // top or searchから飛んできた時はセッションにURL登録
-	    if(partOfUrl.equals("/top") || partOfUrl.equals("/search") || partOfUrl.equals("/cart")) {
+        // セッションに遷移元のURL登録
+	    if(partOfUrl.equals("/top") || partOfUrl.equals("/search") || partOfUrl.equals("/cart") || partOfUrl.equals("/customer")) {
 	    	session.setAttribute("previousUrl", product_referer);
 	    }
 
