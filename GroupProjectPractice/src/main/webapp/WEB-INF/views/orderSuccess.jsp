@@ -8,12 +8,28 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<style type="text/css">
+.container{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.toTop{
+	text-decoration: underline; /* 常にアンダーライン表示 */
+    color: #000;
+}
+</style>
 <title>注文完了</title>
 </head>
 <body>
-	<h2>注文が完了しました</h2>
-	<p>またのご利用をお待ちしております</p>
-<!-- TOPに戻るリンク -->
+	<jsp:include page="header.jsp"></jsp:include>
+	<div class="container">
+		<h2>注文が完了しました</h2>
+		<p>またのご利用をお待ちしております</p>
+		<p><div class="toTop">
+			<a href="/project/top">トップページに戻る</a>
+		</div></p>
+	</div>
 	<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
