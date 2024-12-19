@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.ken.project.dao.OrderlogDao;
+import jp.ken.project.model.CustomerModel;
 import jp.ken.project.model.EmployeeLoginModel;
 import jp.ken.project.model.OrderlogModel;
 
@@ -95,20 +96,38 @@ public class OrderlogController {
 			@RequestParam(value = "order_detail_id", required = false) int order_detail_id
 			){
 
+		String redirectPath = "/top";
+
 		// リクエストパラメータを取得
 //		String status = (String) request.getAttribute("status");
 //		Integer order_detail_id = (Integer) request.getAttribute("order_detail_id");
 		System.out.println("status : " + status);
 		System.out.println("order_detail_id : " + order_detail_id);
 
-		// 遷移元に戻すために取得
-//		String referer = request.getHeader("Referer");
+
+	    // 遷移元URLからリダイレクト先のパスを指定
+	    String product_referer = request.getHeader("Referer");
+        // 最後の "/" の位置を取得
+        int lastSlashIndex = product_referer.lastIndexOf("/");
+        // "?" の位置を取得
+        int questionMarkIndex = product_referer.indexOf("?", lastSlashIndex);
+        // "?" が見つからなかった場合、文字列の終わりまでを取る
+        if (questionMarkIndex == -1) {
+            questionMarkIndex = product_referer.length();
+        }
+        // 最後の "/" から "?" または文字列の終わりまでを抜き出す
+        String partOfUrl = product_referer.substring(lastSlashIndex, questionMarkIndex);
+        // top or searchから飛んできた時はセッションにURL登録
+	    if(partOfUrl.equals("/customer")) {
+	    	redirectPath = "redirect:/orderlog/customer";
+	    }else if(partOfUrl.equals("/unshipped"))
+	    	redirectPath = "redirect:/orderlog/unshipped";
 
 		int numOfRow = 0;
 		if(status != null) {
 			// 未発送が渡されたときは何もしない
 			if(status.equals("未発送")) {
-				return "redirect:/orderlog/unshipped";
+				return redirectPath;
 			// 発送済み操作
 			}else if(status.equals("発送済")) {
 		        // 今日の日付を取得
@@ -125,16 +144,50 @@ public class OrderlogController {
 			}
 			// 失敗していたらリダイレクト先にエラーを返す
 			if(numOfRow == 1) {
-				redirectAttributes.addAttribute("message", "注文詳細ID：" + order_detail_id + "のステータスを更新しました。");
-				return "redirect:/orderlog/unshipped";
+				redirectAttributes.addAttribute("message", "注文詳細ID：" + order_detail_id + "のステータスを" + status +"に更新しました。");
+//				return "redirect:/orderlog/unshipped";
+				return redirectPath;
 			}else {
 				redirectAttributes.addAttribute("message", "エラーが発生しました。再実行してください。");
-				return "redirect:/orderlog/unshipped";
+				return redirectPath;
 			}
 
 		}else {
 			// 何もせずに戻る
-			return "redirect:/orderlog/unshipped";
+			return redirectPath;
 		}
 	}
+
+	//　会員の発注履歴画面表示
+	@RequestMapping(value = "/orderlog/customer", method = RequestMethod.GET)
+	public String toCustomerOrderlog(Model model, HttpServletResponse response, HttpSession session,
+			@RequestParam(value = "message", required = false) String message){
+		CustomerModel customerModel = (CustomerModel) session.getAttribute("customerModel");
+
+		// 従業員がログインしてない場合はログインページへ
+		if(customerModel == null) {
+			return "redirect:/login";
+		}
+
+	    // キャッシュを無効化
+	    response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+	    response.setHeader("Pragma", "no-cache");
+	    response.setDateHeader("Expires", 0);
+
+		@SuppressWarnings("unchecked")
+		List<OrderlogModel> orderlogList = (List<OrderlogModel>) orderlogDao.getOrderHistoryByCustomerId(customerModel.getCustomer_id());
+		model.addAttribute("orderlogList", orderlogList);
+
+		// ステータス配列作成
+		String[] statusList = {"未発送", "発送済み", "注文取消"};
+		model.addAttribute("statusList", statusList);
+
+		// リダイレクト元からmessageを渡されていたらモデルに追加
+		if(message != null && !message.isEmpty()) {
+			model.addAttribute("message", message);
+		}
+
+		return "orderHistory";
+	}
+
 }
