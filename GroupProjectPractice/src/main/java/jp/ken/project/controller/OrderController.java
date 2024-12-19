@@ -43,6 +43,7 @@ public class OrderController {
 		OrderFormModel orderFormModel = (OrderFormModel) session.getAttribute("orderFormModel");
 		// セッションのcustomerModelがnullならログインに飛ばす
 		if(customerModel==null) {
+			session.setAttribute("doOrderFlg", 1);
 			return "redirect:/login";
 		}
 
