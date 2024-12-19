@@ -106,7 +106,7 @@ h1{
 					</tr>
 					<tr>
 						<td>電話番号</td>
-						<td><c:out value=""/></td>
+						<td><c:out value="${customerModel.phone }"/></td>
 					</tr>
 					<tr>
 						<td>生年月日</td>
@@ -123,8 +123,9 @@ h1{
 						<td>
 							<c:if test="${!empty customerModel.creditcard_exp}">
 								<c:set var="exp" value="${customerModel.creditcard_exp}" />
-								<c:set var="month" value="${fn:substring(exp, 0, 2)}" />
-								<c:set var="year" value="${fn:substring(exp, 3, 5)}" />
+								<c:set var="parts" value="${fn:split(exp, '/')}"/>
+								<c:set var="month" value="${parts[0]}" />
+								<c:set var="year" value="${parts[1]}" />
 								<c:set var="fullYear" value="20${year}" />
 								<c:out value="${month}"/>月/<c:out value="${fullYear}"/>年
 							</c:if>

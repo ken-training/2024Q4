@@ -195,10 +195,17 @@ public class AccountController {
 				// updateFormModelからcustomerModelに変換
 				CustomerModel customerModel = parseCustomerModel(updateFormModel);
 				customerModel.setCustomer_id(id);
+
 				// パスワードをハッシュ化
-				ShaPasswordEncoder encoder = new ShaPasswordEncoder();
-				String encodePassword = encoder.encodePassword(customerModel.getPassword(), customerModel.getCustomer_id());
-				customerModel.setPassword(encodePassword);
+				if(customerModel.getPassword() == null || customerModel.getPassword().isEmpty()) {
+					// パスワードがnullか空だったら、differencesを差異なし判定にしたい
+					customerModel.setPassword(sessionCustomerModel.getPassword());
+				}else {
+					// それ以外の場合は通常通りハッシュ化
+					ShaPasswordEncoder encoder = new ShaPasswordEncoder();
+					String encodePassword = encoder.encodePassword(customerModel.getPassword(), customerModel.getCustomer_id());
+					customerModel.setPassword(encodePassword);
+				}
 
 				// sessionの会員情報と今回入力された会員情報を比較する
 				Map<String, Object> differences = compareCustomerModels(sessionCustomerModel, customerModel);
