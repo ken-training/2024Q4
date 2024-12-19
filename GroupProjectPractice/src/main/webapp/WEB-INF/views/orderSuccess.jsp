@@ -14,7 +14,7 @@
 	flex-direction: column;
 	align-items: center;
 }
-.toTop{
+.to_top{
 	text-decoration: underline; /* 常にアンダーライン表示 */
     color: #000;
 }
@@ -26,7 +26,7 @@
 	<div class="container">
 		<h2>注文が完了しました</h2>
 		<p>またのご利用をお待ちしております</p>
-		<p><div class="toTop">
+		<p><div class="to_top">
 			<a href="/project/top">トップページに戻る</a>
 		</div></p>
 	</div>
