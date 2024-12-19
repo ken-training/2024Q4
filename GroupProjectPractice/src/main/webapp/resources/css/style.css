@@ -61,7 +61,7 @@
 		flex-direction: column;
 		align-items: center;
 	}
-.button {
+	.button {
 		display: inline-block;
 		padding: 10px 20px;
 		background: #494949;
@@ -172,7 +172,6 @@
 	}
 	.category-select:focus,.search-input:focus{
 		outline: none;
-
 	}
 	.search-input {
 	    width: 100%;
@@ -385,4 +384,63 @@
 	.submit-button{
 		width: 40%;
 		margin: 10px 0;
+	}
+
+/* ------------------------ */
+/* 注文履歴 */
+/* ------------------------ */
+	.table-container{
+		width: 90%;
+		height: 35vw; /* 高さを指定 */
+		overflow-x: auto; /* 横スクロールを有効にする */
+		overflow-y: auto; /* 縦スクロールを有効にする */
+        -webkit-overflow-scrolling: touch; /* モバイルでスムーズなスクロール */
+		white-space: nowrap;
+	}
+	.table-container table{
+		border-collapse: collapse;
+	}
+
+	.table-container th, .table-container td {
+		padding: 1.5rem;
+		border: 1px solid #ccc;
+	}
+	.table-container th{
+		position: sticky;
+		top: 0;
+		background: #189e69;
+		color: #fff;
+		border-top: 2px;
+	}
+	.table-container td {
+		text-align: center;
+		background: #fff;
+	}
+
+
+	.table-container select {
+		-webkit-appearance: none; /* SafariやChrome向け */
+		-moz-appearance: none; /* Firefox向け */
+		appearance: none; /* 標準化されたプロパティ */
+
+		padding: 1em;
+		border-radius: 20px;
+		border: none;
+		font-weight: bold;
+		cursor: pointer;
+	}
+	.table-container select:focus{
+		outline: none;
+	}
+	.table-container option{
+		background: #fff;
+	}
+	.unship{
+		background: #afd2ff;
+	}
+	.ship{
+		background: #ffafaf;
+	}
+	.delete{
+		background: #c2c2c2;
 	}
