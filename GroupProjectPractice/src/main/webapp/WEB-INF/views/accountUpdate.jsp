@@ -102,14 +102,17 @@
 							<div class="form-item">
 								<label>都道府県</label>
 								<form:input path="prefecture" class="form-control" />
+								<p id="prefecture-error" class="error-message"></p>
 							</div>
 							<div class="form-item">
 								<label>市区町村</label>
 								<form:input path="city" class="form-control" />
+								<p id="city-error" class="error-message"></p>
 							</div>
 							<div class="form-item">
 								<label>番地</label>
 								<form:input path="block" class="form-control" />
+								<p id="block-error" class="error-message"></p>
 							</div>
 							<div class="form-item">
 								<label>建物名・部屋番号名</label>
