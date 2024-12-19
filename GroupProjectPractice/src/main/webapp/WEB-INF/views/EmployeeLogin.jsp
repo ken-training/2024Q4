@@ -57,9 +57,11 @@
 .login-container input[type="text"],
 .login-container input[type="password"] {
 	width: 80%;
-	margin-top:5;/*フォームの高さ*/
+	margin-top:5px;/*フォームの高さ*/
     margin-bottom: 1px; /* 入力フォームとエラーメッセージの間の余白 */
-    padding: 8px; /* フォーム内の余白を調整 */
+    padding: 12px; /* フォーム内の余白を調整 */
+    outline:none;
+    border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 /* エラーメッセージの上部と下部の余白を調整 */
