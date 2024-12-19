@@ -23,8 +23,8 @@
 	<div class="flex-col-center" style="height: 100vw; background: #ededed;">
 		<h2 style="margin-top: 2em;">発送済、注文取消注文一覧</h2>
 		<div class="flex-center" style="width: 90%;">
-			<p class="button"><a href="/project/empmenu">メニューに戻る</a></p>
-			<p class="button" style="margin-left: auto;"><a href="/project/orderlog/unshipped">未発送注文履歴</a></p>
+			<a href="/project/empmenu"><p class="button">メニューに戻る</p></a>
+			<a href="/project/orderlog/unshipped"><p class="button" style="margin-left: auto;">未発送注文履歴</p></a>
 		</div>
 		<c:if test="${ !empty(orderlogList)}">
 			<div class="table-container">

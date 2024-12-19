@@ -311,7 +311,9 @@ document.addEventListener("DOMContentLoaded", function() {
 function errorDesign() {
 	var errormess = document.querySelectorAll(".error-message");
 	errormess.forEach(function(errorMessage) {
-		errorMessage.previousElementSibling.classList.remove('error');
+		if (errorMessage.previousElementSibling) {
+			errorMessage.previousElementSibling.classList.remove('error');
+		}
 		// メッセージが空でない場合にアイコンを追加
 		if (errorMessage.innerHTML.trim() !== "") {
 			errorMessage.innerHTML = '<i class="fas fa-exclamation-circle"></i>&nbsp' + errorMessage.innerHTML;

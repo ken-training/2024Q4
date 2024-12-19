@@ -53,31 +53,6 @@
     text-align: left; /* 各セルの内容を左寄せ */
     padding: 1px; /* セル内の余白を調整 */
 }
-/* form:inputとform:errorsの間の余白を小さくする */
-.login-container input[type="text"],
-.login-container input[type="password"] {
-	width: 80%;
-	margin-top:5px;/*フォームの高さ*/
-    margin-bottom: 1px; /* 入力フォームとエラーメッセージの間の余白 */
-    padding: 12px; /* フォーム内の余白を調整 */
-    outline:none;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-}
-
-/* エラーメッセージの上部と下部の余白を調整 */
-.error {
-    margin-top: 3px; /* エラーメッセージの上部の余白を小さく */
-    margin-bottom: 5px; /* エラーメッセージの下部の余白を調整 */
-    font-size: 12px; /* エラーメッセージの文字サイズを小さく */
-    color: #ff0000; /* 赤色のエラーメッセージ */
-}
-
-/*エラー全体*/
-.error {
-    color: #ff0000;	/*エラー出た場合の色*/
-    font-size: 12px; /*文字サイズ*/
-    margin-top: 5px; /*フォームから少し余白つけて表示*/
-}
 
 /* エラーメッセージを囲んでいるform:errorsの余白調整 */
 .form-error {
@@ -104,10 +79,6 @@ margin-top: 60px;
 
 }
 
-/*フッター*/
-.footer{
-text-align: center;	/*真ん中に寄せる*/
-}
 
 </style>
 </head>
@@ -115,36 +86,33 @@ text-align: center;	/*真ん中に寄せる*/
 	<jsp:include page="header.jsp"></jsp:include>
 	<div class="container">
 		<!-- ログインセクション -->
-		<div class="login-container">
+		<div class="login-container" style="width: 450px">
 			<h1>従業員ログイン</h1>
 				<form:form modelAttribute="employeeLoginFormModel">
 				 <div class="error"><c:out value="${message}"/></div>
 					<table>
-						<tr>
-							<td><p>メールアドレス<span class="required">*必須</span></p></td>
+					<tr>
+						<td>
+							<div class="form-item">
+								<label>メールアドレス<span class="required">*必須</span></label>
+								<form:input path="mailaddress" class="form-control" />
+								<form:errors path="mailaddress" element="div"
+									cssClass="error-message" />
+							</div>
+						</td>
 						</tr>
 						<tr>
-							<td><p><form:input path="mailaddress"/></td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<form:errors path="mailaddress" element="div" cssClass="error"/>
+							<td>
+								<div class="form-item">
+									<label>パスワード<span class="required">*必須</span></label>
+									<form:password path="password" class="form-control" />
+									<form:errors path="password" element="p" cssClass="error-message" />
+								</div>
 							</td>
 						</tr>
 						<tr>
-							<td><p>パスワード<span class="required">*必須</span></p></td>
-						</tr>
-						<tr>
-							<td><p><form:password path="password"/></td>
-						</tr>
-						<tr>
 							<td colspan="2">
-								<form:errors path="password" element="span" cssClass="error" />
-							</td>
-						 </tr>
-						<tr>
-							<td colspan="2">
-								<p class="error"><c:out value="${error}"/></p><!--  errorクラス -->
+								<p class="error-message"><c:out value="${error}"/></p><!--  errorクラス -->
 							</td>
 						</tr>
 					</table>

@@ -19,8 +19,8 @@
 			<c:out value="${message }" />
 		</p>
 		<div class="flex-center" style="width: 90%;">
-			<p class="button"><a href="/project/empmenu">メニューに戻る</a></p>
-			<p class="button" style="margin-left: auto;"><a href="/project/orderlog/shipped">発送済/注文取消注文履歴</a></p>
+			<a href="/project/empmenu"><p class="button">メニューに戻る</p></a>
+			<a href="/project/orderlog/shipped"><p class="button" style="margin-left: auto;">発送済/注文取消注文履歴</p></a>
 		</div>
 		<c:if test="${ !empty(orderlogList)}">
 			<div class="table-container" style="height: 33vw;">
