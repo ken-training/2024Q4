@@ -1,6 +1,7 @@
 package jp.ken.project.controller;
 
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -149,10 +150,95 @@ public class ConfirmController {
 		boolean success = ConfirmDao.insertWithTransaction(shippingModel, orderModel, cartList);
 
 		if(success) {
+			// メール内容作成
+			String mailBody
+					= "\r\n"
+					+ customerModel.getCustomer_name() + " 様"
+					+ "\r\n"
+					+ "\r\n"
+					+ "いつもご利用ありがとうございます。\r\n"
+					+ "KEN Interior Shopでございます。\r\n"
+					+ "\r\n"
+					+ "以下の内容にて、ご注文を承りました。\r\n"
+					+ "\r\n"
+					+ "\r\n"
+					+ "----------------\r\n"
+					+ "■ご注文情報\r\n"
+					+ "----------------\r\n"
+					+ "■ご注文番号： \r\n";
+
+			// 商品の個数だけ行追記
+			int total_qty = 0;
+			// (準備)DecimalFormatを使ってカンマ区切りでフォーマット
+			DecimalFormat formatter = new DecimalFormat("#,###");
+
+			if (cartList != null && cartList.size() != 0) {
+			    for(CartModel cartmodel : cartList) {
+			    	// 必要情報をメール内容に追記していく
+
+			    	// 商品名表示
+			    	mailBody += "■" + cartmodel.getProduct_name() + " ";
+
+			    	// 値段を取得
+			    	int price = cartmodel.getPrice();
+			    	price = (int)(cartmodel.getDiscnt_is_valid().equals("1") ? price * (1 - cartmodel.getDiscnt_rate()) : price);
+			    	// DecimalFormatを使ってカンマ区切りでフォーマット
+			    	mailBody += "￥" + formatter.format(price) + "(税抜) ";
+
+			    	// 数量表示
+			    	mailBody += "数量：" + cartmodel.getCount() + "個\r\n";
+
+			    	// 合計数量計算
+			    	total_qty += cartmodel.getCount();
+			    }
+			}
+
+			mailBody += "\r\n"
+					+ "●商品合計数： " + total_qty + "個\r\n"
+					+ "●税額： ￥" + formatter.format(total_amount * 0.1) + "\r\n"
+					+ "●商品の小計： ￥" + formatter.format(total_amount * 1.1) + "\r\n"
+					+ "●配送料：WEBサイト開設キャンペーンにつき、送料無料!!\r\n"
+					+ "●ご請求額： ￥" + formatter.format(total_amount * 1.1)+ "\r\n";
+
+			// お支払情報取得
+			String pay = "";
+			if(orderFormModel != null) {
+				pay = orderFormModel.getPay();
+				if (pay.equals("cash")) {
+					pay = "代金引換(現金)";
+				}else if(pay.equals("credit")) {
+					pay = "クレジットカード";
+				}
+			}
+
+			mailBody += "●お支払情報： " + pay + "\r\n"
+					+ "\r\n"
+					+ "\r\n"
+					+ "----------------\r\n"
+					+ "■今回のご注文のお届け先\r\n"
+					+ "----------------\r\n"
+					+ "■お客様名： " + orderFormModel.getShipName() + " 様\r\n"
+					+ "■住所： " + orderFormModel.getShipPrefecture() + " "
+									+ orderFormModel.getShipCity() + " "
+									+ orderFormModel.getShipBlock() + " "
+									+ orderFormModel.getShipBuilding() + " \r\n"
+					+ "■電話番号： " + orderFormModel.getShipPhone1() + "-"
+									+ orderFormModel.getShipPhone2() + "-"
+									+ orderFormModel.getShipPhone3() + " \r\n"
+									+ "\r\n"
+									+ "\r\n"
+					+ "----------------\r\n"
+					+ "■KEN Interior Shopサイト\r\n"
+					+ "http://localhost:8080/project/top\r\n"
+					+ "----------------\r\n";
+
+
+			model.addAttribute("mailBody", mailBody);
+
 			// sessionをクリア
 	        session.removeAttribute("cartList");  // カート
 	        session.removeAttribute("orderFormModel");  // 発注情報
-			return "orderSuccess";
+			return "redirect:/send-email";
 //			return "redirect:/cart"; // complete.jspができるまでカートに遷移する
 		}else {
 			model.addAttribute("error", "エラーが発生しました");

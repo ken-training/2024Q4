@@ -2,7 +2,9 @@ package jp.ken.project.mail;
 
 import javax.mail.AuthenticationFailedException;
 import javax.mail.MessagingException;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +30,38 @@ public class EmailService {
 
             helper.setTo(to);
             helper.setSubject(subject);
-            helper.setText(body, true); // HTMLメールの場合
+
+            // プレーンテキスト部分
+            String plainTextBody = body;
+
+            // HTML部分を作成（改行を<br>に変換）
+            String htmlBody = "<!DOCTYPE html>"
+            				+ "<html lang=\"ja\">"
+            				+ "<head>"
+            				+ "<meta charset=\"UTF-8\">"
+            				+ "</head>"
+            				+ "<body style=\"color: black;\">"
+            				+ "<div style=\"color: inherit;\">"
+            				+ body.replace("\r\n", "<br>").replace("\n", "<br>")
+            				+ "</div>"
+            				+ "</body>"
+            				+ "</html>";
+
+            // MimeMultipartを使って、alternative型で作成
+            MimeMultipart multipart = new MimeMultipart("alternative");
+
+            // プレーンテキストの部分をMimeBodyPartとして追加
+            MimeBodyPart textPart = new MimeBodyPart();
+            textPart.setText(plainTextBody, "utf-8", "plain");
+            multipart.addBodyPart(textPart);
+
+            // HTMLの部分をMimeBodyPartとして追加
+            MimeBodyPart htmlPart = new MimeBodyPart();
+            htmlPart.setContent(htmlBody, "text/html; charset=utf-8");
+            multipart.addBodyPart(htmlPart);
+
+            // メールメッセージにマルチパートをセット
+            mimeMessage.setContent(multipart);
 
             javaMailSender.send(mimeMessage);
 //        } catch (IOException e) {
