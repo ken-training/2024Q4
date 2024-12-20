@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			if (discountElement) {
 				// 割引価格を表示
 				discountElement.innerHTML = `
-	                    <br>↓<br>¥ ${discountPrice.toLocaleString()} (税抜)
+	                    <br>¥ ${discountPrice.toLocaleString()} (税抜)
 	                     (${Math.round(discountRate * 100)}% OFF)
 	                `;
 			}
@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	    				"prefecture-error", "city-error", "block-error",];
 	    // エラーメッセージをリセット
 	    for (var i = 0; i < checkName.length; i++) {
-	        document.getElementById(checkName[i]).textContent = '';
+	        document.getElementById(checkName[i]).innerHTML = '';
 	    }
 	    for (var i= 0; i < elem.length ; i++){
 			console.log("elem[" + i + "]:" + elem[i].value);
@@ -225,21 +225,21 @@ document.addEventListener("DOMContentLoaded", function() {
 		// メールアドレスの文字数チェック
 	    if(elem[2].value != ""){	// 未入力の場合は除く
 			if( !elem[2].value.match(/^[\s\S]{3,32}$/)){
-				document.getElementById(checkName[0]).textContent = '3文字以上32文字以下で入力してください';
+				document.getElementById(checkName[0]).innerHTML = '<i class="fas fa-exclamation-circle"></i>&nbsp3文字以上32文字以下で入力してください';
 				cnt++;
 			}
 	    }
 		// パスワードの文字数チェック
 	    if(elem[3].value != ""){	// 未入力の場合は除く
 			if( !elem[3].value.match(/^[\s\S]{6,15}$/)){
-				document.getElementById(checkName[1]).textContent = '6文字以上15文字以下で入力してください';
+				document.getElementById(checkName[1]).innerHTML = '<i class="fas fa-exclamation-circle"></i>&nbsp6文字以上15文字以下で入力してください';
 				cnt++;
 			}
 	    }
 		// 郵便番号の数字、文字数チェック
 	    if(!(elem[4].value == "" && elem[5].value == "")){	// すべて未入力の場合は除く
 			if( !(elem[4].value.match(/^\d{3}$/) && elem[5].value.match(/^\d{4}$/)) ){
-				document.getElementById(checkName[2]).textContent = '郵便番号が無効です';
+				document.getElementById(checkName[2]).innerHTML = '<i class="fas fa-exclamation-circle"></i>&nbsp郵便番号が無効です';
 				cnt++;
 			}
 		}
@@ -264,7 +264,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		    	!elem[11].value.match(/^\d{2,4}$/) ||
 	    		!elem[12].value.match(/^\d{4}$/) ||
 	    		elem[10].value.length + elem[11].value.length + elem[12].value.length >= 12) {
-		        document.getElementById(checkName[3]).textContent = '電話番号が無効です';
+		        document.getElementById(checkName[3]).innerHTML = '<i class="fas fa-exclamation-circle"></i>&nbsp電話番号が無効です';
 		        cnt++;
 	    	}
 	    }
@@ -272,7 +272,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	    if(!(elem[16].value == "" && elem[17].value =="" && elem[18].value == "" && elem[19].value == "")){	// すべて未入力の場合は除く
 	       	if( !elem[16].value.match(/^\d{4}$/) || !elem[17].value.match(/^\d{4}$/)
     				|| !elem[18].value.match(/^\d{4}$/) || !elem[19].value.match(/^\d{4}$/)) {
-				document.getElementById(checkName[4]).textContent = 'カード番号が無効です';
+				document.getElementById(checkName[4]).innerHTML = '<i class="fas fa-exclamation-circle"></i>&nbspカード番号が無効です';
 				cnt++;
         	}
         }
@@ -295,7 +295,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			/* 現在と入力値文字列を大小比較し、
 			現在 >= 入力値 であるなら errorメッセージ を表示	*/
 			if(parseInt(nowYm) > parseInt(value)){
-				document.getElementById(checkName[5]).textContent = '有効期限が切れています';
+				document.getElementById(checkName[5]).innerHTML = '<i class="fas fa-exclamation-circle"></i>&nbsp有効期限が切れています';
 				cnt++;
 			}
 	    // エラーがあれば送信を防止

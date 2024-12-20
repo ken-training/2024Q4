@@ -123,6 +123,17 @@
 		border-color: #3197EE; /* フォーカス時の境界線色 */
 	}
 
+
+	/* ドロップダウンリスト */
+	.numselect {
+	    padding: 10px 0;
+	    cursor: pointer;
+	    font-size: 16px;
+	    text-align: center;
+	    border: 1.5px solid #575757;
+	    width: 60px;
+	}
+
 	/* ------------------------ */
 	/* ヘッダー */
 	/* ------------------------ */
@@ -229,7 +240,7 @@
 
 	.item-label{
 		width: 100%;
-		border-bottom: 1px solid #2c2c2c;
+		border-bottom: 2px solid #575757;
 	}
 	.item-img{
 		width: 230px;
@@ -251,11 +262,28 @@
 		width: 130px
 	}
 
+	.top-container table{
+		border-collapse: collapse;
+	}
+
+	.top-container tr{
+		border-bottom: 1px solid #ccc;
+	}
+	.top-container tr:last-child{
+		border: none;
+	}
+
+	.top-container td{
+		padding: 30px 0;
+		vertical-align: top;
+	}
+
 /* ------------------------ */
 /* 発送情報入力 */
 /* ------------------------ */
 	.order-container{
 		display: flex;
+		background: #efefef;
 	}
 
 	/* カートの中身（位置固定div) */
@@ -265,11 +293,13 @@
         /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
         text-align: center;
 		background: #efefef;
+		overflow: visible;
+		height: 170vh;
     }
 
     #creditDiv  {
 		display: none;
-		background: #efefef;
+		background: #e3e3e3;
 		padding: 5px 20px 25px 20px;
 		border-radius: 8px;
 		margin: 15px 0;
@@ -286,6 +316,8 @@
 		padding: 20px;
 		position: sticky;
 		top: 0;
+		overflow-y: auto;
+		height: calc(100vh - 20px);
 	}
 	.side-contents .title {
 		text-decoration: underline;
@@ -348,7 +380,7 @@
 	}
 
 /* ------------------------ */
-/* 会員情報変更 */
+/* 会員情報 */
 /* ------------------------ */
 	.updateForm-container {
 		display: flex;
@@ -357,14 +389,17 @@
 	}
 
 	.form-table {
-		width: 100%;
+		width: 55vw;
 		border-collapse: collapse;
 		margin-bottom: 20px;
 		background-color: #efefef; /* テーブル全体の背景色 */
 	}
 
 	.form-table tr{
+		border-top: 1px solid #c7c7c7;
 		border-bottom: 1px solid #c7c7c7;
+		border-left: 1px solid #c7c7c7;
+		border-right: 1px solid #c7c7c7;
 	}
 	.form-table td{
 		line-height: 1rem;

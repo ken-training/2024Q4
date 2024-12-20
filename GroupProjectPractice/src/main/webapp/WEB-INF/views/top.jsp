@@ -12,8 +12,11 @@
     <main>
         <div class="top-container">
             <div>
-                <h2 class="item-label">SALE ITEMS</h2>
-                <table id="sale-items-table">
+				<c:if test="${message}">
+					<p><c:out value="${message}" /></p>
+				</c:if>
+				<h2 class="item-label">SALE ITEMS</h2>
+				<table id="sale-items-table">
                     <c:forEach var="saleProduct" items="${saleProductsList}" varStatus="status">
                         <c:if test="${status.index % 2 == 0}">
                             <tr> <!-- 2つの商品を1行にするために新しい行を開始 -->

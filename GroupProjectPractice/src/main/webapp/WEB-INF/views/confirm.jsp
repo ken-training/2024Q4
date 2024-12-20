@@ -14,7 +14,6 @@
     margin: 0 auto;    /* 中央寄せ */
     display:flex;
     justify-content: center;
-    background: #f5f5f5;
 }
 /*商品名と金額を右寄せ*/
 .right-align {
@@ -57,7 +56,7 @@ table{
 td{
 	height: 200px;
 }
-tr{
+tr:not(:last-child){
 	border-bottom: 1.5px solid #ccc;
 }
 </style>
@@ -65,14 +64,15 @@ tr{
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
-	<div class="container">
+	<main style="background: #efefef;">
+		<div class="container">
 		<form action="${pageContext.request.contextPath}/confirm" method="post" style="width:70%;text-align: center;">
 		<br>
 			<h2>ご注文内容の確認</h2>
 	<div style="text-align: left;">
 	<p>${message }</p>
 	<p>${error }</p>
-	<p>商品合計数 : ${total_qty }</p>
+	<p>商品合計数 : ${total_qty }点</p>
 	<p>税額 : ￥ <fmt:formatNumber value="${total_amount * 0.1}" pattern="#,###"></fmt:formatNumber></p>
 	<p>商品の小計 : ￥ <fmt:formatNumber value="${total_amount * 1.1}" pattern="#,###"></fmt:formatNumber></p>
 	<p>配送料 :<span style="color: #a2343b;">WEBサイト開設キャンペーンにつき、送料無料!!</span></p>
@@ -80,21 +80,17 @@ tr{
 <hr>
 
 	<p>お支払い情報 : ${pay }</p>
-		<br>
 	<p>お届け先 : ${orderFormModel.shipName } 様</p>
-	<p><span style="padding-left: 80px;">〒${orderFormModel.shipZip1 }-${orderFormModel.shipZip2 }</span></p>
+	<p><span style="padding-left: 80px;">〒&nbsp;${orderFormModel.shipZip1 }-${orderFormModel.shipZip2 }</span></p>
 	<p>
-		<span style="padding-left: 80px;">${orderFormModel.shipPrefecture }${orderFormModel.shipCity }
-		${orderFormModel.shipBlock }${orderFormModel.shipBuilding }</span>
+		<span style="padding-left: 80px;">${orderFormModel.shipPrefecture }&nbsp;${orderFormModel.shipCity }
+		${orderFormModel.shipBlock }&nbsp;${orderFormModel.shipBuilding }</span>
 	</p>
-		<br>
 	</div>
 	<div style="text-align: right;">
 		<button type="button" onclick="window.location.href='/project/order'"class="button">発送情報を変更する</button>
 	</div>
 		<br>
-		<br>
-
 <hr>
 	<div style="display:flex; flex-direction:column; align-items: center;">
 	<table>
@@ -120,7 +116,7 @@ tr{
                               </p>
                           </div>
 					</c:if>
-					<p class="right-align">数量 : ${item.getCount()} 個</p>
+					<p class="right-align">数量 : ${item.getCount()}</p>
 				</td>
 			</tr>
 		</c:forEach>
@@ -134,5 +130,6 @@ tr{
 		</form>
 	</div>
 	<jsp:include page="footer.jsp"></jsp:include>
+	</main>
 </body>
 </html>

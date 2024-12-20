@@ -36,7 +36,7 @@
     display: flex;
     flex-direction: column; /*商品詳細と数量選択を縦並びにする*/
     order: 2; /*商品詳細を右側に表示させるため順番変更*/
-    width: 650px;
+    width: 550px;
 }
 
 /* 画像のスタイル */
@@ -88,13 +88,15 @@
 /* カートに追加ボタンや戻るリンクのスタイル */
 input[type="submit"] {
     padding: 10px 20px;
-    background-color: #eee;
+    background-color: #dcdcdc;
     cursor: pointer;
     border: none;
+    font-weight: bold;
 }
 .back{
 	text-decoration: underline; /* 常にアンダーライン表示 */
     color: #000;
+    margin-top: 30px;
 }
 
 </style>
@@ -118,12 +120,11 @@ input[type="submit"] {
 	<!-- 商品説明 -->
 		<p id="text"><c:out value="${productModel.getProduct_detail() }"/></p>
 		 	<script>
-		 	 //。の後に改行を追加
-	        var textElement = document.getElementById('text');
-	        var text = textElement.innerText;
-	        textElement.innerHTML = text.replace(/。/g, '。<br>');
+			 	 //。の後に改行を追加
+		        var textElement = document.getElementById('text');
+		        var text = textElement.innerText;
+		        textElement.innerHTML = text.replace(/。/g, '。<br>');
     		</script>
-
 		<c:if test="${productModel.getDiscnt_is_valid() == 0 }">
 			<p>値段: <span class="price-value">￥ <fmt:formatNumber value="${productModel.getPrice() }" pattern="#,###" /></span>(税抜)</p>
 		</c:if>
@@ -142,7 +143,7 @@ input[type="submit"] {
 		<!--数量、カートに追加、一覧に戻る -->
 	<div class="quantity-select">
 		<p>数量:
-			<select name="quantity">
+			<select name="quantity" class="numselect">
 				<c:forEach var="n" begin="1" end="${limit_num }">
 					<option value="${n}">
 					<c:out value="${n}"/>
@@ -151,8 +152,6 @@ input[type="submit"] {
 			</select>
 		</p>
 	</div>
-
-
 	<div class="add-to-cart-message">
 		<input type="hidden" name="product_id" value="${productModel.getProduct_id() }">
 		<input type="submit" value="カートに追加">
@@ -163,10 +162,10 @@ input[type="submit"] {
 	</div>
 
 	<div class="back">
-	<p>
-	<!-- 	<a href="#" onclick="goBack(); return false;">一覧に戻る</a> -->
-	<a href='${previousUrl }'>一覧に戻る</a>
-	</p>
+		<p>
+		<!-- 	<a href="#" onclick="goBack(); return false;">一覧に戻る</a> -->
+		<a href='${previousUrl }'>一覧に戻る</a>
+		</p>
 	</div>
 	</div>
 	</div>

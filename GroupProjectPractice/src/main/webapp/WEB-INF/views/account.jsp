@@ -26,43 +26,8 @@ h1{
     padding: 20px; /* 内側の余白 */
     text-align: left;
 }
-.account-info table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-}
-.account-info table td{
-   	padding: 12px;
-   	border-collapse: collapse;
-   	margin-bottom: 20px;
-   	border-bottom: none;
-   	text-align: left;
-}
-.account-info table td:first-child {
-    width: 200px;
-    font-weight: bold;
-    background-color: #f9f9f9;
-    text-align: center;
-}
-.account-info table td:not(:first-child) {
-   	padding-left: 35px; /* 文字の始まりを右にずらすため、左側に余白を追加*/
-}
-.account-info table tr{
-   	border-bottom: 1px solid #ddd;
-}
-.account-info input[type="submit"] {
-    padding: 10px 20px;
-    /* margin: 10px 5px; */
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    background-color: #494949;
-    color: #ffffff;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+td:first-child{
+	padding: 1.3rem!important;
 }
 .account-info input[type="submit"]:focus {
     outline: none;
@@ -76,10 +41,10 @@ h1{
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
 	<main>
-		<div class="account-info">
+		<div class="account-info flex-col-center">
 			<h1>会員情報</h1>
 				<form:form modelAttribute="customerModel">
-				<table>
+				<table class="form-table">
 					<tr>
 						<td>氏名</td>
 						<td><c:out value="${ customerModel.customer_name }"/></td>
@@ -133,14 +98,14 @@ h1{
 					</tr>
 				</table>
 				<div class="flex-center" style="justify-content: space-evenly;">
-					<div class="button">
-						<input type="submit" name="action" value="会員情報変更" />
+					<div>
+						<input type="submit" name="action" value="会員情報変更"  class="button"/>
 					</div>
-					<div class="button">
-						<input type="submit" name="action" value="注文履歴確認" />
+					<div>
+						<input type="submit" name="action" value="注文履歴確認"  class="button"/>
 					</div>
-					<div class="button">
-						<input type="submit" name="action" value="退会する" />
+					<div>
+						<input type="submit" name="action" value="退会する" class="button" />
 					</div>
 				</div>
 				</form:form>

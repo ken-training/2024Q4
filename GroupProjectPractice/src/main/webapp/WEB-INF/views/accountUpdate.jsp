@@ -75,8 +75,8 @@
 						<td>
 							<form:input path="mail" class="form-control" />
 							<p id="mail-error" class="error-message"></p>
-							<p><form:errors path="mail" element="div" cssClass="form-error" /></p>
-							<p class="error"><c:out value="${error}"/></p>
+							<p><form:errors path="mail" element="div" cssClass="error-message" /></p>
+							<p class="error-message"><c:out value="${error}"/></p>
 						</td>
 					</tr>
 					<tr>
