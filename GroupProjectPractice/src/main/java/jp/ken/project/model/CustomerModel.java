@@ -33,6 +33,7 @@ public class CustomerModel implements Serializable{
 	//パスワード
 	@NotEmpty(message = "必須入力です")
 	@Size(min=6,max=15 ,message ="6文字以上15文字以下で入力してください", groups = Group1.class)
+	@Pattern(regexp = "^\\S+$", message = "空白文字は使えません", groups = Group2.class)
 	private String password;
 
 	//郵便番号
