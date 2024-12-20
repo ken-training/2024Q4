@@ -16,6 +16,7 @@ public class CustomerModel implements Serializable{
 
 	//氏名
 	@NotEmpty(message = "必須入力です")
+	@Size(min=1,max=15,message ="1文字以上15文字以下で入力してください", groups = Group1.class)
 	private String customer_name;
 
 	//フリガナ
@@ -23,13 +24,13 @@ public class CustomerModel implements Serializable{
 
 	//メールアドレス
 	@NotEmpty(message = "必須入力です")
-	@Size(min=3,max=32,message ="3文字以上32文字以下で入力しください", groups = Group1.class)
+	@Size(min=3,max=32,message ="3文字以上32文字以下で入力してください", groups = Group1.class)
 	@Email(message = "Emailを正しく入力してください", groups = Group2.class)
 	private String mail;
 
 	//パスワード
 	@NotEmpty(message = "必須入力です")
-	@Size(min=6,max=15 ,message ="6文字以上15文字以下で入力しください", groups = Group1.class)
+	@Size(min=6,max=15 ,message ="6文字以上15文字以下で入力してください", groups = Group1.class)
 	private String password;
 
 	//郵便番号
