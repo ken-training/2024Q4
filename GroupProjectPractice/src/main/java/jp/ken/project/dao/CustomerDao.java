@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -49,21 +50,30 @@ public class CustomerDao {
 				throw new Exception("変更レコード数が想定外の値です。");
 			}
 			transactionManager.commit(transactionStatus);// 成功した場合はコミット
+		} catch (DuplicateKeyException e) {// すでにメールアドレスが登録されている場合
+			if (transactionStatus != null) {
+				transactionManager.rollback(transactionStatus);
+			}
+			e.printStackTrace();
+			return -2;
 		} catch (DataAccessException e) {// データアクセス例外が発生した場合
 			if (transactionStatus != null) {
 				transactionManager.rollback(transactionStatus);
 			}
 			e.printStackTrace();
+			return -3;
 		} catch (TransactionException e) {// トランザクション関連の例外が発生した場合
 			if (transactionStatus != null) {
 				transactionManager.rollback(transactionStatus);
 			}
 			e.printStackTrace();
+			return -4;
 		} catch (Exception e) { // その他の予期しない例外
 			if (transactionStatus != null) {
 				transactionManager.rollback(transactionStatus);
 			}
 			e.printStackTrace();
+			return -5;
 		} finally { // 最後にトランザクションを確実に終了させる
 			if (transactionStatus != null && !transactionStatus.isCompleted()) {
 				transactionManager.rollback(transactionStatus);
