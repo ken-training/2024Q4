@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 	});
 
+	showDiv(document.querySelector('.radio-buttons input[type="radio"]:checked').value);
 	errorDesign();
 });
 
@@ -153,11 +154,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
 		if(selectedRadio && selectedRadio.value === 'credit') {
 			// クレジットカード番号の数字、文字数チェック
-	        if( !elem[13].value.match(/^\d{4}$/) || !elem[14].value.match(/^\d{4}$/)
-	    			|| !elem[15].value.match(/^\d{4}$/) || !elem[16].value.match(/^\d{4}$/)) {
-				document.getElementById(checkName[9]).innerHTML = '<i class="fas fa-exclamation-circle"></i>&nbsp;カード番号が無効です';
-				cnt++;
-	        }
+			// アスタリスクの前後に半角空白がないとマッチしない
+			if(!(elem[13].value.match(/^\s*\*\*\*\*\s*$/) && elem[14].value.match(/^\s*\*\*\*\*\s*$/)
+					&& elem[15].value.match(/^\s*\*\*\*\*\s*$/) && elem[16].value.match(/^\s*\d{4}\s*$/))){
+		        if( !elem[13].value.match(/^\d{4}$/) || !elem[14].value.match(/^\d{4}$/)
+		    			|| !elem[15].value.match(/^\d{4}$/) || !elem[16].value.match(/^\d{4}$/)) {
+					document.getElementById(checkName[9]).innerHTML = '<i class="fas fa-exclamation-circle"></i>&nbsp;カード番号が無効です';
+					cnt++;
+		        }
+		    }
 
 			// クレジットカード有効期限チェック
 			//現在の日付を取得
@@ -177,12 +182,16 @@ document.addEventListener("DOMContentLoaded", function() {
 				value += elem[17].value;
 			}
 			console.log("value" + value);
-
-			/* 現在と入力値文字列を大小比較し、
-			現在 >= 入力値 であるなら errorメッセージ を表示	*/
-			if(parseInt(nowYm) > parseInt(value)){
-				document.getElementById(checkName[10]).innerHTML = '<i class="fas fa-exclamation-circle"></i>&nbsp;有効期限が切れています';
+			if(elem[18].value == '----' || elem[17].value == '--'){
+				document.getElementById(checkName[10]).innerHTML = '<i class="fas fa-exclamation-circle"></i>&nbsp;必須入力です';
 				cnt++;
+			}else{
+				/* 現在と入力値文字列を大小比較し、
+				現在 >= 入力値 であるなら errorメッセージ を表示	*/
+				if(parseInt(nowYm) > parseInt(value)){
+					document.getElementById(checkName[10]).innerHTML = '<i class="fas fa-exclamation-circle"></i>&nbsp;有効期限が切れています';
+					cnt++;
+				}
 			}
 		}
 

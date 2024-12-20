@@ -1,6 +1,7 @@
 package jp.ken.project.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -53,6 +54,8 @@ public class OrderController {
 			// 会員モデルから氏名、電話番号、郵便番号、住所を取得しOrderFormModelに格納
 			// 氏名
 			orderFormModel.setShipName(customerModel.getCustomer_name());
+			// フリガナ
+			orderFormModel.setShipPhonetic(customerModel.getCustomer_phonetic());
 			// 電話番号
 			if (customerModel.getPhone() != null) {
 				String[] words = customerModel.getPhone().split("-");
@@ -73,8 +76,9 @@ public class OrderController {
 				orderFormModel.setShipPrefecture(words[0]);
 				orderFormModel.setShipCity(words[1]);
 				orderFormModel.setShipBlock(words[2]);
-				if (words.length == 4) {	// 建物名が入力されていた場合
-					orderFormModel.setShipBuilding(words[3]);
+				if (words.length >= 4) {	// 建物名が入力されていた場合
+				    String building = String.join(" ", Arrays.copyOfRange(words, 3, words.length));
+				    orderFormModel.setShipBuilding(building);
 				}
 			}
 			// クレジットカード番号
@@ -89,7 +93,7 @@ public class OrderController {
 			if (customerModel.getCreditcard_exp() != null) {	// クレジットカード有効期限
 				String[] words = customerModel.getCreditcard_exp().split("/");
 				orderFormModel.setCreditExpM(words[0]);
-				orderFormModel.setCreditExpY(words[1]);
+				orderFormModel.setCreditExpY("20" + words[1]);
 			}
 		}
 
@@ -99,8 +103,12 @@ public class OrderController {
 		int thisYear = cal.get(Calendar.YEAR);
 
 		// プルダウンで表示するようのリストをモデルに紐づけ
-		model.addAttribute("creditExpMList", getNumberList(1, 12));
-		model.addAttribute("creditExpYList", getNumberList(thisYear, thisYear +10));
+		List<String> creditExpMList = getNumberList(1, 12);
+		List<String> creditExpYList = getNumberList(thisYear, thisYear +10);
+		creditExpMList.add(0,"--");
+		creditExpYList.add(0,"----");
+		model.addAttribute("creditExpMList", creditExpMList);
+		model.addAttribute("creditExpYList", creditExpYList);
 
 		// 入力項目を格納するモデルを紐づけ
 		model.addAttribute("orderFormModel", orderFormModel);
@@ -140,8 +148,8 @@ public class OrderController {
 
 			} else if ("戻る".equals(action)) {
 				// 商品詳細画面へ遷移する処理
-				return "cart";
-//            	return "redirect:/cart";  // CartのControllerができたら書き換える
+//				return "cart";
+            	return "redirect:/cart";  // CartのControllerができたら書き換える
 
 			} else {
 				// 未知のアクション

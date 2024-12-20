@@ -138,7 +138,8 @@ footer{
 					<div>
 						<div class="button-box">
 							<input type="submit" name="action" value="注文確認" class="button" style="width: 35%;">
-							<input type="submit" name="action" value="戻る" class="button" style="width: 20%;">
+							<!-- <input type="submit" name="action" value="戻る" class="button" style="width: 20%;"> -->
+							<button type="button" class="button" onclick="window.location.href='/project/cart'">戻る</button>
 						</div>
 					</div>
 				</form:form>
