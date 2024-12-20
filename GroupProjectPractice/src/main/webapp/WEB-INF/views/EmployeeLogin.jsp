@@ -17,6 +17,8 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	background: #bdd3dc87;
+	height: 100vh;
 }
 
 /* ログインセクションのスタイル */
@@ -29,6 +31,7 @@
      height: 500px;
      box-sizing: border-box;
      text-align: center;
+     background: #fff;
 }
 
 /* メールアドレス、パスワードのラベルと入力フォーム間の行間を狭める */

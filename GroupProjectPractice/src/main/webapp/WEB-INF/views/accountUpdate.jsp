@@ -88,8 +88,8 @@
 					</tr>
 					<tr>
 						<td>郵便番号</td>
-						<td width="200px">
-							<div class="flex-center">
+						<td>
+							<div class="flex-center" style=" width:200px;">
 								<form:input path="zip1" class="form-control" placeholder="3桁" style="text-align: center;" /> &nbsp－&nbsp
 								<form:input path="zip2" class="form-control" placeholder="4桁" style="text-align: center;" />
 							</div>
@@ -122,8 +122,8 @@
 					</tr>
 					<tr>
 						<td>電話番号</td>
-						<td width="370px">
-							<div class="flex-center">
+						<td>
+							<div class="flex-center" style="width: 370px">
 								<form:input path="phone1" class="form-control" placeholder="2~4桁" style="text-align: center;" /> &nbsp－&nbsp
 								<form:input path="phone2" class="form-control" placeholder="2~4桁" style="text-align: center;" /> &nbsp－&nbsp
 								<form:input path="phone3" class="form-control" placeholder="4桁" style="text-align: center;" />
@@ -133,7 +133,7 @@
 					</tr>
 					<tr>
 						<td>生年月日</td>
-						<td class="flex-center" width="400px">
+						<td class="flex-center" width="420px">
  							<form:select path="birthYear" items="${birthYearList }" onchange="setDay()" class="form-control"/>&nbsp年&emsp;
  							<form:select path="birthMonth" items="${birthMonthList }"  onchange="setDay()" class="form-control"/> &nbsp月&emsp;
  							<form:select path="birthDay" items="${birthDayList }" class="form-control"/> &nbsp日&nbsp
@@ -141,8 +141,8 @@
 					</tr>
 					<tr>
 						<td>クレジットカード番号</td>
-						<td width="500px">
-							<div class="flex-center">
+						<td>
+							<div class="flex-center" style="width: 510px;">
 								<form:input path="creditNum1" size="5" placeholder="0000" class="form-control" style="text-align: center;"/> &nbsp－&nbsp
 	 							<form:input path="creditNum2" size="5" placeholder="0000" class="form-control" style="text-align: center;"/> &nbsp－&nbsp
 	 							<form:input path="creditNum3" size="5" placeholder="0000" class="form-control" style="text-align: center;"/> &nbsp－&nbsp
@@ -153,8 +153,8 @@
 					</tr>
 					<tr>
 						<td>カード有効期限</td>
-						<td width="235px">
-							<div class="flex-center">
+						<td>
+							<div class="flex-center" style="width: 240px;">
 								<form:select path="creditExpM" items="${creditExpMList }" class="form-control" /> &ensp;/&ensp;
 		 						<form:select path="creditExpY" items="${creditExpYList }" class="form-control" />
 							</div>

@@ -20,9 +20,9 @@
 	</style>
 </head>
 <body>
-	<div class="flex-col-center" style="height: 100vw; background: #ededed;">
+	<div class="flex-col-center" style="height: 100vw; background: #bdd3dc87;">
 		<h2 style="margin-top: 2em;">発送済、注文取消注文一覧</h2>
-		<div class="flex-center" style="width: 90%;">
+		<div class="flex-center" style="width: 90%;justify-content: space-between;">
 			<a href="/project/empmenu"><p class="button">メニューに戻る</p></a>
 			<a href="/project/orderlog/unshipped"><p class="button" style="margin-left: auto;">未発送注文履歴</p></a>
 		</div>

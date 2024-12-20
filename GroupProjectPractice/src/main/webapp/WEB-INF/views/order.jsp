@@ -19,7 +19,7 @@ footer{
  	<main>
 	 	<div class="order-container">
 	 		<div class="orderForm-container">
-				<h2>発送情報入力フォーム</h2>
+				<h2 style="margin-bottom: 0">発送情報入力フォーム</h2>
 				<form:form modelAttribute="orderFormModel" name="fm" onsubmit="return check()">
 					<div class="form-item">
 						<label>氏名<span class="required">*必須</span></label>

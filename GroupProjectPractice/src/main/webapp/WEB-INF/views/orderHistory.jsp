@@ -35,12 +35,12 @@
 <jsp:include page="header.jsp"></jsp:include>
 	<div class="flex-col-center" style="height: 100vw;">
 		<p><c:out value="${message }"/></p>
-		<h2>注文履歴</h2>
-		<div class="flex-center" style="width: 90%;">
-			<a href="/project/account"><p class="button">マイページに戻る</p></a>
+		<div style="width: 90%;">
+			<h2 style="text-align: center;margin: 0;">注文履歴</h2>
+			<a href="/project/account"><div class="button" style="margin-bottom:10px;">マイページに戻る</div></a>
 		</div>
 	    <c:if test="${ !empty(orderlogList)}">
-		    <div class="table-container">
+		    <div class="table-container" style="height: 33vw">
 		    	<table>
 					<tr>
 						<th>注文詳細ID</th>

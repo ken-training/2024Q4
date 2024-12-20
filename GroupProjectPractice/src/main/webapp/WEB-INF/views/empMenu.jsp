@@ -10,16 +10,9 @@
 <meta charset="UTF-8">
 <title>従業員メニュー</title>
 <style>
-
-    /* フッターのスタイル */
-    .footer {
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        padding: 10px 0;
-    }
-
+	body{
+		background: #bdd3dc87;
+	}
     /* メニューリンク */
     .menu_links {
         display: flex;
@@ -83,24 +76,26 @@
 </style>
 </head>
 <body>
-	<div class="menu_container">
-		<h1>従業員メニュー</h1>
-		<c:if test="${not empty employeeLoginModel}">
-			<p style="font-size: 25px;">ようこそ、${employeeLoginModel.emp_name}さん</p>
-		</c:if>
+	<div class="">
+		<div class="menu_container">
+			<h1>従業員メニュー</h1>
+			<c:if test="${not empty employeeLoginModel}">
+				<p style="font-size: 25px;">ようこそ、${employeeLoginModel.emp_name}さん</p>
+			</c:if>
 
-		<div class="menu_links">
-			<a href="/project/orderlog/unshipped"> <i class="fas fa-history"></i>
-				<span class="break-line">注文履歴</span>
-				<span class="small-text">(未発送)</span>
-			</a>
-			<a href="/project/orderlog/shipped"> <i class="fas fa-shipping-fast"></i>
-				<span class="break-line">注文履歴</span>
-				<span class="small-text">(発送済み,キャンセル)</span>
-			</a>
-			<a href="/project/emplogout"> <i class="fas fa-sign-out-alt"></i>
-				<span class="break-line" style="margin-top: 1em;">ログアウト</span>
-			</a>
+			<div class="menu_links">
+				<a href="/project/orderlog/unshipped"> <i class="fas fa-history"></i>
+					<span class="break-line">注文履歴</span>
+					<span class="small-text">(未発送)</span>
+				</a>
+				<a href="/project/orderlog/shipped"> <i class="fas fa-shipping-fast"></i>
+					<span class="break-line">注文履歴</span>
+					<span class="small-text">(発送済み,キャンセル)</span>
+				</a>
+				<a href="/project/emplogout"> <i class="fas fa-sign-out-alt"></i>
+					<span class="break-line" style="margin-top: 1em;">ログアウト</span>
+				</a>
+			</div>
 		</div>
 	</div>
 </body>

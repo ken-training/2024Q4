@@ -74,7 +74,7 @@ public class EmployeeLoginController {
 	@RequestMapping(value = "/emplogout",method = RequestMethod.GET)
 	public String toEmpLogout(HttpSession session) {
 		session.removeAttribute("employeeLoginModel");  //従業員情報
-		return "redirect:/top";  // ログアウト後トップページへ
+		return "redirect:/emplogin";  // ログアウト後従業員ログインページへ
 	}
 
 }
