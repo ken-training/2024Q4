@@ -34,8 +34,9 @@ document.addEventListener("DOMContentLoaded", function() {
 			}
 		}
 	});
-
-	showDiv(document.querySelector('.radio-buttons input[type="radio"]:checked').value);
+	if(document.querySelector('.radio-buttons input[type="radio"]:checked')){
+		showDiv(document.querySelector('.radio-buttons input[type="radio"]:checked').value);
+	}
 	errorDesign();
 });
 
