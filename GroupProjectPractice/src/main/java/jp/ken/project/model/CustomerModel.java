@@ -18,7 +18,7 @@ public class CustomerModel implements Serializable{
 	//氏名
 	@NotEmpty(message = "必須入力です")
 	@Size(min=1,max=15,message ="1文字以上15文字以下で入力してください", groups = Group1.class)
-	@Pattern(regexp = "^[a-zA-Zぁ-んァ-ン一-龯々〆〤\\s]+$|^(?!\\s*$).+", message = "空白文字のみの場合、記号や数字が含まれている場合は登録できません", groups = Group2.class)
+	@Pattern(regexp = "^[a-zA-Zぁ-んァ-ン一-龯々〆〤]+$", message = "記号や数字、空白文字が含まれている場合は登録できません", groups = Group2.class)
 	private String customer_name;
 
 	//フリガナ
