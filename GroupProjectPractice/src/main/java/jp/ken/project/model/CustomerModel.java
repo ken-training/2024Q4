@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import jp.ken.project.group.Group1;
@@ -17,6 +18,7 @@ public class CustomerModel implements Serializable{
 	//氏名
 	@NotEmpty(message = "必須入力です")
 	@Size(min=1,max=15,message ="1文字以上15文字以下で入力してください", groups = Group1.class)
+	@Pattern(regexp = "^[a-zA-Zぁ-んァ-ン一-龯々〆〤\\s]+$", message = "記号は使えません", groups = Group2.class)
 	private String customer_name;
 
 	//フリガナ
