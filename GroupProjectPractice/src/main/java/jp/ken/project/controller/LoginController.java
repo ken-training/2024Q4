@@ -91,6 +91,7 @@ public class LoginController {
         session.removeAttribute("cartList"); // カート
         session.removeAttribute("customerModel");  //会員情報
         session.removeAttribute("previousUrl");  // 商品詳細の遷移元URL
+        session.removeAttribute("orderFormModel");  // 商品詳細の遷移元URL
        return "redirect:/top";  // ログアウト後トップページへ
    }
 }
