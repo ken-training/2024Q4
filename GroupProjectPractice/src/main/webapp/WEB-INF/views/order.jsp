@@ -8,6 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>発送情報入力画面</title>
+<style type="text/css">
+footer{
+	background:#efefef;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
@@ -82,7 +87,7 @@
 						</div>
 					</div>
 					<div class="form-item">
-						<label>マンション名</label>
+						<label>建物名・部屋番号名</label>
 						<div>
 							<form:input path="shipBuilding" class="form-control" />
 						</div>
@@ -151,14 +156,14 @@
 									<td>
 										<div class="side-message">
 											<b>${item.product_name }<br></b>
-											数量：${item.count}個
+											数量：${item.count}
 										</div>
 									</td>
 								</tr>
 							</c:forEach>
 							<tr>
 								<td colspan="2" style="text-align: left;">
-									<p>商品合計数 :  <c:out value="${total_qty}" />個</p>
+									<p>商品合計数 :  <c:out value="${total_qty}" />点</p>
 									<p>合計金額(税抜) : ￥ <fmt:formatNumber value="${total_amount}" pattern="#,###" /></p>
 								</td>
 							</tr>
