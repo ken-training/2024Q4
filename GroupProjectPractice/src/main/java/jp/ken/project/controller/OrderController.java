@@ -1,7 +1,6 @@
 package jp.ken.project.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -77,8 +76,14 @@ public class OrderController {
 				orderFormModel.setShipCity(words[1]);
 				orderFormModel.setShipBlock(words[2]);
 				if (words.length >= 4) {	// 建物名が入力されていた場合
-				    String building = String.join(" ", Arrays.copyOfRange(words, 3, words.length));
-				    orderFormModel.setShipBuilding(building);
+				    StringBuilder building = new StringBuilder();
+				    for (int i = 3; i < words.length; i++) {
+				        if (i > 3) {
+				            building.append(" ");  // 3 番目以降の要素にはスペースを追加
+				        }
+				        building.append(words[i]);
+				    }
+				    orderFormModel.setShipBuilding(building.toString());
 				}
 			}
 			// クレジットカード番号
