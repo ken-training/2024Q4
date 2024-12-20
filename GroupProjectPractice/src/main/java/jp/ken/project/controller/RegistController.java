@@ -54,7 +54,15 @@ public class RegistController {
 			if (numberOfRow == 1) {
 				// 登録が成功した場合
 				session.setAttribute("customerModel", customerModel); // セッションに顧客情報を保存
-				return "redirect:/top";  // 成功時に遷移するビュー
+				Integer doOrderFlg = (Integer)session.getAttribute("doOrderFlg");  // 購入へ進むを実行したフラグ
+				if(doOrderFlg != null && doOrderFlg == 1) {
+					// 購入へ進むを実行した上で新規登録まで進んできた場合
+					session.removeAttribute("doOrderFlg");  // ↑のフラグをセッションから削除
+					return "redirect:/order";
+				}else {
+					// その他の場合
+					return "redirect:/top";  // 成功時に遷移するビュー
+				}
 			}
 			model.addAttribute("error", "このメールアドレスは既に登録されています");
 			return "regist";  // 登録に失敗した場合、再度エラーメッセージを表示
