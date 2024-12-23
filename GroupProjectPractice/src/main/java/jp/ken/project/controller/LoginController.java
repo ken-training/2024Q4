@@ -79,14 +79,19 @@ public class LoginController {
     	   session.setAttribute("customerModel", customerModel);
     	   String referer = (String) session.getAttribute("login_referer");
 //    	   System.out.println("referer : "+referer);
-    	   String[] parts = referer.split("/");
-    	   session.removeAttribute("login_referer");
-    	   session.removeAttribute("doOrderFlg");
-    	   // 遷移元のURLの最後が"cart"だったら"order"に飛ばしたい
-    	   if(parts[parts.length - 1].equals("cart")) {
-    		   return "redirect:/order";
+    	   if(referer != null) {
+    		   String[] parts = referer.split("/");
+    		   session.removeAttribute("login_referer");
+    		   session.removeAttribute("doOrderFlg");
+    		   // 遷移元のURLの最後が"cart"だったら"order"に飛ばしたい
+    		   if(parts[parts.length - 1].equals("cart")) {
+    			   return "redirect:/order";
+    		   }else {
+    			   // それ以外の通常時はtopへ
+    			   return "redirect:/top";
+    		   }
     	   }else {
-    		   // それ以外の通常時はtopへ
+    		   // 注文確認に直アクセス→ログインページへリダイレクトみたいな時にrefererがnullになるからその時はトップへ
     		   return "redirect:/top";
     	   }
 
