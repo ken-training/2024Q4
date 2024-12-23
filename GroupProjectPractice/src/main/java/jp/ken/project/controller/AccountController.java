@@ -440,6 +440,7 @@ public class AccountController {
         return differences;
     }
 
+	// カスタマーモデルのフィールド名と実際の表示名の対応マップ
 	public Map<String, String> createCustomerModelMap(){
 		Map<String, String> cMap = new HashMap<String, String>();
 		cMap.put("customer_name", "氏名");

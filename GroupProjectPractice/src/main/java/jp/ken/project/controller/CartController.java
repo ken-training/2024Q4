@@ -30,9 +30,10 @@ public class CartController {
 		@SuppressWarnings("unchecked")
 		List<CartModel> cartList = (List<CartModel>)session.getAttribute("cartList");
 
+		// カートの中身が空じゃなければ割引金額
 		if (cartList != null && cartList.size() != 0) {
-			int total_amount = 0;
-			int total_qty = 0;
+			int total_amount = 0;  // 合計金額
+			int total_qty = 0;  // 合計数量
 		    for(CartModel cartModel : cartList) {
 		    	int amount = cartModel.getPrice() * cartModel.getCount();
 		    	total_amount += cartModel.getDiscnt_is_valid().equals("1") ? amount * (1 - cartModel.getDiscnt_rate()) : amount;
