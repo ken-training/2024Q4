@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.ken.project.group.GroupOrder;
 import jp.ken.project.model.CartModel;
@@ -140,32 +141,44 @@ public class OrderController {
 	// 発注情報入力画面へ遷移
 	@RequestMapping(value = "/order", method = RequestMethod.POST)
 	public String post(@Validated(GroupOrder.class) @ModelAttribute OrderFormModel orderFormModel,BindingResult result,@RequestParam("action") String action,
-			Model model, HttpSession session){
+			Model model, HttpSession session,RedirectAttributes redirectAttributes){
+		System.out.println("orderFormModel.getCreditForm():"+orderFormModel.getCreditForm());
+
 		// バリデーションエラーがある場合
 		if (result.hasErrors()) {
-			return "order";  // エラーがあれば再度入力画面を表示
+			redirectAttributes.addFlashAttribute("orderFormModel", orderFormModel);
+			return "redirect:/order";  // エラーがあれば再度入力画面を表示
 		} else {
+			if (orderFormModel.getCreditForm().equals("db")){
+				//セッションからCustomerModel取得
+				@SuppressWarnings("unchecked")
+				CustomerModel customerModel = (CustomerModel)session.getAttribute("customerModel");
+
+				System.out.println("customerModel.getMasked_creditcard_num():"+customerModel.getMasked_creditcard_num());
+				// クレジットカード番号が登録されているか確認
+				if(customerModel.getCreditcard_num() == null ) {
+					redirectAttributes.addFlashAttribute("error", "クレジットカードが登録されていません");
+					return "redirect:/order";  // エラーがあれば再度入力画面を表示
+				}
+			}
+
+
 			if ("注文確認".equals(action)) {
 				// 注文確認画面へ遷移する処理
-//            	return "confirm";
 				session.setAttribute("orderFormModel", orderFormModel);
-				return "redirect:/confirm";  // ConfirmのControllerができたら書き換える
+				return "redirect:/confirm";
 
 			} else if ("戻る".equals(action)) {
 				// 商品詳細画面へ遷移する処理
-//				return "cart";
-            	return "redirect:/cart";  // CartのControllerができたら書き換える
+				return "redirect:/cart";
 
 			} else {
 				// 未知のアクション
-
 				// エラーメッセージを表示
 				model.addAttribute("error", "エラーが発生しました。");
-
 				return "order";  // 発送情報画面へ遷移
 			}
 		}
 	}
-
-
 }
+

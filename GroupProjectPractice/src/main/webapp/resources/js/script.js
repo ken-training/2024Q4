@@ -51,6 +51,25 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 	}
 
+	//クレジットカードフォーム表示（発送情報入力）
+	function showCreditFormDiv(option) {
+		// 「登録済みクレジットカードを利用する」を選択したら非表示
+		document.getElementById("creditFormDiv").style.display = "none";
+
+		// 「クレジットカード番号を入力する」を選択した場合
+	   if (option == "creditForm") {
+    	    document.getElementById("creditFormDiv").style.display = "block";
+    	}
+	}
+
+	//ラジオボタンのクリック時に状態を確認する
+//	document.querySelectorAll('input[name="creditForm"]').forEach(function(radioButton) {
+//    	radioButton.addEventListener('click', function() {
+//    	        	console.log(radioButton.value + " is checked: " + radioButton.checked);
+//	   	});
+//	});
+
+
 	function check(){
 		var elem = document.fm.elements;
 		var str = "";
@@ -63,9 +82,9 @@ document.addEventListener("DOMContentLoaded", function() {
 		console.log(checkName.toString());
 
 		// ラジオボタンがクレジットカードを選択している場合、チェック対象のインデックスを追加 (カード番号、有効期限)
-		var selectedRadio = document.querySelector('input[name="pay"]:checked');
-		if(selectedRadio && selectedRadio.value === 'credit') {
-			for (var i = 13; i <= 18; i++){
+		var selectedRadio = document.querySelector('input[name="creditForm"]:checked');
+		if(selectedRadio && selectedRadio.value === 'creditForm') {
+			for (var i = 15; i <= 20; i++){
 				checkNullIndices.push(i);
 			}
 			checkName.push("creditNum-notnull");
@@ -123,10 +142,10 @@ document.addEventListener("DOMContentLoaded", function() {
 	        		elem[i].classList.add('error'); // エラーのクラスを追加
 					cnt++;
 					break;
-	        	case 13:	// クレジットカード番号
-	        	case 14:	// クレジットカード番号
 	        	case 15:	// クレジットカード番号
 	        	case 16:	// クレジットカード番号
+	        	case 17:	// クレジットカード番号
+	        	case 18:	// クレジットカード番号
 					document.getElementById(checkName[8]).innerHTML = '<i class="fas fa-exclamation-circle"></i>&nbsp;必須入力です';
 	        		elem[i].classList.add('error'); // エラーのクラスを追加
 	        		cnt++;
@@ -153,17 +172,17 @@ document.addEventListener("DOMContentLoaded", function() {
 			cnt++;
 		}
 
-		if(selectedRadio && selectedRadio.value === 'credit') {
+		if(selectedRadio && selectedRadio.value === 'creditForm') {
 			// クレジットカード番号の数字、文字数チェック
 			// アスタリスクの前後に半角空白がないとマッチしない
-			if(!(elem[13].value.match(/^\s*\*\*\*\*\s*$/) && elem[14].value.match(/^\s*\*\*\*\*\s*$/)
-					&& elem[15].value.match(/^\s*\*\*\*\*\s*$/) && elem[16].value.match(/^\s*\d{4}\s*$/))){
-		        if( !elem[13].value.match(/^\d{4}$/) || !elem[14].value.match(/^\d{4}$/)
-		    			|| !elem[15].value.match(/^\d{4}$/) || !elem[16].value.match(/^\d{4}$/)) {
+		//	if(!(elem[15].value.match(/^\s*\*\*\*\*\s*$/) && elem[16].value.match(/^\s*\*\*\*\*\s*$/)
+		//		&& elem[17].value.match(/^\s*\*\*\*\*\s*$/) && elem[18].value.match(/^\s*\d{4}\s*$/))){
+		        if( !elem[15].value.match(/^\d{4}$/) || !elem[16].value.match(/^\d{4}$/)
+		    			|| !elem[17].value.match(/^\d{4}$/) || !elem[18].value.match(/^\d{4}$/)) {
 					document.getElementById(checkName[9]).innerHTML = '<i class="fas fa-exclamation-circle"></i>&nbsp;カード番号が無効です';
 					cnt++;
 		        }
-		    }
+		//    }
 
 			// クレジットカード有効期限チェック
 			//現在の日付を取得
@@ -176,14 +195,14 @@ document.addEventListener("DOMContentLoaded", function() {
 	        var nowYm = "" + year + month;
 
 			// 入力された有効期限を取得
-			var value = elem[18].value
-			if(elem[17].value < 10){
-				value += "0" + elem[17].value;
+			var value = elem[20].value
+			if(elem[19].value < 10){
+				value += "0" + elem[19].value;
 			} else {
-				value += elem[17].value;
+				value += elem[19].value;
 			}
 			console.log("value" + value);
-			if(elem[18].value == '----' || elem[17].value == '--'){
+			if(elem[20].value == '----' || elem[19].value == '--'){
 				document.getElementById(checkName[10]).innerHTML = '<i class="fas fa-exclamation-circle"></i>&nbsp;必須入力です';
 				cnt++;
 			}else{

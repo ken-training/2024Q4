@@ -106,35 +106,51 @@ footer{
 							<label for="credit" class="radio-label"> クレジットカード </label>
 						</div>
 					</div>
-					<div id="creditDiv">
-						<div class="form-item">
-							<label>クレジットカード番号<span class="required">*必須</span></label>
-							<div class="flex-center">
-								<form:input path="creditNum1" size="5" placeholder="0000"
-									class="form-control" style="text-align: center;" />
-								&nbsp－&nbsp
-								<form:input path="creditNum2" size="5" placeholder="0000"
-									class="form-control" style="text-align: center;" />
-								&nbsp－&nbsp
-								<form:input path="creditNum3" size="5" placeholder="0000"
-									class="form-control" style="text-align: center;" />
-								&nbsp－&nbsp
-								<form:input path="creditNum4" size="5" placeholder="0000"
-									class="form-control" style="text-align: center;" />
-							</div>
-							<p id="creditNum-notnull" class="error-message"></p>
-							<p id="creditNum-error" class="error-message"></p>
+					<!-- クレジットカードフォーム -->
+					<div id="creditDiv" style="display:none;">
+						<div class="radio-buttons">
+							<!-- 「登録済みクレジットカードを利用する」のラジオボタン -->
+							 <form:radiobutton path="creditForm" value="db" id="db" checked="true" onclick="showCreditFormDiv('db')" />
+							 <label for="db" class="radio-label">登録済みクレジットカードを利用する</label>
+							<p class="error-message"><c:out value="${error}"/></p>
+
+							<!--「クレジットカード番号を入力する」のラジオボタン -->
+							<form:radiobutton path="creditForm" value="creditForm" id="creditForm" onclick="showCreditFormDiv('creditForm')" />
+							<label for="creditForm" class="radio-label">クレジットカード番号を入力する</label>
 						</div>
-						<div class="form-item">
-							<label>クレジットカード有効期限<span class="required">*必須</span></label>
-							<div class="flex-center" style="width: 235px">
-								<form:select path="creditExpM" items="${creditExpMList }" class="form-control" />
-								&ensp;/&ensp;
-								<form:select path="creditExpY" items="${creditExpYList }" class="form-control" />
+						<!-- 入力するが選択された場合表示される -->
+						<div id="creditFormDiv" style="display:none;">
+							<div class="form-item">
+								<label>クレジットカード番号<span class="required">*必須</span></label>
+								<div class="flex-center">
+									<form:input path="creditNum1" size="5" placeholder="0000"
+										class="form-control" style="text-align: center;" />
+									&nbsp－&nbsp
+									<form:input path="creditNum2" size="5" placeholder="0000"
+										class="form-control" style="text-align: center;" />
+									&nbsp－&nbsp
+									<form:input path="creditNum3" size="5" placeholder="0000"
+										class="form-control" style="text-align: center;" />
+									&nbsp－&nbsp
+									<form:input path="creditNum4" size="5" placeholder="0000"
+										class="form-control" style="text-align: center;" />
+								</div>
+								<p id="creditNum-notnull" class="error-message"></p>
+								<p id="creditNum-error" class="error-message"></p>
 							</div>
-							<p id="creditExp-error" class="error-message"></p>
+							<div class="form-item">
+								<label>クレジットカード有効期限<span class="required">*必須</span></label>
+								<div class="flex-center" style="width: 235px">
+									<form:select path="creditExpM" items="${creditExpMList }" class="form-control" />
+									&ensp;/&ensp;
+									<form:select path="creditExpY" items="${creditExpYList }" class="form-control" />
+								</div>
+								<p id="creditExp-error" class="error-message"></p>
+							</div>
 						</div>
+						<!-- creditFormDivの終了 -->
 					</div>
+					<!-- creditDivの終了 -->
 					<div>
 						<div class="button-box">
 							<input type="submit" name="action" value="注文確認" class="button" style="width: 35%;">
