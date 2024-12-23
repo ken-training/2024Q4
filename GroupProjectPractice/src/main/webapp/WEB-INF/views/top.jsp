@@ -31,10 +31,17 @@
     	<!-- 画像スライド -->
     	<div style="display: flex;justify-content: center;">
 	    	<div class="slider">
-	    		<img alt="画像1" src="/project/resources/img/slider/img4.png">
-	    		<img alt="画像2" src="/project/resources/img/slider/img4.png">
+	    		<img alt="画像1" src="/project/resources/img/slider/img2.png">
+	    		<img alt="画像2" src="/project/resources/img/slider/img3.png">
 	    		<img alt="画像3" src="/project/resources/img/slider/img4.png">
-	    		<img alt="画像4" src="/project/resources/img/slider/img4.png">
+	    		<img alt="画像4" src="/project/resources/img/slider/img2.png">
+	    		<img alt="画像1" src="/project/resources/img/slider/img3.png">
+	    		<img alt="画像1" src="/project/resources/img/slider/img4.png">
+	    		<img alt="画像1" src="/project/resources/img/slider/img2.png">
+	    		<img alt="画像1" src="/project/resources/img/slider/img3.png">
+	    		<img alt="画像1" src="/project/resources/img/slider/img4.png">
+	    		<img alt="画像1" src="/project/resources/img/slider/img2.png">
+	    		<img alt="画像1" src="/project/resources/img/slider/img3.png">
 	    	</div>
     	</div>
         <div class="top-container">
