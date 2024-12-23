@@ -1,6 +1,7 @@
 package jp.ken.project.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,24 @@ public class LoginController {
 
     // GETリクエスト時にログイン画面を表示
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String toLogin(HttpServletRequest request, HttpSession session) {
+    public String toLogin(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+	    // キャッシュを無効化
+	    response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+	    response.setHeader("Pragma", "no-cache");
+	    response.setDateHeader("Expires", 0);
+
         // リファラ（遷移元URL）を取得してセッションに保存
         String referer = request.getHeader("Referer");
         if (referer != null) {
             session.setAttribute("login_referer", referer);
         }
+
+        // セッションから会員情報保持しているか確認して、なければトップへ遷移
+        CustomerModel customerModel = (CustomerModel) session.getAttribute("customerModel");
+        if(customerModel != null) {
+        	return "redirect:/top";
+        }
+
         return "login";
     }
 

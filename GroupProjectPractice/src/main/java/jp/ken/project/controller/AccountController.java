@@ -42,7 +42,8 @@ public class AccountController {
 
 	// マイページ画面へ遷移
 	@RequestMapping(method = RequestMethod.GET)
-	public String get(Model model, HttpSession session) {
+	public String get(Model model, HttpSession session,
+			@ModelAttribute("message") String message) {
 		// セッションから顧客情報を取得
 		CustomerModel sessionCustomer = (CustomerModel) session.getAttribute("customerModel");
 
@@ -74,6 +75,7 @@ public class AccountController {
 		cModel.setCreditcard_exp(sessionCustomer.getCreditcard_exp());
 
 		model.addAttribute("customerModel", cModel);
+		model.addAttribute("message", message);
 	    return "account"; // マイページ画面へ遷移
 	}
 
@@ -231,6 +233,8 @@ public class AccountController {
 					// 顧客情報をデータベースに登録
 					sessionCustomerModel = customerDao.updateCustomer(id, differences);
 					session.setAttribute("customerModel", sessionCustomerModel);
+					// リダイレクト先に変更情報を渡す
+					redirectAttributes.addFlashAttribute("message", "会員情報を変更しました。");
 				}
 
 				return "redirect:/account";  // 成功時に遷移するビュー
@@ -278,8 +282,15 @@ public class AccountController {
 			updateFormModel.setPrefecture(words[0]);
 			updateFormModel.setCity(words[1]);
 			updateFormModel.setBlock(words[2]);
-			if (words.length == 4) {	// 建物名が入力されていた場合
-				updateFormModel.setBuilding(words[3]);
+			if (words.length >= 4) {	// 建物名が入力されていた場合
+			    StringBuilder building = new StringBuilder();
+			    for (int i = 3; i < words.length; i++) {
+			        if (i > 3) {
+			            building.append(" ");  // 3 番目以降の要素にはスペースを追加
+			        }
+			        building.append(words[i]);
+			    }
+			    updateFormModel.setBuilding(building.toString());
 			}
 		}
 		if (customerModel.getPhone() != null) {	// 電話番号

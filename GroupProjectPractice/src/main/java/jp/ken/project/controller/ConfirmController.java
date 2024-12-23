@@ -70,15 +70,15 @@ public class ConfirmController {
 	@RequestMapping(value = "/confirm", method = RequestMethod.POST)
 	public String doOrderConfirm(HttpSession session, Model model) {
 
+		// セッションから各種モデル取得
 		OrderFormModel orderFormModel = (OrderFormModel) session.getAttribute("orderFormModel");
 		CustomerModel customerModel = (CustomerModel) session.getAttribute("customerModel");
+		// セッション切れ対策
 		if(customerModel == null) {
-			System.out.println("customerModelがnull");
-		}else {
-//			System.out.println(customerModel.getMail());
-//			System.out.println(customerModel.getCustomer_id());
-//			System.out.println(customerModel.getPassword());
+			System.out.println("session切れ");
+			return "redirect:/top";
 		}
+
 		@SuppressWarnings("unchecked")
 		List<CartModel> cartList = (List<CartModel>)session.getAttribute("cartList");
 

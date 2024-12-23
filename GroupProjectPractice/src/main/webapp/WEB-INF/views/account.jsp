@@ -42,6 +42,7 @@ td:first-child{
 	<jsp:include page="header.jsp"></jsp:include>
 	<main>
 		<div class="account-info flex-col-center">
+		<p><c:out value="${message }"/></p>
 			<h1>会員情報</h1>
 				<form:form modelAttribute="customerModel">
 				<table class="form-table">
