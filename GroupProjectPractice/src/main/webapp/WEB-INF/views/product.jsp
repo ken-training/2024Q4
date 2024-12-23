@@ -164,7 +164,7 @@ input[type="submit"] {
 	<div class="back">
 		<p>
 		<!-- 	<a href="#" onclick="goBack(); return false;">一覧に戻る</a> -->
-		<a href='${previousUrl }'>一覧に戻る</a>
+		<a href='${previousUrl }'>戻る</a>
 		</p>
 	</div>
 	</div>
