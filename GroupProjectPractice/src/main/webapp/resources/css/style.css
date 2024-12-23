@@ -30,6 +30,7 @@
 
 	select {
 		text-align: center; /* selectのテキストを中央揃え */
+  		overflow-y: auto;
 	}
 
 	option {
@@ -477,4 +478,36 @@
 	}
 	.delete{
 		background: #c2c2c2;
+	}
+
+/* スライダー */
+	.mv {
+		width: 50vw;
+		height: auto;
+		background-color: #ffaacc;
+		padding: 32px 0 8px 0;
+	}
+
+	.slider img {
+		margin-left: -750px;
+		margin-right: 800px;
+	}
+
+	.bx-wrapper {
+		box-shadow: none;
+		border: none;
+		max-width: 65vw !important;
+	}
+
+	.slider {
+		display: flex;
+		overflow: hidden; /* スライドの外の部分を隠す */
+	}
+
+	.bx-wrapper .bx-viewport {
+		overflow: hidden; /* スライダーの表示領域を隠して、見える部分だけ表示 */
+	}
+
+	.bx-wrapper .bx-slide {
+		transition: transform 1s ease-in-out; /* スライドが切り替わる際にスムーズに移動 */
 	}
