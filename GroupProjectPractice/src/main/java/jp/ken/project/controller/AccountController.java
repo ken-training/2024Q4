@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -234,7 +235,21 @@ public class AccountController {
 					sessionCustomerModel = customerDao.updateCustomer(id, differences);
 					session.setAttribute("customerModel", sessionCustomerModel);
 					// リダイレクト先に変更情報を渡す
-					redirectAttributes.addFlashAttribute("message", "会員情報を変更しました。");
+					Map<String, String> cMap = createCustomerModelMap();
+					String message = "";
+					Set<String> keys = differences.keySet();
+					int cnt = 1;
+					for (String key : keys) {
+						message += cMap.get(key);
+						if(keys.size() > cnt) {
+							message += ", ";
+						}
+						cnt++;
+					}
+					message += "の情報を変更しました。";
+					redirectAttributes.addFlashAttribute("message", message);
+				}else {
+					redirectAttributes.addFlashAttribute("message", "変更箇所はありませんでした。");
 				}
 
 				return "redirect:/account";  // 成功時に遷移するビュー
@@ -421,4 +436,19 @@ public class AccountController {
 
         return differences;
     }
+
+	public Map<String, String> createCustomerModelMap(){
+		Map<String, String> cMap = new HashMap<String, String>();
+		cMap.put("customer_name", "氏名");
+		cMap.put("customer_phonetic", "フリガナ");
+		cMap.put("mail", "メールアドレス");
+		cMap.put("password", "パスワード");
+		cMap.put("zip", "郵便番号");
+		cMap.put("address", "住所");
+		cMap.put("phone", "電話番号");
+		cMap.put("birthday", "生年月日");
+		cMap.put("creditcard_num", "クレジットカード番号");
+		cMap.put("creditcard_exp", "カード有効期限");
+		return cMap;
+	}
 }
