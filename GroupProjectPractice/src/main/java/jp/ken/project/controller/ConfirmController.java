@@ -131,6 +131,29 @@ public class ConfirmController {
 //		int order_id = ConfirmDao.insertToOrders(orderModel);
 //		System.out.println("order_id : " + order_id);
 
+
+		// (クレジットカードを取得する場合)
+		// 登録済みカード番号をしようか入力しているか分岐を確認
+//		String creditForm = orderFormModel.getCreditForm();
+		// クレジットカード番号を格納する変数を作成
+//		String creditCardNum = "";
+		// 登録済みクレジットカード番号を利用する場合
+//		if (creditForm.equals("db")) {
+			// セッションに紐づいている会員のクレジットカード番号を取得
+//			creditCardNum = customerModel.getCreditcard_num();
+//			System.out.println( "creditCardNum:"+creditCardNum);
+		// カード番号を入力する場合
+//		}else if(creditForm.equals("creditForm")) {
+			// 入力された番号を取得
+//			creditCardNum = orderFormModel.getCreditNum1() + orderFormModel.getCreditNum2()
+//							+ orderFormModel.getCreditNum3() + orderFormModel.getCreditNum4();
+			// 取得したクレジットカード番号をハッシュ化
+//			ShaPasswordEncoder encoder = new ShaPasswordEncoder();
+//			String encodeCreditCardNum = encoder.encodePassword(creditCardNum, customerModel.getCustomer_id());
+//			System.out.println( "encodeCreditCardNum:"+encodeCreditCardNum);
+//		}
+
+
 		// ======注文詳細情報インサート用====================
 //
 //		int numberOfRow = 0;

@@ -43,7 +43,8 @@ public class EmailController {
 			return "redirect:/complete";
 
         } catch (MailSendException e) {
-        	return "meilsendエラー";
+        	e.printStackTrace();
+        	return "redirect:/complete";
         } catch (MailException e) {
         	return "エラー";
         } catch (Exception e) {

@@ -48,6 +48,8 @@ public class OrderFormModel implements Serializable {
 
 
 	private String pay;
+	private String creditForm;
+
 
 //	@Size(min = 2, max = 4,message = "カード番号が無効です")
 	private String creditNum1;
@@ -176,6 +178,12 @@ public class OrderFormModel implements Serializable {
 	}
 	public void setCreditExpY(String creditExpY) {
 		this.creditExpY = creditExpY;
+	}
+	public String getCreditForm() {
+		return creditForm;
+	}
+	public void setCreditForm(String creditForm) {
+		this.creditForm = creditForm;
 	}
 
 
