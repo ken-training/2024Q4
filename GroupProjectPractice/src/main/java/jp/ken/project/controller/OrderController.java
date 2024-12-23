@@ -42,15 +42,17 @@ public class OrderController {
 		// セッションからモデルを取得
 		CustomerModel customerModel = (CustomerModel) session.getAttribute("customerModel");
 		OrderFormModel orderFormModel = (OrderFormModel) session.getAttribute("orderFormModel");
+		System.out.println("orderFormModel : " + orderFormModel);
 		// セッションのcustomerModelがnullならログインに飛ばす
 		if(customerModel==null) {
-			session.setAttribute("doOrderFlg", 1);
+			session.setAttribute("doOrderFlg", 1);  // 購入に進むを押したかどうかのフラグをセッションへ
 			return "redirect:/login";
 		}
 
 		// sessionの発送情報モデルが空の場合は新規作成
-		if(orderFormModel == null || orderFormModel.getShipPhone1() == null) {
+		if(orderFormModel == null) {
 			orderFormModel = new OrderFormModel();
+			System.out.println("orderFormModelを新規作成しました");
 			// 会員モデルから氏名、電話番号、郵便番号、住所を取得しOrderFormModelに格納
 			// 氏名
 			orderFormModel.setShipName(customerModel.getCustomer_name());
@@ -149,7 +151,7 @@ public class OrderController {
 			redirectAttributes.addFlashAttribute("orderFormModel", orderFormModel);
 			return "redirect:/order";  // エラーがあれば再度入力画面を表示
 		} else {
-			if (orderFormModel.getCreditForm().equals("db")){
+			if (orderFormModel.getPay().equals("credit") && orderFormModel.getCreditForm().equals("db")){
 				//セッションからCustomerModel取得
 				@SuppressWarnings("unchecked")
 				CustomerModel customerModel = (CustomerModel)session.getAttribute("customerModel");
@@ -158,6 +160,7 @@ public class OrderController {
 				// クレジットカード番号が登録されているか確認
 				if(customerModel.getCreditcard_num() == null ) {
 					redirectAttributes.addFlashAttribute("error", "クレジットカードが登録されていません");
+					session.setAttribute("orderFormModel", orderFormModel);
 					return "redirect:/order";  // エラーがあれば再度入力画面を表示
 				}
 			}

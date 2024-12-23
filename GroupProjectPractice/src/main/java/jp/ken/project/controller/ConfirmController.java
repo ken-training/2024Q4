@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,14 @@ public class ConfirmController {
 	private ConfirmDao ConfirmDao;
 
 	@RequestMapping(value = "/confirm", method = RequestMethod.GET)
-	public String toConfirm(HttpSession session, Model model, HttpServletRequest request
+	public String toConfirm(HttpSession session, Model model, HttpServletRequest request, HttpServletResponse response
 //			, @ModelAttribute OrderFormModel orderFormModel
 			) {
+	    // キャッシュを無効化
+	    response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+	    response.setHeader("Pragma", "no-cache");
+	    response.setDateHeader("Expires", 0);
+
 		@SuppressWarnings("unchecked")
 		List<CartModel> cartList = (List<CartModel>) session.getAttribute("cartList");
 		int total_amount = 0;

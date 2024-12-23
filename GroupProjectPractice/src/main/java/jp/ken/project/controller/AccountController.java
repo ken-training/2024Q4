@@ -234,15 +234,18 @@ public class AccountController {
 					// 顧客情報をデータベースに登録
 					sessionCustomerModel = customerDao.updateCustomer(id, differences);
 					session.setAttribute("customerModel", sessionCustomerModel);
-					// リダイレクト先に変更情報を渡す
-					Map<String, String> cMap = createCustomerModelMap();
+					// リダイレクト先に変更箇所情報を渡すため
+					Map<String, String> cMap = createCustomerModelMap();  // key名と出力用ラベルのマップ取得
 					String message = "";
-					Set<String> keys = differences.keySet();
+					Set<String> keys = differences.keySet(); // differencesのキーだけ取得
 					int cnt = 1;
 					for (String key : keys) {
-						message += cMap.get(key);
-						if(keys.size() > cnt) {
-							message += ", ";
+						System.out.println("key:" + key + " val:" + cMap.get(key));
+						if (!key.equals("masked_creditcard_num")) {
+							message += cMap.get(key);
+							if(keys.size() > cnt) {
+								message += ", ";
+							}
 						}
 						cnt++;
 					}
