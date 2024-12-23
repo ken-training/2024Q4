@@ -13,17 +13,17 @@
 	<script src="${pageContext.request.contextPath}/resources/js/empscript.js" defer></script>
 </head>
 <body>
-	<div class="flex-col-center" style="height: 100vw; background: #ededed;">
+	<div class="flex-col-center" style="height: 100vw; background: #bacad29c;">
 		<h2 style="margin-top: 2em;">未発送注文一覧</h2>
 		<p>
 			<c:out value="${message }" />
 		</p>
-		<div class="flex-center" style="width: 90%;">
+		<div class="flex-center" style="width: 90%; justify-content: space-between;">
 			<a href="/project/empmenu"><p class="button">メニューに戻る</p></a>
 			<a href="/project/orderlog/shipped"><p class="button" style="margin-left: auto;">発送済/注文取消注文履歴</p></a>
 		</div>
 		<c:if test="${ !empty(orderlogList)}">
-			<div class="table-container" style="height: 33vw;">
+			<div class="table-container" style="height: 70vh;">
 				<table>
 					<tr>
 						<th>注文詳細ID</th>

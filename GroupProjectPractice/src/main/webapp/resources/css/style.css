@@ -425,7 +425,7 @@
 /* ------------------------ */
 	.table-container{
 		width: 90%;
-		height: 35vw; /* 高さを指定 */
+		height: 75vh; /* 高さを指定 */
 		overflow-x: auto; /* 横スクロールを有効にする */
 		overflow-y: auto; /* 縦スクロールを有効にする */
         -webkit-overflow-scrolling: touch; /* モバイルでスムーズなスクロール */

@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 <title>従業員ログイン</title>
 <style>
-
 .required{
 	color:red;
 }
@@ -17,6 +16,8 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	background: #bacad29c;
+	height: 100vh;
 }
 
 /* ログインセクションのスタイル */
@@ -29,6 +30,7 @@
      height: 500px;
      box-sizing: border-box;
      text-align: center;
+     background: #fff;
 }
 
 /* メールアドレス、パスワードのラベルと入力フォーム間の行間を狭める */
