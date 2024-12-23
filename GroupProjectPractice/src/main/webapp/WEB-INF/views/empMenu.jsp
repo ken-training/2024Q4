@@ -11,13 +11,8 @@
 <title>従業員メニュー</title>
 <style>
 
-    /* フッターのスタイル */
-    .footer {
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        padding: 10px 0;
+    body{
+    	background: #bacad29c;
     }
 
     /* メニューリンク */
@@ -66,7 +61,7 @@
         background-color: white;
         border-radius: 8px;
         flex-grow: 1;
-        height: 35vw;
+        height: 80vh;
     }
     /*改行入れるため*/
     .break-line {

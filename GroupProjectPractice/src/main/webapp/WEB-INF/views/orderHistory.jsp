@@ -34,11 +34,14 @@
 <body>
 <jsp:include page="header.jsp"></jsp:include>
 	<div class="flex-col-center" style="height: 100vw;">
-		<p><c:out value="${message }"/></p>
 		<h2>注文履歴</h2>
+		<span><c:out value="${message }"/></span>
 		<div class="flex-center" style="width: 90%;">
 			<a href="/project/account"><p class="button">マイページに戻る</p></a>
 		</div>
+		<c:if test="${empty(orderlogList)}">
+			<p style="text-align: center; font-size: 1.1em;">ご注文履歴がありません。</p>
+		</c:if>
 	    <c:if test="${ !empty(orderlogList)}">
 		    <div class="table-container">
 		    	<table>
