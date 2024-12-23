@@ -6,10 +6,44 @@
 <head>
     <meta charset="UTF-8">
     <title>TOPページ</title>
+    <!-- スライダー用jQuery -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
+	<script type="text/javascript">
+	        $(document).ready(function(){
+	            $('.slider').bxSlider({
+	                auto: true,           // 自動再生
+			        infiniteLoop: true,   // 無限ループ
+			        pause: 3000,          // 画像がスライドする間隔
+			        speed: 1000,          // スライドアニメーションの速度
+			        slideWidth: 480,      // スライドの幅
+			        easing: 'ease-in-out' // スムーズなアニメーション
+				});
+				slider.reloadSlider();
+	        });
+	</script>
 </head>
 <body>
     <jsp:include page="header.jsp"></jsp:include>
     <main>
+    	<!-- 画像スライド -->
+    	<div style="display: flex;justify-content: center;">
+	    	<div class="slider">
+	    		<img alt="画像1" src="/project/resources/img/slider/img2.png">
+	    		<img alt="画像2" src="/project/resources/img/slider/img3.png">
+	    		<img alt="画像3" src="/project/resources/img/slider/img4.png">
+	    		<img alt="画像4" src="/project/resources/img/slider/img2.png">
+	    		<img alt="画像1" src="/project/resources/img/slider/img3.png">
+	    		<img alt="画像1" src="/project/resources/img/slider/img4.png">
+	    		<img alt="画像1" src="/project/resources/img/slider/img2.png">
+	    		<img alt="画像1" src="/project/resources/img/slider/img3.png">
+	    		<img alt="画像1" src="/project/resources/img/slider/img4.png">
+	    		<img alt="画像1" src="/project/resources/img/slider/img2.png">
+	    		<img alt="画像1" src="/project/resources/img/slider/img3.png">
+	    	</div>
+    	</div>
         <div class="top-container">
             <div>
 				<c:if test="${message}">

@@ -33,10 +33,10 @@
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
-	<div class="flex-col-center" style="height: 100vw;">
+	<div class="flex-col-center" style="height: 90vh;">
 		<h2>注文履歴</h2>
 		<span><c:out value="${message }"/></span>
-		<div class="flex-center" style="width: 90%;">
+		<div class="flex-center" style="width: 90%;margin-top: 0;">
 			<a href="/project/account"><p class="button">マイページに戻る</p></a>
 		</div>
 		<c:if test="${empty(orderlogList)}">
