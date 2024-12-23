@@ -13,8 +13,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.ken.project.dao.ConfirmDao;
 import jp.ken.project.model.CartModel;
@@ -32,7 +34,7 @@ public class ConfirmController {
 	private ConfirmDao ConfirmDao;
 
 	@RequestMapping(value = "/confirm", method = RequestMethod.GET)
-	public String toConfirm(HttpSession session, Model model, HttpServletRequest request, HttpServletResponse response
+	public String toConfirm(HttpSession session, Model model, HttpServletRequest request, HttpServletResponse response,  @ModelAttribute("errorDb") String errorDb
 //			, @ModelAttribute OrderFormModel orderFormModel
 			) {
 	    // キャッシュを無効化
@@ -68,13 +70,13 @@ public class ConfirmController {
 				model.addAttribute("pay", "クレジットカード");
 			}
 		}
-
+		model.addAttribute("errorDb", errorDb);
 
 		return "confirm";
 	}
 
 	@RequestMapping(value = "/confirm", method = RequestMethod.POST)
-	public String doOrderConfirm(HttpSession session, Model model) {
+	public String doOrderConfirm(HttpSession session, Model model, RedirectAttributes redirectAttributes) {
 
 		// セッションから各種モデル取得
 		OrderFormModel orderFormModel = (OrderFormModel) session.getAttribute("orderFormModel");
@@ -273,7 +275,7 @@ public class ConfirmController {
 			return "redirect:/send-email";
 //			return "redirect:/cart"; // complete.jspができるまでカートに遷移する
 		}else {
-			model.addAttribute("error", "エラーが発生しました");
+			redirectAttributes.addFlashAttribute("errorDb", "データベースの更新に失敗しました");
 			return "redirect:/confirm";
 
 		}

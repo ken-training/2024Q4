@@ -48,17 +48,26 @@ public class EmployeeLoginController {
 		if (result.hasErrors()) {
 			return "EmployeeLogin";
 			}
+		//メールアドレスで従業員情報を取得
 		EmployeeLoginModel employeeLoginModel = employeeLoginDao.getEmployeeLoginByMail(employeeLoginForm.getMailaddress());
-		  //退会したユーザーがログインしたとき
+		//退会したユーザーがログインしたとき
 		if(employeeLoginModel == null) {
 			model.addAttribute("error", "メールアドレスまたはパスワードが間違っています");
 			return "EmployeeLogin";
 		}
-		session.setAttribute("employeeLoginModel", employeeLoginModel);
-		return "redirect:/empmenu";
-	}
+//		if (passwordEncoder.matches(employeeLoginForm.getPassword(), employeeLoginModel.getPassword())) {
+		if (employeeLoginForm.getPassword().equals(employeeLoginModel.getPassword())) {
+            // パスワードが一致すればログイン成功
+            session.setAttribute("employeeLoginModel", employeeLoginModel);
+            return "redirect:/empmenu";
+        } else {
+            // パスワードが一致しなければエラーメッセージ
+            model.addAttribute("error", "メールアドレスまたはパスワードが間違っています");
+            return "EmployeeLogin";
+        }
+    }
 
-
+	//従業員メニュー
 	@RequestMapping(value = "/empmenu",method = RequestMethod.GET)
 	public String toEmpMenu(HttpSession session) {
 		EmployeeLoginModel employeeLoginModel = (EmployeeLoginModel) session.getAttribute("employeeLoginModel");

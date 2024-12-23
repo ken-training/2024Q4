@@ -1,7 +1,6 @@
 package jp.ken.project.mail;
 
 import javax.mail.AuthenticationFailedException;
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
@@ -64,15 +63,11 @@ public class EmailService {
             mimeMessage.setContent(multipart);
 
             javaMailSender.send(mimeMessage);
-//        } catch (IOException e) {
-//            throw new MailSendException("I/O関連のエラー（ネットワーク接続やファイルアクセスエラーなど）", e);
         } catch (AuthenticationFailedException e) {
         	logger.error("SMTPサーバーへの認証に失敗しました", e);  // ログに詳細を記録
             throw new MailSendException("SMTPサーバーへの認証に失敗しました。ユーザー名またはパスワードの確認をしてください。", e);
         } catch (MailSendException e) {
         	logger.error("メール送信に失敗しました", e);  // ログに詳細を記録
-            throw new MailSendException("メッセージの作成や送信に関するエラーが発生しました。メールの構成を確認してください。", e);
-        } catch (MessagingException e) {
             throw new MailSendException("メッセージの作成や送信に関するエラーが発生しました。メールの構成を確認してください。", e);
         } catch (MailException e) {
             throw new MailSendException("メール送信中にエラーが発生しました。設定を確認してください。", e);

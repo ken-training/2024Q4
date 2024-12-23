@@ -27,7 +27,7 @@ public class LoginDao {
 
     // メールアドレスに一致する顧客を取得するメソッド
     public CustomerModel getCustomerByMail(String mail) { //メソッドの引数をStringに変更(LoginFormModel.getMailAddress)
-        String sql = "SELECT * FROM t_customers WHERE mail = ? AND is_remove = '0' ";
+        String sql = "SELECT * FROM t_customers WHERE BINARY mail = ? AND is_remove = '0' ";
         Object[] parameters = { mail };
         try {
         	CustomerModel customerModel = jdbcTemplate.queryForObject(sql, parameters, customerMapper);

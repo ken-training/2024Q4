@@ -27,7 +27,7 @@ public class EmployeeLoginDao {
 
 	// メールアドレスに一致する顧客を取得するメソッド
 	public EmployeeLoginModel getEmployeeLoginByMail(String mail) { //メソッドの引数をStringに変更(LoginFormModel.getMailAddress)
-		String sql = "SELECT * FROM t_employees WHERE mail = ? AND is_deleted = '0' ";
+		String sql = "SELECT * FROM t_employees WHERE BINARY mail = ? AND is_deleted = '0' ";
 		Object[] parameters = { mail };
 		try {
 			EmployeeLoginModel employeeLoginModel = jdbcTemplate.queryForObject(sql, parameters, employeeLoginMapper);

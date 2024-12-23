@@ -25,6 +25,7 @@
 	<jsp:include page="header.jsp"></jsp:include>
 	<div class="container">
 		<h2>注文が完了しました</h2>
+		<p><c:out value="${message}"></c:out> </p>
 		<p>またのご利用をお待ちしております</p>
 		<p><div class="to_top">
 			<a href="/project/top">トップページに戻る</a>
