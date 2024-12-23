@@ -55,52 +55,52 @@ public class LoginController {
 
     // POSTリクエスト時にログイン処理を行う
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@Validated (GroupOrder.class) @ModelAttribute("loginFormModel") LoginFormModel loginForm,
+    public String login(@Validated(GroupOrder.class) @ModelAttribute("loginFormModel") LoginFormModel loginForm,
                         BindingResult bindingResult, Model model, HttpSession session) {
-		// エラーがあれば再度ログイン画面を表示
-		if (bindingResult.hasErrors()) {
-		   return "login";
-		   }
 
-		 CustomerModel customerModel = loginDao.getCustomerByMail(loginForm.getMailaddress());
+        // 入力エラーがあれば、再度ログイン画面に戻す
+        if (bindingResult.hasErrors()) {
+            return "login";
+        }
 
-		  //退会したユーザーがログインしたとき
-		if(customerModel == null) {
-			model.addAttribute("error", "メールアドレスまたはパスワードが間違っています");
-			return "login";
-		}
+        // メールアドレスで顧客情報を取得
+        CustomerModel customerModel = loginDao.getCustomerByMail(loginForm.getMailaddress());
+
+        // 退会したユーザーや存在しないメールアドレスの場合
+        if (customerModel == null) {
+            model.addAttribute("error", "メールアドレスまたはパスワードが間違っています");
+            return "login";
+        }
 
         // ユーザー認証処理
-		// 入力されたパスワードをハッシュ化
-		ShaPasswordEncoder encoder = new ShaPasswordEncoder();
-		String encodePassword = encoder.encodePassword(loginForm.getPassword(), customerModel.getCustomer_id());
-       if (encodePassword.equals(customerModel.getPassword())) {
-           // ログイン成功時、トップページに遷移
-    	   session.setAttribute("customerModel", customerModel);
-    	   String referer = (String) session.getAttribute("login_referer");
-//    	   System.out.println("referer : "+referer);
-    	   if(referer != null) {
-    		   String[] parts = referer.split("/");
-    		   session.removeAttribute("login_referer");
-    		   session.removeAttribute("doOrderFlg");
-    		   // 遷移元のURLの最後が"cart"だったら"order"に飛ばしたい
-    		   if(parts[parts.length - 1].equals("cart")) {
-    			   return "redirect:/order";
-    		   }else {
-    			   // それ以外の通常時はtopへ
-    			   return "redirect:/top";
-    		   }
-    	   }else {
-    		   // 注文確認に直アクセス→ログインページへリダイレクトみたいな時にrefererがnullになるからその時はトップへ
-    		   return "redirect:/top";
-    	   }
+        ShaPasswordEncoder encoder = new ShaPasswordEncoder();
+        String encodedPassword = encoder.encodePassword(loginForm.getPassword(), customerModel.getCustomer_id());
 
-       } else {
-           // パスワードが間違っている場合はエラーメッセージを表示
+        // パスワードが一致した場合
+        if (encodedPassword.equals(customerModel.getPassword())) {
+            // ログイン成功時、セッションにユーザー情報を保存
+            session.setAttribute("customerModel", customerModel);
+
+            String referer = (String) session.getAttribute("login_referer");
+
+            if (referer != null) {
+                String[] parts = referer.split("/");
+                session.removeAttribute("login_referer");
+                session.removeAttribute("doOrderFlg");
+
+                if (parts[parts.length - 1].equals("cart")) {
+                    return "redirect:/order";
+                } else {
+                    return "redirect:/top";
+                }
+            } else {
+                return "redirect:/top";
+            }
+        } else {
             model.addAttribute("error", "メールアドレスまたはパスワードが間違っています");
-           return "login";
-           }
+            return "login";
         }
+    }
 
 
     // ログアウト処理
