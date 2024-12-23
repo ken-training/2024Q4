@@ -255,15 +255,16 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 		// 住所の空白チェック
 	    if(!(elem[6].value == "" && elem[7].value == "" && elem[8].value == "")){	// すべて未入力の場合は除く
-			if( elem[6].value.match(/\s|\u3000/)){
+			if( elem[6].value.match(/\s|\u3000/) || elem[6].value == ""){
 				document.getElementById(checkName[6]).innerHTML = '<i class="fas fa-exclamation-circle"></i>&nbsp;空白を含まないよう入力してください';
 				cnt++;
+			} else if (elem[6].value.match(/\s|\u3000/)){
 			}
-			if( elem[7].value.match(/\s|\u3000/)){
+			if( elem[7].value.match(/\s|\u3000/) || elem[7].value == ""){
 				document.getElementById(checkName[7]).innerHTML = '<i class="fas fa-exclamation-circle"></i>&nbsp;空白を含まないよう入力してください';
 				cnt++;
 			}
-			if( elem[8].value.match(/\s|\u3000/)){
+			if( elem[8].value.match(/\s|\u3000/) || elem[8].value == ""){
 				document.getElementById(checkName[8]).innerHTML = '<i class="fas fa-exclamation-circle"></i>&nbsp;空白を含まないよう入力してください';
 				cnt++;
 			}
