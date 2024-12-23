@@ -15,7 +15,7 @@
 <body>
 	<div class="flex-col-center" style="height: 100vw; background: #bacad29c;">
 		<h2 style="margin-top: 2em;">未発送注文一覧</h2>
-		<p>
+		<p style="margin-top: 0;">
 			<c:out value="${message }" />
 		</p>
 		<div class="flex-center" style="width: 90%; justify-content: space-between;">
