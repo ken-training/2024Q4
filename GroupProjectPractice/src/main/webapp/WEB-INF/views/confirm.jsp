@@ -122,6 +122,7 @@ tr:not(:last-child){
 		</c:forEach>
 	</table>
 		<br>
+		<p class="error-message"><c:out value="${error}"/></p>
 		<input type="hidden" name="orderFormModel" value="${orderFormModel }">
 		<input type="submit" value="注文を確定する" style="margin: 10px 0 50px 0;" class="button">
 	</div>
