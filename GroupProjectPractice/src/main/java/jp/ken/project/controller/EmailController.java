@@ -7,9 +7,9 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.MailSendException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.ken.project.mail.EmailService;
@@ -22,7 +22,7 @@ public class EmailController {
     private EmailService emailService;
 
     @RequestMapping(value = "/send-email", method = RequestMethod.GET)
-    public String sendEmail(Model model, HttpSession session, @RequestParam("mailBody") String mailBody,RedirectAttributes redirectAttributes) {
+    public String sendEmail(Model model, HttpSession session, @ModelAttribute("mailBody") String mailBody,RedirectAttributes redirectAttributes) {
     	 // デバッグ用のプロパティを設定
 //        Properties properties = System.getProperties();
 //        properties.put("mail.smtp.host", "smtp.gmail.com");
@@ -34,6 +34,8 @@ public class EmailController {
 
 
         try {
+        	System.out.println("/send-emailへ移動完了");
+
        		// セッションからモデルを取得
        		CustomerModel customerModel = (CustomerModel) session.getAttribute("customerModel");
 

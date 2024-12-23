@@ -267,11 +267,12 @@ public class ConfirmController {
 					+ "----------------\r\n";
 
 
-			model.addAttribute("mailBody", mailBody);
+			redirectAttributes.addFlashAttribute("mailBody", mailBody);
 
 			// sessionをクリア
 	        session.removeAttribute("cartList");  // カート
 	        session.removeAttribute("orderFormModel");  // 発注情報
+	        System.out.println("/send-emailへ移動");
 			return "redirect:/send-email";
 //			return "redirect:/cart"; // complete.jspができるまでカートに遷移する
 		}else {
