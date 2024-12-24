@@ -14,14 +14,13 @@
 	<script type="text/javascript">
 	        $(document).ready(function(){
 	            $('.slider').bxSlider({
-	                auto: true,           // 自動再生
-			        infiniteLoop: true,   // 無限ループ
-			        pause: 3000,          // 画像がスライドする間隔
-			        speed: 1000,          // スライドアニメーションの速度
+			        speed: 1500,          // スライドアニメーションの速度
 			        slideWidth: 480,      // スライドの幅
-			        easing: 'ease-in-out' // スムーズなアニメーション
+			        easing: 'ease-in-out', // スムーズなアニメーション
+					randomStart: true,
+					auto: true,
+					minSlides: 1
 				});
-				slider.reloadSlider();
 	        });
 	</script>
 </head>
@@ -29,7 +28,7 @@
     <jsp:include page="header.jsp"></jsp:include>
     <main>
     	<!-- 画像スライド -->
-    	<div style="display: flex;justify-content: center;">
+    	<div style="display: flex;justify-content: center; margin-top: 20px;">
 	    	<div class="slider">
 	    		<img alt="画像1" src="/project/resources/img/slider/img2.png">
 	    		<img alt="画像2" src="/project/resources/img/slider/img3.png">
