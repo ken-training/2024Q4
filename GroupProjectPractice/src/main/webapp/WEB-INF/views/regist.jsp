@@ -102,7 +102,7 @@ input[type="submit"] {
 						<label>メールアドレス<span class="required">*必須</span></label>
 						<form:input path="mail" size="40" class="form-control" />
 						<form:errors path="mail" element="label" cssClass="error-message" />
-						<div><c:out value="${error}"/></div>
+						<div class="error-message"><c:out value="${error}"/></div>
 					</div>
 				</td>
 			</tr>
