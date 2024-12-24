@@ -55,10 +55,12 @@ document.addEventListener("DOMContentLoaded", function() {
 	function showCreditFormDiv(option) {
 		// 「登録済みクレジットカードを利用する」を選択したら非表示
 		document.getElementById("creditFormDiv").style.display = "none";
+		document.getElementById("creditFormDiv2").style.display = "block";
 
 		// 「クレジットカード番号を入力する」を選択した場合
 	   if (option == "creditForm") {
     	    document.getElementById("creditFormDiv").style.display = "block";
+			document.getElementById("creditFormDiv2").style.display = "none";
     	}
 	}
 

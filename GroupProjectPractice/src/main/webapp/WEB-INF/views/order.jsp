@@ -119,7 +119,7 @@ footer{
 							<label for="creditForm" class="radio-label">クレジットカード番号を入力する</label>
 						</div>
 						<!-- 入力するが選択された場合表示される -->
-						<div id="creditFormDiv" style="display:none;">
+						<div id="creditFormDiv" style="display:none;border-top: 1px solid #ccc;">
 							<div class="form-item">
 								<label>クレジットカード番号<span class="required">*必須</span></label>
 								<div class="flex-center">
@@ -146,6 +146,21 @@ footer{
 									<form:select path="creditExpY" items="${creditExpYList }" class="form-control" />
 								</div>
 								<p id="creditExp-error" class="error-message"></p>
+							</div>
+						</div>
+						<!-- 入力するが選択された場合表示される -->
+						<div id="creditFormDiv2" style="border-top: 1px solid #ccc;">
+							<div class="form-item">
+								<label>クレジットカード番号</label>
+								<div>
+									 <span style="margin-left: 20px">${orderFormModel.creditNum1} - ${orderFormModel.creditNum2} - ${orderFormModel.creditNum3} - ${orderFormModel.creditNum4}</span>
+								</div>
+							</div>
+							<div class="form-item">
+								<label>クレジットカード有効期限</label>
+								<div>
+									<span style="margin-left: 20px">${orderFormModel.creditExpM} / ${orderFormModel.creditExpY}</span>
+								</div>
 							</div>
 						</div>
 						<!-- creditFormDivの終了 -->
